@@ -1,0 +1,59 @@
+<form role="form" method="post" enctype="multipart/form-data" id="posted" action="{{URL::to('ajax/admin-posting')}}">
+<table class="postForm" id="postForm">
+<tr>
+<td></td>
+<td>
+<div id="msg"></div>
+</td>
+</tr>
+<tr>
+<td>Name</td>
+<td>
+<span class="help-bock"> Logged in as <b>{{Auth::user()->user_name}}</b></span>
+<input type="hidden" class="form-control input-hidden hidden" id="user_name" name="user_name" value="{{Auth::user()->user_name}}">
+<input type="hidden" class="form-control input-hidden hidden" name="action" value="topic" title="action">
+<input type="hidden" class="form-control input-hidden" name="board_id" value="{{$board_id}}">
+{{ csrf_field() }}
+</td>
+</tr>
+<tr>
+<td>Options</td>
+<td>
+<input name="email" tabindex="2" type="email" class="form-control" >
+</td>
+</tr>
+<tr>
+<td>Subject</td>
+<td>
+<input type="text" class="form-control" id="title" placeholder="Subject" name="title" required="required">
+</td>
+</tr>
+<tr data-type="Comment">
+<td>Comment</td>
+<td>
+<textarea class="form-control" name="message" id="message" placeholder="Type your message" required></textarea>
+</td>
+</tr>
+<tr>
+<td>File</td>
+<td>
+<div id="file-uploader">
+<div class="addfile">
+<span class="add-file"><i class="icon-add"></i> Add Photos
+<input type="file" accept="image/x-png, image/gif, image/jpeg" name="files" id="chose-photo" multiple>
+</span>
+</div>
+</div>
+<div class="progress">
+<div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td></td>
+<td>
+<button type="submit" name="create_topic" id="new_reply" class="btn btn-success">Create Thread</button>
+</td>
+</tr>
+</table>

@@ -1,0 +1,38 @@
+<form role="form" method="post" enctype="multipart/form-data" id="posted" action="{!!URL::to('ajax/admin-posting')!!}">
+<p>
+<span class="user help-bock"> Logged in as <b>{!!Auth::user()->user_name!!}</b></span>
+<input type="hidden" class="form-control input-hidden hidden" id="user_name" name="user_name" value="{!!Auth::user()->user_name!!}">
+<input type="hidden" class="form-control input-hidden hidden" name="action" value="posts" title="action">
+<input type="hidden" class="form-control input-hidden" name="board_id" value="{!!$board_id!!}">
+<input type="hidden" class="form-control input-hidden" name="thread_id" value="{!!$thread_id!!}">
+{!! csrf_field() !!}
+</p>
+<p class="login-submit">
+<label for="message">Message: </label> <span class="pull-right">Use <b>:</b> for Emoji | <a href="{!!URL::to('help/emoji')!!}">Emoji List</a></span>
+<textarea class="form-control" name="message" id="message" placeholder="Type your message" required></textarea>
+</p>
+<p class="login-submit">
+<div id="file-uploader">
+<div class="addfile">
+<span class="add-file"><i class="icon-add"></i> Add Photos 
+<input type="file" accept="image/x-png, image/gif, image/jpeg" name="files[]"  id="reply-chose-photo" multiple>
+</span>
+</div>
+</div>
+</p>
+<p class="pull-left">
+<span class="btn btn-success pull-left fileinput-button " data-toggle="tooltip" title="Add Photo" id="add-photo">
+<i class="icon-camera"></i>
+<span>Add Photo</span>
+<input type="file" name="files" id="reply-chose-photo">
+</span>
+</p>
+<p class="pull-right">
+<input type="hidden" class="form-control input-hidden" name="action" value="reply">
+<button type="submit" name="new_reply" id="new_reply" class="btn btn-success">New Reply</button>
+</p>
+<div class="progress">
+<div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
+</div>
+</div>
+</form>

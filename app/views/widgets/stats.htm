@@ -1,0 +1,9 @@
+<div class="recent-posts">
+<h1>Stats</h1>
+<ul>
+<li>Total Threads: {{ Threads::count() }}</li>
+<li>Total Posts : {{ Posts::count() }}</li>
+<li>Unique Posters: {{ Posts::distinct()->count('ip') }}</li>
+<li>Active Content: {{ $total_size }}</li>
+</ul>
+</div>

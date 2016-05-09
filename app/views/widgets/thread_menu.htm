@@ -1,0 +1,2 @@
+<?php 
+$menu = Posts::where(array('board_id'=> $board_id,'thread_id' => $topic_id))->count();

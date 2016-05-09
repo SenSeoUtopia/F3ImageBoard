@@ -1,0 +1,29 @@
+.clear{clear:both;}
+section, aside { border:1px solid #38B63C;margin:0.04%;padding:0.04%;}
+section {float: left; width: 65%;  }
+aside {float: right;width: 34.5%;}
+#content-fluid{width: 100%;  }
+#post {border:1px solid #38B63C;margin: 3px; padding: 3px; position: relative}
+#post h1 ,#post h2, #post h3 {color:#38B63C; margin: 0 0 5px; padding:5px; border-bottom:1px solid #38B63C; font-size: 32px; font-weight: normal; font-family:georgia, times new roman, arial; margin: 0 0 5px;}
+#post h1 a,#post h2 a,#post h3 a {color:#38B63C}
+#post h1 a.btn,#post h2 a.btn,#post h3 a.btn {color:#fff}
+#post h1 a:visited , #post h2 a:visited ,#post h3 a:visited { color:#38B63C; font-size: 32px; font-weight: normal; font-family:georgia, times new roman, arial; margin: 0 0 5px; }
+/* Sidebars */
+#sidebar {margin: 0 0 3px; padding: 3px; line-height: 20px}
+#sidebar h1 {background: #38B63C url("../img/slice.jpg");color: #FFFFFF; font-size: 11px; font-family: Arial, Tahoma, Verdana;font-weight: bold;text-transform: uppercase;margin: 0px 0px 5px 0px;padding: 3px 0px 3px 10px}
+#sidebar p {padding: 0px 0px 0px 0px;margin: 0px;line-height: 20px; }
+
+/* Category */
+.capitalize { text-transform: capitalize}
+#category li { display: inline-block; width: 120px}
+
+
+
+/* Media Queries */
+@media all and (max-width: 504px) {
+section, aside { border:1px solid #38B63C; float: none; margin:0 0 3px; width: auto; }
+}
+@media (min-width: 505px) and (max-width: 810px) {
+section, aside { border:1px solid #38B63C; float: none; margin:0 0 3px; width: auto; }
+}
+

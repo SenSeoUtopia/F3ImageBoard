@@ -1,0 +1,91 @@
+<div id="menu">
+<div class="post-btn">
+[<a href="{{ @page['board_url']}}"><span class="icon-home"></span> Return</a>] 
+[<a href="javascript:void(0)"><span class="icon-top"></span> Top</a>]
+[<a href="javascript:void(0)" onClick="return false" id="refresh" title="Check new Posts"><span class="icon-restart"></span> Update</a>] 
+[<label><input type="checkbox" value="1" id="auto" title="Fetch new replies automatically"> <span class="icon-reload"></span>  Auto Update</label> <b><span id="timer"></span></b>]
+</div>
+<a href="javascript:qr('show');" class="qr-btn" title="New Reply"><span class="icon-add"></span> New Reply</a>
+
+<div class="thread-stats">
+<span class="icon-comment"></span> Replies <span class="reply">{{ @page.total_posts }} </span> / 
+<span class="icon-image"></span> Images <span class="images">{{ @page.total_images }}</span> /
+<span class="icon-user"></span> Posters: {{ @page.total_posters }}
+</div> 
+</div>
+<div class="clear"></div>
+
+
+<div id="posts_list">
+<div class="quote-preview"></div>
+<div id="quick-reply">
+<div class="title">
+Reply to Thread No. #{{ @page.thread_id }}
+<a href="javascript:qr('hide');" title="Close" class="close-btn pull-right"><i class="icon-cross"></i></a>
+</div>
+<div class="body">
+<div id="msg"></div>
+<include href="posts/guest.htm" />
+</div>
+</div>
+
+<repeat group="{{ @page.post_list }}" value="{{ @posts }}" counter="{{ @counter }}">
+
+<div class="post reply" id="11">
+
+<div class="post-header"> 
+<span class="admin"><input value="{{ @posts.id }}" id="delete-this" type="checkbox">  
+<span class="icon-user"></span> admin </span> 
+<span class="icon-history"></span> 
+<time class="tooltip" data-tooltip="09/10/15 (Thu) 22:16:49">8 months ago</time> 
+<a href="#{{ @posts.id }}" id="post-id" rel="{{ @posts.id }}" class="btn btn-xs btn-success">No.{{ @posts.id }}</a> 
+<a href="#{{ @posts.id }}" id="post_id" rel="{{ @posts.id }}" class="btn btn-xs btn-success">Quote</a> 
+<span id="report" rel="{{ @posts.id }}" class="btn btn-danger btn-xs">Report</span></div>
+<div class="post-body">
+
+<check if="{{ @posts.photos }}">
+
+<check if="{{ @posts.photos->count() > 0 }}">
+<true>
+<div id="gallery">
+<img id="image" src="{{ @home_url }}/uploads/thumb/{{ @@posts.boards.slug }}/{{ @posts.threads_id }}/{{ @posts.photos->first()->file_name }}" data-src="{{ @home_url }}/uploads/{{ @posts.boards.slug }}/{{ @@posts.threads_id }}/{{ @posts.photos->first()->file_name }}" class="img-responsive img-thumbnail"> 
+<span class="desc">{{ @posts.content }}</span>
+<img id="image" src="http://localhost/4ch/public/thumb/a/5/1441903609031_005.png" data-src="http://localhost/4ch/public/uploads/a/5/1441903609031_005.png" class="img-responsive img-thumbnail"> 
+<span class="desc">{{ @posts.content }}</span>
+</div>
+
+</true>
+<false></false>
+</check>
+
+</check>
+
+
+
+
+{{ @posts.content }}
+
+</div>
+
+</div>
+</repeat>
+
+
+</div>
+<div class="clear"></div>
+<div id="menu">
+<div class="post-btn">
+[<a href="{{ @page['board_url']}}"><span class="icon-home"></span> Return</a>] 
+[<a href="javascript:void(0)"><span class="icon-top"></span> Top</a>]
+[<a href="javascript:void(0)" onClick="return false" id="refresh" title="Check new Posts"><span class="icon-restart"></span> Update</a>] 
+[<label><input type="checkbox" value="1" id="auto" title="Fetch new replies automatically"> <span class="icon-reload"></span>  Auto Update</label> <b><span id="timer"></span></b>]
+</div>
+<a href="javascript:qr('show');" class="qr-btn" title="New Reply"><span class="icon-add"></span> New Reply</a>
+
+<div class="thread-stats">
+<span class="icon-comment"></span> Replies <span class="reply">{{ @page['total_posts'] }} </span> / 
+<span class="icon-image"></span> Images <span class="images">{{ @page['total_images']}}</span> /
+<span class="icon-user"></span> Posters: {{ @page['total_posters']}}
+</div> 
+</div>
+<div class="clear"></div>
