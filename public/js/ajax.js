@@ -1,16 +1,14 @@
-var msg = $('#msg');
-
 var cache = {};
 
 var page_title =  document.title;
 
 function qr(showhide){
+	
 if(showhide == "show"){
-if(typeof grecaptcha !== 'undefined' && grecaptcha) grecaptcha.reset();
-document.getElementById('quick-reply').style.display = 'block'; /* If the function is called with the variable 'show', show the login box */
-$("#posted").clearForm();
+$('#quick-reply').show(); /* If the function is called with the variable 'show', show the login box */
+$("#post-create,#posted").clearForm();
 
-msg.empty();
+$('#msg').empty();
 
 var captcha = $('#captcha');
 captcha.html('');
@@ -18,13 +16,14 @@ captcha.html('');
 if(typeof grecaptcha !== 'undefined' && grecaptcha) grecaptcha.reset();
 
 }else if(showhide == "hide"){
-document.getElementById('quick-reply').style.display = 'none'; /* If the function is called with the variable 'hide', hide the login box */
-msg.empty();
-$("#posted").clearForm();
+$('#quick-reply').hide(); /* If the function is called with the variable 'hide', hide the login box */
+$("#post-create,#posted").clearForm();
 
-msg.empty();
+$('#msg').empty();
 
-} }
+} 
+
+}
 
 
 $(function(){
@@ -140,20 +139,16 @@ var percentVal = '0%';
 
 $('.progress').hide();
 
-$("#posted").ajaxForm({
+$("#post-create,#posted").ajaxForm({
 beforeSubmit: function (){
 
-if($("#reply-chose-photo").length > 1){
-$('.progress').show();
-bar.width(percentVal);
-percent.html(percentVal);
-}
+if(!$("#post-msg").val().length > 0){
 
-var imgVal = $('#chose-photo').val();
-if (imgVal == '') {
-alert("Image is Required");
+alert("Message is required.")
+
 return false;
 }
+
 msg.html('Posting...');
 return true;
 },
@@ -164,14 +159,13 @@ percent.html(percentVal);
 },
 clearForm: true,
 success: function(data) {
-if($("#reply-chose-photo").length > 1){
-var percentVal = '100%';
-bar.width(percentVal)
-percent.html(percentVal);
-}
-msg.html(data);
-if (data == "<div class='alert alert-success'><span class='icon-ok'></span> You Replied Successfully. </div>") {
-form[0].reset();
+
+var success_template = "<div class='alert alert-success'><span class='icon-ok'></span> "+ data.msg+" </div>";
+var error_template = "<div class='alert alert-danger'><span class='icon-cross'></span> "+ data.msg+" </div>";
+
+if (data.success) {
+	
+msg.html(success_template);	
 
 var ids = new Array();
 $('[id="post_id"]').each(function() { //Get elements that have an id=
@@ -182,9 +176,9 @@ ids.push($(this).attr("rel")); //add id to array
 var last_post_id = ids.slice(-1)[0];
 
 
-var url = base_url + '/ajax/loader/board/'+board_id+'/thread/'+thread_id+'/post/'+last_post_id;
+var url = $("#ajax-loader").attr("data-href");
 
-$.getJSON(url,function(e){
+$.getJSON(url+"?post_id="+last_post_id,function(e){
 $.each(e,function(i,b){
 if($.inArray(b.id,ids) ==-1 ){
 
@@ -194,7 +188,6 @@ $("#quick-reply").hide();
 var captcha = $('#captcha');
 captcha.html('');
 msg.empty();
-$("#image-box").hide();
 
 post_data(b);
 
@@ -215,22 +208,8 @@ $("#menu div.thread-stats .images").html(b.total_images);
 setTimeout(function(){
     msg.hide()
 }, 10000);
-}
-else {
-msg.html(data);
-$("#image-box").hide();
-$('#image-container').empty();
-$("#chose-photo").empty();
-var new_input = '<input type="file" name="files" id="chose-photo">';
-$("#chose-photo").replaceWith(new_input);
-
-$("#reply-chose-photo").empty();
-var new_reply_input = '<input type="file" name="files" id="reply-chose-photo">';
-$("#reply-chose-photo").replaceWith(new_reply_input);
-
-
-
-$("#add-photo").show();
+} else {
+msg.html(error_template);
 
 var captcha = $('#captcha');
 captcha.html('');

@@ -4,10 +4,17 @@ class MainController extends Controller{
 
 function render($f3, $args){
 
+$title = "Home";
+
 $board_list = Category::all();
 
-$f3->set("category_list",$board_list);
+$post_list = Posts::orderBy('created_at','desc')->take('10')->get();
 
+$form = new Form;
+
+$f3->set("category_list",$board_list);
+$f3->set("post_list",$post_list);
+$f3->set('form',$form);
 $f3->set('page', array('title'=> $title,'content' => 'home.htm','board_list' => $board_list));
 }
 	
@@ -53,7 +60,7 @@ $total_images = Photos::total_images($thread_id);
 
 $total_reply = $post_list->count();
 
-$f3->set('page', array('title'=> $title,'content' => 'posts.htm','post_list' => $post_list,'thread_id' => $thread_id,'total_posters' => $total_poster,'total_images' => $total_images,'total_posts' => $total_reply));
+$f3->set('page', array('title'=> $title,'content' => 'posts.htm','board_slug' => $board_slug,'thread_id' => $thread_id, 'post_list' => $post_list,'thread_id' => $thread_id,'total_posters' => $total_poster,'total_images' => $total_images,'total_posts' => $total_reply));
 }
 
 }

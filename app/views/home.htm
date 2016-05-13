@@ -23,12 +23,12 @@
 
 </div>
 <div class="left-column">
-<include href="widgets/recent_photos.htm" with="d={{strtoupper($d)}}" />
+<include href="widgets/recent_photos.htm"/>
 </div>
 
 <div class="right-column">
-<include href="widgets/recent_posts.htm"/>
-<include href="widgets/popular_threads.htm"/>
+<include href="widgets/recent_posts.htm" with="posts_list = {{ @post_list }}" />
+<include href="widgets/popular_threads.htm" with="{{ @thread_list }}" />
 <include href="widgets/stats.htm"/>
 </div>
 </div>

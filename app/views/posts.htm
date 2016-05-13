@@ -1,6 +1,6 @@
 <div id="menu">
 <div class="post-btn">
-[<a href="{{ @page['board_url']}}"><span class="icon-home"></span> Return</a>] 
+[<a href="{{ @page.board_url }}"><span class="icon-home"></span> Return</a>] 
 [<a href="javascript:void(0)"><span class="icon-top"></span> Top</a>]
 [<a href="javascript:void(0)" onClick="return false" id="refresh" title="Check new Posts"><span class="icon-restart"></span> Update</a>] 
 [<label><input type="checkbox" value="1" id="auto" title="Fetch new replies automatically"> <span class="icon-reload"></span>  Auto Update</label> <b><span id="timer"></span></b>]
@@ -25,7 +25,7 @@ Reply to Thread No. #{{ @page.thread_id }}
 </div>
 <div class="body">
 <div id="msg"></div>
-<include href="posts/guest.htm" />
+<include href="posts/guest.htm" with="board_slug = {{ @page.board_slug }},thread_id = {{ @page.thread_id }}"/>
 </div>
 </div>
 
@@ -43,27 +43,33 @@ Reply to Thread No. #{{ @page.thread_id }}
 <span id="report" rel="{{ @posts.id }}" class="btn btn-danger btn-xs">Report</span></div>
 <div class="post-body">
 
-<check if="{{ @posts.photos }}">
-
-<check if="{{ @posts.photos->count() > 0 }}">
+<check if="{{ @posts.photos->count() }}">
+<true>
+<check if="{{ @posts.photos->count() > 1 }}">
 <true>
 <div id="gallery">
-<img id="image" src="{{ @home_url }}/uploads/thumb/{{ @@posts.boards.slug }}/{{ @posts.threads_id }}/{{ @posts.photos->first()->file_name }}" data-src="{{ @home_url }}/uploads/{{ @posts.boards.slug }}/{{ @@posts.threads_id }}/{{ @posts.photos->first()->file_name }}" class="img-responsive img-thumbnail"> 
-<span class="desc">{{ @posts.content }}</span>
-<img id="image" src="http://localhost/4ch/public/thumb/a/5/1441903609031_005.png" data-src="http://localhost/4ch/public/uploads/a/5/1441903609031_005.png" class="img-responsive img-thumbnail"> 
-<span class="desc">{{ @posts.content }}</span>
+
+<repeat group="{{ @posts.photos }}" value="{{ @pics }}" counter="{{ @counter }}" >
+	
+<img id="image" src="{{ @home_url }}/thumb/{{ @page.board_slug }}/{{ @page.thread_id}}/{{ @pics->file_name }}" data-src="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @page.thread_id }}/{{ @pics->file_name }}" class="img-responsive img-thumbnail"> 
+
+</repeat>
+
+<span class="desc">{{ @posts.content | remove_execute_code,remove_spaces,replace_data }}</span>
 </div>
 
 </true>
-<false></false>
+<false>
+<img id="image" src="{{ @home_url }}/thumb/{{ @page.board_slug }}/{{ @page.thread_id}}/{{ @posts.photos->first()->file_name }}" data-src="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @page.thread_id }}/{{ @posts.photos->first()->file_name }}" class="img-responsive img-thumbnail"> 	
+<span class="desc">{{ @posts.content | remove_execute_code,remove_spaces,replace_data }}</span>
+</false>
 </check>
+</true>
+<false>
 
+{{ @posts.content | remove_execute_code,remove_spaces,replace_data }}	
+</false>
 </check>
-
-
-
-
-{{ @posts.content }}
 
 </div>
 

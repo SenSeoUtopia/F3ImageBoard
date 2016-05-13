@@ -1,27 +1,14 @@
 <div class="recent-posts">
 <h1>Recent Posts</h1>
 <ul>
-<?php 
-$posts_list = Posts::orderBy('created_at','desc')->take('10')->get();
 
-foreach($posts_list as $total_recent_posts){
-	
-$board_id = Boards::find($total_recent_posts->board_id);
-$board_name = $board_id->name;
-$board_slug = $board_id->slug;
-
-$thread_id = $total_recent_posts->thread_id;
-
-$post_id = $total_recent_posts->id;
-
-$content = strip_tags(substr($total_recent_posts->content,0,80));
-
-$url = URL::to("$board_slug/thread/$thread_id#$post_id");
-
-echo "<li>$board_name : <a href=\"$url\">$content</a></li>";
-
-}
-?>
+<repeat group="{{ @posts_list }}" value="{{ @total_recent_posts }}">
+<li>{{ Boards::find(@total_recent_posts->board_id)->name }} : 
+<a href="{{ @home_url }}/{{ Boards::find(@total_recent_posts->board_id)->slug }}/thread/{{ @total_recent_posts->thread_id }}#{{ @total_recent_posts->id }}">
+{{ $total_recent_posts->content,80 | crop,remove_tags,remove_spaces }}
+</a>
+</li>
+</repeat>
 </ul>
 <div class="quote-preview"></div>
 </div>

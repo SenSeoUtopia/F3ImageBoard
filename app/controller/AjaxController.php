@@ -165,169 +165,22 @@ echo Response::json($json_data);
 
 // Loading Posts
 public function post_loader($f3,$args){
-	
-$board_id = $args['board_id'];
 
-$topic_id = $args['thread_id'];
+$board_id = $args['board_slug'];
 
-$post_id = $args['post_id'];
+$thread_id = $args['thread_id'];
 
-// Models
-$board_list = new Boards($this->db);
-$topic_list = new Threads($this->db);
-$posts_list = new Posts($this->db);
-$load_photos = new Photos($this->db);
+$post_id = $f3->get('GET.post_id');
 
-$board_list->load(array('id=?',$board_id));
+$data = array();
 
-$board_name = $board_list->name;
-$board_id = $board_list->id;
-$board_slug = $board_list->slug;
-
-$topic_list->load(array('id=?',$topic_id));
-
-$topic_title = $topic_list->name;
-$topic_id = $topic_list->id;
-
-$results = $posts_list->find(array('thread_id = ? and id > ? ',$topic_id, $post_id));
-
-$total_reply = $posts_list->total_posts($board_id,$topic_id);
-$total_images = $load_photos->total_images($topic_id);
-
-
-$result = array();
-
-if(isset($results) and !empty($results)){
-foreach ($results as $posts) {
-$post_id = $posts['id'];
-
-$get_poster_id = $posts['user_id'];
-
-$img_id = $posts['img'];
-
-$user = new User($this->db);
-$check_is_admin = $user->check_is_admin($get_poster_id);
-
-if($check_is_admin > 0){ $class = "admin"; } else { $class ="name";}
-
-if(!empty($posts['user_name'])) {
-$post_by = htmlspecialchars($posts['user_name']);
-}
-else {
-$post_by = "Anonymous";
-}
-
-$patterns = array(
-"/:(.*?):/i", //Emoji
-"/&gt;&gt;(\d*)/i", // Quotes Posts
-"/(\s|>|^)(https?:[^\s<]*)/i", // oEmebed
-"/^&amp;gt;(.*)/i", // Quotes
-"/&lt;br \/&gt;/i" // Br Tag
-);
-$replacements = array(
-"<i class=\"twa twa-lg twa_$1\" title=\"$1\"></i>", //Emoji
-"<a href='#$1' class='quote btn btn-success btn-xs'>$0</a>", // Post Quotes
-"$1<a href=\"$2\" id=\"embed\" class=\"embed-responsive embed-responsive-16by9\">$2</a>", // oEmebed
-"<span class='quotes'>&gt; <q>$1</q></span>", // Self Quotes
-"<br/>" // Self Quotes
-);
-
-$text = preg_replace($patterns,$replacements,htmlspecialchars($posts['content']));
-
-$post_content = $text;
-
-$get_photos = $load_photos->get_photos_all($topic_id,$post_id);
-
-$photo_list = array();
-
-if(count($get_photos) > 1){
-foreach($get_photos as $photo){
-$fileName = $photo['file_name'];
-$org_file_name = $photo['original_name'];
-$file_size = formatSizeUnits($photo['size']);
-$file_pixels = $photo['pixels'];
-$photo_list[] = array(
-"file_name" => $fileName,
-'original_name' => $org_file_name,
-'size' => $file_size,
-'pixels' => $file_pixels
-);
-}
-} else {
-foreach($get_photos as $photo){
-$fileName = $photo['file_name'];
-$org_file_name = $photo['original_name'];
-$file_size = formatSizeUnits($photo['size']);
-$file_pixels = $photo['pixels'];
-}
-}
-
-$post_time = $posts['created_at'];
-
-$ago_post_time = nicetime($posts['created_at']);
-
-if(count($get_photos) !== 0 && count($get_photos) < 2){
-$data = array(
-"id" => $post_id,
-"class_name" => $class,
-"board_slug" => $board_slug,
-"thread_id" => $topic_id,
-"post_by" => $post_by,
-"post_time" => $post_time,
-"ago_post_time" => $ago_post_time,
-"post_content" => $post_content,
-"file_name" => $fileName,
-'original_name' => $org_file_name,
-'size' => $file_size,
-'pixels' => $file_pixels,
-"total_reply" => $total_reply,
-"total_images" => $total_images
-);
-} 
-elseif(count($get_photos) > 0){
-$data = array(
-"id" => $post_id,
-"class_name" => $class,
-"board_slug" => $board_slug,
-"thread_id" => $topic_id,
-"post_by" => $post_by,
-"post_time" => $post_time,
-"ago_post_time" => $ago_post_time,
-"gallery" => true,
-"photos" => $photo_list,
-"post_content" => $post_content,
-"total_reply" => $total_reply,
-"total_images" => $total_images
-);
-}
-
-else {
-$data = array(
-"id" => $post_id,
-"class_name" => $class,
-"board_slug" => $board_slug,
-"thread_id" => $topic_id,
-"post_by" => $post_by,
-"post_time" => $post_time,
-"ago_post_time" => $ago_post_time,
-"post_content" => $post_content,
-"total_reply" => $total_reply,
-"total_images" => $total_images
-);
-}
-
-array_push($result,$data);
-
-$json_data = $result;
-	
-}
-}
+$results = Posts::where("id",">",$post_id)->where("thread_id",$thread_id)->get();
 
 if(empty($results)){ 
 $json_data = "No New Posts."; 
 echo $json_data;
 } else{ 
-echo Response::json($json_data); 
+echo Response::json($results); 
 }
 }
 

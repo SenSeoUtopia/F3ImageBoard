@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <check if="{{ @active_menu = '/'}}">
-<true><title>{{ @page['title']}} - {{ @site_title}}</title></true>
-<false><title>{{ @page['title']}} - {{ @site_title}}</title></false>
+<true><title>{{ @page.title }} - {{ @site_title}}</title></true>
+<false><title>{{ @page.title }} - {{ @site_title}}</title></false>
 </check>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,29 +19,64 @@
 <script src="{{ @home_url }}/js/jquery-ui.min.js"></script>
 <script src="{{ @home_url }}/js/pace.min.js"></script>
 <script src="{{ @home_url }}/js/jquery.form.min.js"></script>
+<script src="{{ @home_url }}/js/bootstrap-suggest.js"></script>
 <script src="{{ @home_url }}/js/ajax.js"></script>
 <script src="{{ @home_url }}/js/uikit.min.js"></script>
 <script type="text/javascript">
 var base_url = '{{ @home_url }}';
 var max_char_limit = 1000;
-<check if="{{ @page['thread_id']}}">
-<true>var thread_id = {{ @page['thread_id']}};</true>
+<check if="{{ @page.thread_id }}">
+<true>var thread_id = {{ @page.thread_id }};</true>
 <false>var thread_id = 0;</false>
 </check>
 var guest = 0;
 var is_logged_in = false;
 <check if="{{ @page['board_id']}}">
-<true>var board_id = {{ @page['board_id']}};</true>
+<true>var board_id = {{ @page.board_id }};</true>
 <false>var board_id = 0;</false>
 </check>
 </script>
 </head>
 <body>
+	
 <div class="container-fluid">
 <h1><a href="{{ @home_url }}"><img src="{{ @home_url }}/img/logo.png" ></a></h1>
 
 <include if="{{ !empty(@page['content']) }}" href="{{ @page['content'] }}" />
 
+<div id="menu">
+<div class="post-btn">
+
+Style: 
+
+{{
+@form->select('style', [
+"style" => "Default",
+"Yotsuba" => "Yotsuba",
+"YotsubaBlue" => "Yotsuba Blue",
+"Futaba" => "Futaba",
+"Burichan" => "Burichan",
+"Tomorrow" => "Tomorrow",
+"Photon" => "Photon"
+],'',["id" => "style"]
+) 
+
+}}
+
+</div>
+<check if="{{ @thread_viewer }}">
+<div class="post-btn pull-right">
+[Delete Post
+<a href="javascript:void(0);" class="btn btn-xs btn-danger" id="delete">Delete</a>]
+</div>
+</check>
+</div>
+<div class="clear"></div>
+
+
+<p class="muted pull-right">&copy {{ date('Y') }} 4ch . All rights reserved</p>
+
+<p class="center">All trademarks and copyrights on this page are owned by their respective parties. Images uploaded are the responsibility of the Poster. Comments are owned by the Poster.</p>
 </div>
 </body>
 </html>

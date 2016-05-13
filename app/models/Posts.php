@@ -5,9 +5,14 @@ class Posts extends Eloquent{
 
 protected $table = "posts";
 
+// Boards
+public function boards(){
+return $this->belongsTo("Boards");
+}
+
 // Relationship Photos
 public function threads(){
-return $this->hasMany("Threads");
+return $this->hasOne("Threads","post_id");
 }
 
 // Relationship Post

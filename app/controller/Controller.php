@@ -4,8 +4,11 @@ class Controller {
 
 protected $f3;
 protected $db;
-protected $tpl = 'base.htm';
+protected $upload_dir;
+protected $app_dir;
+protected $public_dir;
 protected $home_url;
+protected $tpl = "base.htm";
 
 function __construct() {
 
@@ -25,6 +28,15 @@ exit;
 }
 
 $this->db=$db;
+
+// Uploads Dir
+$this->upload_dir = $f3->get('upload_dir');
+
+// App Dir
+$this->app_dir = $f3->get('app_dir');
+
+// Public Path
+$this->public_dir = $f3->get('public_dir');
 }
 
 // Set Data
@@ -58,9 +70,10 @@ if(isset($this->tpl)){
 /* Register Filters */
 $preview = Template::instance();
 $preview->filter('crop','Helper::instance()->crop');
-$preview->filter('striptags','Helper::instance()->striptags');
+$preview->filter('remove_tags','Helper::instance()->remove_tags');
 $preview->filter('remove_slash','Helper::instance()->remove_slash');
 $preview->filter('remove_spaces','Helper::instance()->remove_spaces');
+$preview->filter('remove_execute_code','Helper::instance()->remove_execute_code');
 $preview->filter('remove_white_spaces','Helper::instance()->remove_white_spaces');
 $preview->filter('replace_data','Helper::instance()->replace_data');
 echo $preview->render($this->tpl);
