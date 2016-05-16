@@ -2,6 +2,24 @@
 
 class MainController extends Controller{
 
+public function style($f3){
+
+$style = $f3->exists('POST.style') ? $f3->get('POST.style') : 'style';
+
+$get_style = array("style","Yotsuba","YotsubaBlue","Futaba","Burichan","Tomorrow","Photon");
+
+if(in_array($style,$get_style)){
+$expire = strtotime("+1 day");
+
+$f3->set("COOKIE.style",$style,$expire);
+
+return Response::json(array('success' => true,'msg' => 'Style Applied'));
+} else {
+return Response::json(array('success' => false,'msg' => 'Invalid Style Name'));
+}
+
+}
+
 function render($f3, $args){
 
 $title = "Home";
@@ -10,12 +28,12 @@ $board_list = Category::all();
 
 $post_list = Posts::orderBy('created_at','desc')->take('10')->get();
 
-$form = new Form;
+$total_size = formatSizeUnits(dirSize($this->upload_dir));
 
 $f3->set("category_list",$board_list);
 $f3->set("post_list",$post_list);
-$f3->set('form',$form);
-$f3->set('page', array('title'=> $title,'content' => 'home.htm','board_list' => $board_list));
+
+$f3->set('page', array('title'=> $title,'content' => 'home.htm','board_list' => $board_list,'total_size' => $total_size));
 }
 	
 /* Board View */

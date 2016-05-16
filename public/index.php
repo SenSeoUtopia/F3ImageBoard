@@ -18,6 +18,7 @@ $f3->config("../app/settings.ini");
 
 $capsule = new Capsule;
 
+try {
 $capsule->addConnection([
     'driver'    => 'mysql',
     'host'      => $f3->get('db_host','localhost'),
@@ -28,6 +29,11 @@ $capsule->addConnection([
     'collation' => 'utf8_general_ci',
     'prefix'    => $f3->get('db_prefix','senseo_')
 ]);
+} catch (Exception $e) {
+
+die("<h1>Error Establishing a Database Connection</h1>");
+
+}
 
 $capsule->setAsGlobal();
 $capsule->bootEloquent();

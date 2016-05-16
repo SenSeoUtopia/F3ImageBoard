@@ -104,7 +104,7 @@ $data = array(
 "id" => $post_id,
 "class_name" => $class,
 "board_slug" => $board_slug,
-"thread_id" => $topic_id,
+"thread_id" => $thread_id,
 "thread_title" => $topic_title,
 "post_by" => $post_by,
 "post_time" => $post_time,
@@ -121,7 +121,7 @@ $data = array(
 "id" => $post_id,
 "class_name" => $class,
 "board_slug" => $board_slug,
-"thread_id" => $topic_id,
+"thread_id" => $thread_id,
 "thread_title" => $topic_title,
 "post_by" => $post_by,
 "post_time" => $post_time,
@@ -137,7 +137,7 @@ $data = array(
 "id" => $post_id,
 "class_name" => $class,
 "board_slug" => $board_slug,
-"thread_id" => $topic_id,
+"thread_id" => $thread_id,
 "thread_title" => $topic_title,
 "post_by" => $post_by,
 "post_time" => $post_time,
@@ -166,9 +166,20 @@ echo Response::json($json_data);
 // Loading Posts
 public function post_loader($f3,$args){
 
-$board_id = $args['board_slug'];
+$board_slug = $args['board_slug'];
 
-$thread_id = $args['thread_id'];
+$boards = Boards::where('slug',$board_slug)->first();
+
+$board_title = $boards->name;
+
+$board_slug = $boards->slug;
+
+$board_id = $boards->id;
+
+$threads = Threads::find($args['thread_id']);
+
+$thread_id = $threads->id;
+$thread_title = $threads->name;
 
 $post_id = $f3->get('GET.post_id');
 
@@ -176,11 +187,152 @@ $data = array();
 
 $results = Posts::where("id",">",$post_id)->where("thread_id",$thread_id)->get();
 
-if(empty($results)){ 
-$json_data = "No New Posts."; 
-echo $json_data;
+$total_poster = $results->groupBy("ip")->count();
+
+$total_images = Photos::total_images($thread_id);
+
+$total_reply = $results->count();
+
+foreach ($results as $posts) {
+$post_id = $posts['id'];
+
+$get_poster_id = $posts['user_id'];
+
+$img_id = $posts['img'];
+
+$check_is_admin = User::check_is_admin($get_poster_id);
+
+if($check_is_admin > 0){ $class = "admin"; } else { $class ="name";}
+
+if(!empty($posts['user_name'])) {
+$post_by = htmlspecialchars($posts['user_name']);
+}
+else {
+$post_by = "Anonymous";
+}
+
+$patterns = array(
+"/:(.*?):/i", //Emoji
+"/&amp;gt;&amp;gt;(\d*)/i", // Quotes Posts
+"/(\s|>|^)(https?:[^\s<]*)/i", // oEmebed
+"/^&amp;gt;(.*)/i", // Quotes
+"/&lt;br \/&gt;/i" // Br Tag
+);
+$replacements = array(
+"<i class=\"twa twa-lg twa_$1\" title=\"$1\"></i>", //Emoji
+"<a href='#$1' class='quote btn btn-success btn-xs'>&gt;&gt; $1</a>", // Post Quotes
+"$1<a href=\"$2\" id=\"embed\" class=\"embed-responsive embed-responsive-16by9\">$2</a>", // oEmebed
+"<span class='quotes'>&gt; <q>$1</q></span>", // Self Quotes
+"<br/>" // Self Quotes
+);
+
+$text = preg_replace($patterns,$replacements,htmlspecialchars($posts['content']));
+
+$post_content = $text;
+
+$get_photos = Photos::where(array('post_id' => $post_id))->get();
+
+$photo_list = array();
+
+if(count($get_photos) > 1){
+foreach($get_photos as $photo){
+$fileName = $photo['file_name'];
+$org_file_name = $photo['original_name'];
+$file_size = formatSizeUnits($photo['size']);
+$file_pixels = $photo['pixels'];
+$photo_list[] = array(
+"file_name" => $fileName,
+"original_name" => $org_file_name,
+"size" => $file_size,
+"pixels" => $file_pixels
+);
+}
+} else {
+foreach($get_photos as $photo){
+$fileName = $photo['file_name'];
+$org_file_name = $photo['original_name'];
+$file_size = formatSizeUnits($photo['size']);
+$file_pixels = $photo['pixels'];
+}
+}
+
+$post_time = $posts['created_at']->format('m/d/y (D) H:i:s');
+
+$ago_post_time = nicetime($posts['created_at']);
+
+if(count($get_photos) !== 0 && count($get_photos) < 2){
+$data = array(
+"id" => $post_id,
+"class_name" => $class,
+"board_slug" => $board_slug,
+"thread_id" => $thread_id,
+"post_by" => $post_by,
+"post_time" => $post_time,
+"ago_post_time" => $ago_post_time,
+"post_content" => $post_content,
+"file_name" => $fileName,
+"original_name" => $org_file_name,
+"size" => $file_size,
+"pixels" => $file_pixels,
+"total_reply" => $total_reply,
+"total_images" => $total_images,
+"total_poster" => $total_poster
+);
+} 
+elseif(count($get_photos) > 0){
+$data = array(
+"id" => $post_id,
+"class_name" => $class,
+"board_slug" => $board_slug,
+"thread_id" => $thread_id,
+"post_by" => $post_by,
+"post_time" => $post_time,
+"ago_post_time" => $ago_post_time,
+"gallery" => true,
+"photos" => $photo_list,
+"post_content" => $post_content,
+"total_reply" => $total_reply,
+"total_images" => $total_images,
+"total_poster" => $total_poster
+);
+}
+
+else {
+$data = array(
+"id" => $post_id,
+"class_name" => $class,
+"board_slug" => $board_slug,
+"thread_id" => $thread_id,
+"post_by" => $post_by,
+"post_time" => $post_time,
+"ago_post_time" => $ago_post_time,
+"post_content" => $post_content,
+"total_reply" => $total_reply,
+"total_images" => $total_images,
+"total_poster" => $total_poster
+);
+}
+
+array_push($data,$data);
+
+$json_data = $data;
+	
+}
+
+
+
+
+
+
+
+
+
+
+if($results->isEmpty()){ 
+$json_data = array("success" => false, "msg" => "No New Posts.");
+echo Response::json($json_data); 
 } else{ 
-echo Response::json($results); 
+echo Response::json(["success" => true, "posts" => $json_data]); 
 }
 }
 

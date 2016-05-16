@@ -1,16 +1,9 @@
 <?php
 
-namespace Illuminate\Filesystem;
 
-use ErrorException;
-use FilesystemIterator;
-use Symfony\Component\Finder\Finder;
-use Illuminate\Support\Traits\Macroable;
-use Illuminate\Contracts\Filesystem\FileNotFoundException;
-
-class Filesystem
+class File
 {
-    use Macroable;
+
 
     /**
      * Determine if a file or directory exists.

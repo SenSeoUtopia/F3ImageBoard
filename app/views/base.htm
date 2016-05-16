@@ -12,7 +12,16 @@
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="shortcut icon" type="image/x-icon" href="{{ @home_url }}/img/favicon.ico">
 <link media="all" type="text/css" rel="stylesheet" href="{{ @home_url }}/css/bootstrap.min.css">
+
+<check if="{{ @current_style }}">
+<true>
+<link rel="stylesheet" type="text/css" href="{{ @home_url }}/css/{{ @current_style }}.css" data-theme="current">	
+</true>
+<false>
 <link rel="stylesheet" type="text/css" href="{{ @home_url }}/css/YotsubaBlue.css" data-theme="current">
+</false>
+</check>
+
 <link media="all" type="text/css" rel="stylesheet" href="{{ @home_url }}/css/pace-flash.css">
 <link media="all" type="text/css" rel="stylesheet" href="{{ @home_url }}/css/twemoji-awesome.css">
 <script src="{{ @home_url }}/js/jquery.min.js"></script>
@@ -58,7 +67,7 @@ Style:
 "Burichan" => "Burichan",
 "Tomorrow" => "Tomorrow",
 "Photon" => "Photon"
-],'',["id" => "style"]
+],@current_style,["id" => "style"]
 ) 
 
 }}

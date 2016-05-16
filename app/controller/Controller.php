@@ -44,6 +44,10 @@ function afterroute($f3) {
 $site_title = $f3->get('site_title');
 $active_menu = $f3->get('PATH');
 $home_url = $this->home_url;
+$current_style = $f3->exists('COOKIE.style') ? $f3->get('COOKIE.style') : 'style';
+$form = new Form;
+$f3->set('form',$form);
+$f3->set('current_style',$current_style);
 $f3->set('site_title',$site_title);
 $f3->set('home_url',$home_url);
 $f3->set('active_menu',$active_menu);
