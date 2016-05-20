@@ -111,9 +111,9 @@ $data = array(
 "ago_post_time" => $ago_post_time,
 "post_content" => $post_content,
 "file_name" => $fileName,
-'original_name' => $org_file_name,
-'size' => $file_size,
-'pixels' => $file_pixels
+"original_name" => $org_file_name,
+"size" => $file_size,
+"pixels" => $file_pixels
 );
 } 
 elseif(count($get_photos) > 0){
@@ -183,15 +183,15 @@ $thread_title = $threads->name;
 
 $post_id = $f3->get('GET.post_id');
 
-$data = array();
+$results = Posts::where('thread_id' ,$thread_id)->where('id' ,'>', $post_id)->get();
 
-$results = Posts::where("id",">",$post_id)->where("thread_id",$thread_id)->get();
-
-$total_poster = $results->groupBy("ip")->count();
+$total_poster = Posts::groupBy("ip")->count();
 
 $total_images = Photos::total_images($thread_id);
 
-$total_reply = $results->count();
+$total_reply = Posts::where(array('thread_id' => $thread_id))->count();
+
+$result = array();
 
 foreach ($results as $posts) {
 $post_id = $posts['id'];
@@ -313,26 +313,16 @@ $data = array(
 );
 }
 
-array_push($data,$data);
+array_push($result,$data);
 
-$json_data = $data;
-	
+$json_data = $result;
 }
-
-
-
-
-
-
-
-
-
 
 if($results->isEmpty()){ 
 $json_data = array("success" => false, "msg" => "No New Posts.");
-echo Response::json($json_data); 
+return Response::json($json_data); 
 } else{ 
-echo Response::json(["success" => true, "posts" => $json_data]); 
+return Response::json(['success' => true,'posts' => $json_data]);
 }
 }
 

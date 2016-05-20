@@ -45,12 +45,14 @@ $site_title = $f3->get('site_title');
 $active_menu = $f3->get('PATH');
 $home_url = $this->home_url;
 $current_style = $f3->exists('COOKIE.style') ? $f3->get('COOKIE.style') : 'style';
+$recaptcha_key = $f3->get("recaptcha_key");
 $form = new Form;
 $f3->set('form',$form);
 $f3->set('current_style',$current_style);
 $f3->set('site_title',$site_title);
 $f3->set('home_url',$home_url);
 $f3->set('active_menu',$active_menu);
+$f3->set('site_key',$recaptcha_key);
 $maintenance = $f3->get('maintenance');
 if($maintenance){
 $f3->status(503);

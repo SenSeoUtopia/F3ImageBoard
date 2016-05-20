@@ -43,9 +43,14 @@ $board_slug = $args['board_slug'];
 
 $board_list = Boards::where('slug',$board_slug)->first();
 
-$title = "/$board_slug/ - ".$board_list->name;
+$board_title = $board_list->name;
+$board_slug = $board_list->slug;
 
-$f3->set('page', array('title'=> $title,'content' => 'threads.htm','board_list' => $board_list));
+$title = "/$board_slug/ - $board_title";
+
+$board_header_title = "/$board_slug/ - $board_title";
+
+$f3->set('page', array('title'=> $title,'board_slug' => $board_slug,'board_title' => $board_header_title,'content' => 'threads.htm','board_list' => $board_list));
 }
 
 /* Thread View*/
@@ -78,7 +83,9 @@ $total_images = Photos::total_images($thread_id);
 
 $total_reply = $post_list->count();
 
-$f3->set('page', array('title'=> $title,'content' => 'posts.htm','board_slug' => $board_slug,'thread_id' => $thread_id, 'post_list' => $post_list,'thread_id' => $thread_id,'total_posters' => $total_poster,'total_images' => $total_images,'total_posts' => $total_reply));
+$board_header_title = "/$board_slug/ - $board_title";
+
+$f3->set('page', array('title'=> $title,'content' => 'posts.htm','board_slug' => $board_slug,'board_title' => $board_header_title,'thread_id' => $thread_id, 'post_list' => $post_list,'thread_id' => $thread_id,'total_posters' => $total_poster,'total_images' => $total_images,'total_posts' => $total_reply));
 }
 
 }

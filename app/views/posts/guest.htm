@@ -1,5 +1,7 @@
-<form role="form" method="post" enctype="multipart/form-data" id="post-create" action="{{@home_url}}/ajax/{{ @board_slug }}/thread/{{ @thread_id }}/reply">
+<form role="form" method="post" enctype="multipart/form-data" id="post-create" class="dropzone" action="{{@home_url}}/ajax/{{ @board_slug }}/thread/{{ @thread_id }}/reply">
 <div id="message"></div>
+<p>
+<label for="message">Message: </label> <span id="counter">320 characters remaining</span>  <span class="pull-right">Use <b>:</b> for Emoji | <a href="{{@home_url}}/help/emoji">Emoji List</a></span>
 <textarea name="message" placeholder="What's in your mind" class="text" id="post-msg"></textarea>
 <div id="file-uploader">
 <div class="addfile">
@@ -10,7 +12,12 @@
 </span>
 </div>
 </div>
-
+</p>
+<p>
+<label for="captcha">Captcha: </label> <a href="javascript:void(0)" onclick="grecaptcha.reset();">Reload Captcha</a>
+<div class="g-recaptcha" data-sitekey="{{$site_key}}"></div>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</p>
 <div class="post-create-footer">
 <span class="pull-left" id="char-left">(144 characters remaining)</span>
 <span class="pull-left post-indicator"><img src="{{ @home_url }}/img/loader.gif"></span>
@@ -19,3 +26,5 @@
 </form>
 
 <div id="ajax-loader" data-href="{{@home_url}}/ajax/{{ @board_slug }}/thread/{{ @thread_id }}/thread.json"></div>
+
+<div style="left: 59.6738%; top: 6.39935%;" data-trackpos="QR-position" class="extPanel reply" id="quickReply"><div id="qrHeader" class="drag postblock">Reply to Thread No.<span id="qrTid">141716847</span><img alt="X" src="//s.4cdn.org/image/buttons/burichan/cross.png" id="qrClose" class="extButton" title="Close Window"></div><form name="qrPost" action="https://sys.4chan.org/a/post" method="post" enctype="multipart/form-data"><input value="4194304" name="MAX_FILE_SIZE" type="hidden"><input value="regist" name="mode" type="hidden"><input id="qrResto" value="141716847" name="resto" type="hidden"><div id="qrForm"><div><input name="name" tabindex="0" placeholder="Name" type="text"></div><div><input placeholder="Options" id="qrEmail" name="email" tabindex="0" type="text"></div><div><textarea placeholder="Comment" name="com" cols="48" rows="4" tabindex="0" wrap="soft"></textarea></div><div id="qrCaptchaContainer"><div><div style="width: 304px; height: 78px;"><iframe name="undefined" scrolling="no" role="presentation" title="recaptcha widget" src="https://www.google.com/recaptcha/api2/anchor?k=6Ldp2bsSAAAAAAJ5uyx_lx34lJeEpTLVkP5k04qc&amp;co=aHR0cDovL2JvYXJkcy40Y2hhbi5vcmc6ODA.&amp;hl=en&amp;v=r20160516082654&amp;theme=light&amp;size=normal&amp;cb=ijx42zva626o" frameborder="0" height="78" width="304"></iframe></div><textarea id="g-recaptcha-response-1" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid #c1c1c1; margin: 10px 25px; padding: 0px; resize: none;  display: none; "></textarea></div></div><div><input title="Shift + Click to remove the file" size="19" id="qrFile" name="upfile" tabindex="0" type="file"><span id="qrSpoiler"><label>[<input value="on" name="spoiler" type="checkbox">Spoiler?]</label></span><input value="Post" tabindex="0" type="submit"></div></div></form><div id="qrError"></div></div>
