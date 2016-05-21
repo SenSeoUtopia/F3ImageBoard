@@ -4,17 +4,17 @@ It is a Imageboard Script which is devloped in Fat-Free Framework.
 
 # To Do List
 
-1. Add Layouts.
-2. Add Views
-3. Add Controller
-4. Add Models
-5. Integrate No Recaptcha
+* [x] Add Layouts.
+* [x] Add Views
+* [x] Add Controller
+* [x] Add Models
+* [ ] Integrate No Recaptcha
 
 # Adding Feature
 
-1. Quotes
-2. Quick Reply
-3. Hide Post
-4. oEmbed
-5. Emoji
-6. Multiple File Upload
+* [x] Quotes
+* [x] Quick Reply
+* [ ] Hide Post
+* [ ] oEmbed
+* [x] Emoji
+* [x] Multiple File Upload
