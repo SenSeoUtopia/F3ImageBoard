@@ -1,6 +1,12 @@
-<div class="recent-posts">
+<div class="recent-photos">
 <h1>Recent Photos</h1>
 <ul>
+<repeat group="{{ @photo_list }}" value="{{ @photos }}" counter="{{ @counter }}">
+<li>
+<a href="{{ @home_url }}/{{ @photos->boards->slug }}/thread/{{ @photos->thread_id }}#{{ @photos->post_id }}">
+<img src="{{ @home_url }}/thumb/{{ @photos->boards->slug }}/{{ @photos->thread_id }}/{{ @photos->file_name }}">
+</a>
+</li>
+</repeat>	
 </ul>
-
 </div>

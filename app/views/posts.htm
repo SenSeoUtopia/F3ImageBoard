@@ -1,3 +1,51 @@
+<table>
+<tr>
+<td colspan="5"><div id="thread-msg">Post a Reply</div></td>	
+</tr>
+<tr>
+<th>Name
+<input value="" name="lastname" type="hidden">
+</th>
+<td>
+<input name="name" size="25" maxlength="35" autocomplete="off" type="text">
+<input style="display:none" value="" name="ca3q720lxfoz96♘jg1uwdb48ki♲" type="text">
+</td>
+</tr>
+<tr>
+<th>Email</th>
+<td>
+<input name="email" size="25" maxlength="40" autocomplete="off" type="text">
+</td>
+</tr>
+<tr>
+<th>Subject</th>
+<td>
+<input style="float:left;" name="subject" size="25" maxlength="100" autocomplete="off" type="text">
+<input accesskey="s" style="margin-left:2px;" name="post" value="New Reply" type="submit">
+</td>
+</tr>
+<tr>
+<th>Comment</th>
+<td>
+<textarea name="body" id="body" rows="5" cols="35"></textarea>
+</td>
+</tr>
+<tr id="upload">
+<th>File</th>
+<td>
+<input name="file" id="upload_file" type="file">
+</td>
+</tr>
+<tr>
+<th>Password
+<input style="display: none" type="text">
+<input style="display: none" type="password">
+</th>
+<td>
+<input name="password" value="" size="12" maxlength="18" autocomplete="off" type="password"> <span class="unimportant">(For file deletion.)</span></td>
+</tr>
+</table>
+
 <div id="menu">
 <div class="post-btn">
 [<a href="{{ @page.board_url }}"><span class="icon-home"></span> Return</a>] 
@@ -15,59 +63,75 @@
 </div>
 <div class="clear"></div>
 
-
 <div id="posts_list">
 <div class="quote-preview"></div>
 <div id="quick-reply">
 <div class="title">
-Reply to Thread No. #{{ @page.thread_id }}
+Reply to Thread No. #{{ @page.thread_id }} 
 <a href="javascript:qr('hide');" title="Close" class="close-btn pull-right"><i class="icon-cross"></i></a>
 </div>
 <div class="body">
-<div id="msg"></div>
 <include href="posts/guest.htm" with="board_slug = {{ @page.board_slug }},thread_id = {{ @page.thread_id }}"/>
 </div>
 </div>
-
 <repeat group="{{ @page.post_list }}" value="{{ @posts }}" counter="{{ @counter }}">
 
-<div class="post reply" id="{{ @posts.id }}">
+<check if="{{ @counter === 1}}">
+<true>
+<div class="files">
+<div id="{{ @posts.id }}" class="file">
+<p class="fileinfo">File: <a href="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @page.thread_id}}/{{ @posts.photos->first()->file_name }}">{{ @posts.photos->first()->original_name }}</a> ({{ formatSizeUnits(@posts.photos->first()->size) }} , {{ @posts.photos->first()->pixels }})</p>
+<img class="post-image" id="image" src="{{ @home_url }}/thumb/{{ @page.board_slug }}/{{ @page.thread_id}}/{{ @posts.photos->first()->file_name }}" data-src="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @page.thread_id }}/{{ @posts.photos->first()->file_name }}">
+</div>
+</div>
+<div class="post op" id="{{ @posts.id }}">
+<p class="intro">
+<span class="name"><input value="{{ @posts.id }}" id="delete-this" type="checkbox">  
+<check if="{{ @posts.threads.name }}">
+<span class="subject"> {{ @posts.threads.name | remove_execute_code,remove_spaces }}</span>	
+</check>
 
-<div class="post-header"> 
-<span class="{{ @posts.class_name }}"><input value="{{ @posts.id }}" id="delete-this" type="checkbox">  
+<span class="icon-user"></span> {{ @posts.user_name | remove_execute_code,remove_spaces }} </span> 
+<span class="icon-history"></span> 
+<time class="tooltip" data-tooltip="{{ @posts->created_at->format('m/d/y (D) H:i:s') }}">{{ nicetime(@posts.created_at) }}</time>
+<a class="post_no" href="#{{ @posts.id }}" id="post-id" rel="{{ @posts.id }}">No. {{ @posts.id }}</a>
+<a class="post_no" href="javascript:void(0)" id="quote_post" rel="{{ @posts.id }}">Quote</a> 
+</p>
+<div class="body">{{ @posts.content | remove_execute_code,remove_spaces,replace_data }}</div>
+</div>
+</true>
+<false>
+<div class="post-container" id="pc{{ @posts.id }}">	
+<div class="sidearrows">&gt;&gt;</div>	
+<div class="post reply" id="reply_{{ @posts.id }}">
+<p class="intro">
+<span class="name"><input value="{{ @posts.id }}" id="delete-this" type="checkbox">  
 <span class="icon-user"></span> {{ @posts.user_name | remove_execute_code,remove_spaces }} </span> 
 <span class="icon-history"></span> 
 <time class="tooltip" data-tooltip="{{ @posts->created_at->format('m/d/y (D) H:i:s') }}">{{ nicetime(@posts.created_at) }}</time> 
-<a href="#{{ @posts.id }}" id="post-id" rel="{{ @posts.id }}" class="btn btn-xs btn-success">No.{{ @posts.id }}</a> 
-<a href="#{{ @posts.id }}" id="post_id" rel="{{ @posts.id }}" class="btn btn-xs btn-success">Quote</a> 
-<span id="report" rel="{{ @posts.id }}" class="btn btn-danger btn-xs">Report</span></div>
-<div class="post-body">
-
+<a href="#{{ @posts.id }}" id="post-id" rel="{{ @posts.id }}">No.{{ @posts.id }}</a> 
+<a href="javascript:void(0)" id="quote_post" rel="{{ @posts.id }}">Quote</a> 
+<span id="report" rel="{{ @posts.id }}">Report</span>
+</p><!-- post header -->
 <check if="{{ @posts.photos->count() }}">
 <true>
 <check if="{{ @posts.photos->count() > 1 }}">
 <true>
 <div id="gallery">
-
 <repeat group="{{ @posts.photos }}" value="{{ @pics }}" counter="{{ @counter }}" >
-	
-<img id="image" src="{{ @home_url }}/thumb/{{ @page.board_slug }}/{{ @page.thread_id}}/{{ @pics->file_name }}" data-src="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @page.thread_id }}/{{ @pics->file_name }}" class="img-responsive img-thumbnail"> 
-
+<img src="{{ @home_url }}/thumb/{{ @page.board_slug }}/{{ @page.thread_id}}/{{ @pics->file_name }}" data-src="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @page.thread_id }}/{{ @pics->file_name }}" class="gallery-img img-responsive img-thumbnail"> 
 </repeat>
-
-<span class="desc">{{ @posts.content | remove_execute_code,remove_spaces,replace_data }}</span>
 </div>
-
+<span class="desc">{{ @posts.content | remove_execute_code,remove_spaces,replace_data }}</span>
 </true>
 <false>
-<div class="post-header">
-<div id="<?php echo $post_id; ?>">
-File: <a href="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @page.thread_id}}/{{ @posts.photos->first()->file_name }}">{{ @posts.photos->first()->original_name }}</a> ({{ formatSizeUnits(@posts.photos->first()->size) }} , {{ @posts.photos->first()->pixels }})
+<div class="files">	
+<div class="file">
+<p class="fileinfo">File: <a href="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @page.thread_id}}/{{ @posts.photos->first()->file_name }}">{{ @posts.photos->first()->original_name }}</a> ({{ formatSizeUnits(@posts.photos->first()->size) }} , {{ @posts.photos->first()->pixels }})</p>
+<img class="post-image" id="image" src="{{ @home_url }}/thumb/{{ @page.board_slug }}/{{ @page.thread_id}}/{{ @posts.photos->first()->file_name }}" data-src="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @page.thread_id }}/{{ @posts.photos->first()->file_name }}" class="img-responsive img-thumbnail">
 </div>
-</div>	
-	
-<img id="image" src="{{ @home_url }}/thumb/{{ @page.board_slug }}/{{ @page.thread_id}}/{{ @posts.photos->first()->file_name }}" data-src="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @page.thread_id }}/{{ @posts.photos->first()->file_name }}" class="img-responsive img-thumbnail"> 	
-<span class="desc">{{ @posts.content | remove_execute_code,remove_spaces,replace_data }}</span>
+</div><!-- files -->
+<div class="body">{{ @posts.content | remove_execute_code,remove_spaces,replace_data }}</div>
 </false>
 </check>
 </true>
@@ -75,15 +139,16 @@ File: <a href="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @page.thread_id
 {{ @posts.content | remove_execute_code,remove_spaces,replace_data }}	
 </false>
 </check>
-
-</div>
-
-</div>
+</div><!-- reply -->
+</div><!-- post container -->
+</false>
+</check>
 </repeat>
 
 
 </div>
 <div class="clear"></div>
+
 <div id="menu">
 <div class="post-btn">
 [<a href="{{ @page.board_url }}"><span class="icon-home"></span> Return</a>] 
@@ -92,7 +157,6 @@ File: <a href="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @page.thread_id
 [<label><input type="checkbox" value="1" id="auto" title="Fetch new replies automatically"> <span class="icon-reload"></span>  Auto Update</label> <b><span id="timer"></span></b>]
 </div>
 <a href="javascript:qr('show');" class="qr-btn" title="New Reply"><span class="icon-add"></span> New Reply</a>
-
 <div class="thread-stats">
 <span class="icon-comment"></span> Replies <span class="reply">{{ @page.total_posts }} </span> / 
 <span class="icon-image"></span> Images <span class="images">{{ @page.total_images }}</span> /

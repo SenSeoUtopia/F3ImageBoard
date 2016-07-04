@@ -31,7 +31,6 @@ $get_recaptcha_response = $f3->get('POST.g-recaptcha-response');
 
 public function posting_reply($f3,$args){
 
-
 if(empty($args['board_slug']) ) {
 return Response::json(array("Invalid Call"));
 }
@@ -43,13 +42,15 @@ return Response::json(array("Invalid Thread Call"));
 $data = $f3->get("POST");
 
 $valid = Validate::is_valid($data, array(
-"message" => "required"
+"message" => "required",
+"g-recaptcha-response" => "required"
 ));
 
+$status = 200;
 
 if($valid === true) {
 
-$options = ['cost' => 12, 'salt' => mcrypt_create_iv(22, MCRYPT_DEV_URANDOM),];	
+$options = ['cost' => 12, 'salt' => mcrypt_create_iv(22, MCRYPT_DEV_URANDOM)];	
 	
 $secret = $f3->get('recaptcha_secret');	
 
@@ -59,19 +60,19 @@ $ip = $f3->get('IP');
 
 $user_id = 0;
 
-$user_name = $f3->get('POST.user_name');
+$user_name = !empty($data['user_name']) ? $data['user_name'] : 'Anonymous';
 
 $board_id = Boards::where('slug',$args['board_slug'])->first()->id;
 
 $thread_id = $args['thread_id'];
 
-$post_content = $f3->get('POST.message');
+$post_content =$data['message'];
 
-$password = $f3->get('POST.password');
+$password = $data['password'];
 
 $files = $f3->get("FILES");
 
-$get_recaptcha_response = $f3->get('POST.g-recaptcha-response');
+$get_recaptcha_response = $data['g-recaptcha-response'];
 
 /* Captcha Check */
 $recaptcha = new ReCaptcha\ReCaptcha($secret);
@@ -85,6 +86,8 @@ if($post_check > 0){
 
 $msg = array("success" => false,"msg" => "You have Already made same Reply.");
 
+$status = 400;
+
 } else {
 
 /* Insert new data */
@@ -97,7 +100,6 @@ $posts->board_id = $board_id;
 $posts->thread_id = $thread_id;
 $posts->content = nl2br(htmlspecialchars($post_content));
 $posts->password = isset($password) ? password_hash($password, PASSWORD_BCRYPT, $options) : '';
-$posts->img = 0;
 $posts->ip = $ip;
 $posts->save();
 
@@ -108,10 +110,7 @@ $msg = array("success" => true,"msg" => "You've Commented Successfully.");
 }
 
 } else {
- 
- 
-$msg = $vaild;
- 
+$msg = array("success" => false,"msg" => " You have entered an incorrect CAPTCHA.");
 }
 
 return Response::json($msg);

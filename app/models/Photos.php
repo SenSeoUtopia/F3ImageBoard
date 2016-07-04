@@ -7,12 +7,17 @@ protected $table = "photos";
 
 // Relationship Post
 public function post(){
-return $this->hasManyThrough("Posts");
+return $this->belongsTo("Posts");
 }
 
-// Relationship Photos
+// Relationship Boards
+public function boards(){
+return $this->belongsTo("Boards","board_id");
+}
+
+// Relationship Thread
 public function threads(){
-return $this->hasMany("Threads");
+return $this->belongsTo("Threads","thread_id");
 }
 
 /* Get Photos */

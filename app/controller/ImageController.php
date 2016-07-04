@@ -3,6 +3,8 @@ use Intervention\Image\ImageManagerStatic as Image;
 
 class ImageController extends Controller{
 
+protected $tpl = null;
+
 // Thumb View
 public function thumb($f3,$args){
 

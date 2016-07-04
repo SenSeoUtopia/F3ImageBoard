@@ -6,14 +6,12 @@ class Form {
 	/**
 	 * The HTML builder instance.
 	 *
-	 * @var \Illuminate\Html\HtmlBuilder
 	 */
 	protected $html;
 
 	/**
 	 * The URL generator instance.
 	 *
-	 * @var \Illuminate\Routing\UrlGenerator  $url
 	 */
 	protected $url;
 
@@ -27,7 +25,6 @@ class Form {
 	/**
 	 * The session store implementation.
 	 *
-	 * @var \Illuminate\Session\Store
 	 */
 	protected $session;
 
@@ -73,7 +70,7 @@ class Form {
 	$this->session = new Session;
 	}
 	
-	public function url_to($url){
+	public function url_to($url,$path = array()){
 	
 	$home_url = $this->home_url;
 	
@@ -468,16 +465,7 @@ class Form {
 		return $this->select($name, $range, $selected, $options);
 	}
 
-	/**
-	 * Create a select year field.
-	 *
-	 * @param  string  $name
-	 * @param  string  $begin
-	 * @param  string  $end
-	 * @param  string  $selected
-	 * @param  array   $options
-	 * @return string
-	 */
+
 	public function selectYear()
 	{
 		return call_user_func_array(array($this, 'selectRange'), func_get_args());
@@ -702,7 +690,7 @@ class Form {
 	 */
 	public function image($url, $name = null, $attributes = array())
 	{
-		$attributes['src'] = $this->url_to->asset($url);
+		$attributes['src'] = $this->url_to($url);
 
 		return $this->input('image', $name, null, $attributes);
 	}
@@ -764,21 +752,7 @@ class Form {
 		{
 			return $this->getUrlAction($options['url']);
 		}
-
-		if (isset($options['route']))
-		{
-			return $this->getRouteAction($options['route']);
-		}
-
-		// If an action is available, we are attempting to open a form to a controller
-		// action route. So, we will use the URL generator to get the path to these
-		// actions and return them from the method. Otherwise, we'll use current.
-		elseif (isset($options['action']))
-		{
-			return $this->getControllerAction($options['action']);
-		}
-
-		return $this->url_to->current();
+		return $this->url_to("/");
 	}
 
 	/**
@@ -797,37 +771,6 @@ class Form {
 		return $this->url_to($options);
 	}
 
-	/**
-	 * Get the action for a "route" option.
-	 *
-	 * @param  array|string  $options
-	 * @return string
-	 */
-	protected function getRouteAction($options)
-	{
-		if (is_array($options))
-		{
-			return $this->url_to->route($options[0], array_slice($options, 1));
-		}
-
-		return $this->url_to->route($options);
-	}
-
-	/**
-	 * Get the action for an "action" option.
-	 *
-	 * @param  array|string  $options
-	 * @return string
-	 */
-	protected function getControllerAction($options)
-	{
-		if (is_array($options))
-		{
-			return $this->url_to->action($options[0], array_slice($options, 1));
-		}
-
-		return $this->url_to->action($options);
-	}
 
 	/**
 	 * Get the form appendage for the given method.
@@ -934,20 +877,14 @@ class Form {
 	/**
 	 * Get the session store implementation.
 	 *
-	 * @return  \Illuminate\Session\Store  $session
 	 */
 	public function getSessionStore()
 	{
 		return $this->session;
 	}
 
-	/**
-	 * Set the session store implementation.
-	 *
-	 * @param  \Illuminate\Session\Store  $session
-	 * @return $this
-	 */
-	public function setSessionStore(Session $session)
+
+	public function setSessionStore($session)
 	{
 		$this->session = $session;
 

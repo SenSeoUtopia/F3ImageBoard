@@ -27,11 +27,13 @@ $title = "Home";
 $board_list = Category::all();
 
 $post_list = Posts::orderBy('created_at','desc')->take('10')->get();
+$photo_list = Photos::orderBy('created_at','desc')->take('10')->get();
 
 $total_size = formatSizeUnits(dirSize($this->upload_dir));
 
 $f3->set("category_list",$board_list);
 $f3->set("post_list",$post_list);
+$f3->set("photo_list",$photo_list);
 
 $f3->set('page', array('title'=> $title,'content' => 'home.htm','board_list' => $board_list,'total_size' => $total_size));
 }
