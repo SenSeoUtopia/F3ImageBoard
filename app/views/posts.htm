@@ -103,7 +103,7 @@ Reply to Thread No. #{{ @page.thread_id }}
 <false>
 <div class="post-container" id="pc{{ @posts.id }}">	
 <div class="sidearrows">&gt;&gt;</div>	
-<div class="post reply" id="reply_{{ @posts.id }}">
+<div class="post reply" id="{{ @posts.id }}">
 <p class="intro">
 <span class="name"><input value="{{ @posts.id }}" id="delete-this" type="checkbox">  
 <span class="icon-user"></span> {{ @posts.user_name | remove_execute_code,remove_spaces }} </span> 
@@ -136,7 +136,7 @@ Reply to Thread No. #{{ @page.thread_id }}
 </check>
 </true>
 <false>
-{{ @posts.content | remove_execute_code,remove_spaces,replace_data }}	
+<div class="body">{{ @posts.content | remove_execute_code,remove_spaces,replace_data }}</div>	
 </false>
 </check>
 </div><!-- reply -->
@@ -161,6 +161,8 @@ Reply to Thread No. #{{ @page.thread_id }}
 <span class="icon-comment"></span> Replies <span class="reply">{{ @page.total_posts }} </span> / 
 <span class="icon-image"></span> Images <span class="images">{{ @page.total_images }}</span> /
 <span class="icon-user"></span> Posters: {{ @page.total_posters }}
-</div> 
+</div>
+<div id="ajax-loader" data-href="{{@home_url}}/ajax/{{ @page.board_slug }}/thread/{{ @page.thread_id }}/thread.json"></div>
+<div id="ajax-delete" data-href="{{@home_url}}/ajax/{{ @page.board_slug }}/thread/{{ @page.thread_id }}/delete"></div>
 </div>
 <div class="clear"></div>

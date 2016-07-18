@@ -18,6 +18,7 @@ if(typeof grecaptcha !== 'undefined' && grecaptcha) grecaptcha.reset();
 }else if(showhide == "hide"){
 $('#quick-reply').hide(); /* If the function is called with the variable 'hide', hide the login box */
 $("#post-create,#posted").clearForm();
+$("#post-msg").removeClass('has-error');
 
 $('#msg').empty();
 
@@ -44,35 +45,6 @@ return { value: emoji.value, text: '<span class="twa twa-lg twa_'+emoji.code+'">
 if($('.gallery-img').length > 0){
 $('.gallery-img').SimpleSlider();
 }
-
-if(typeof Dropzone !== 'undefined'){
-Dropzone.autoDiscover = false;	
-$("#post-create").dropzone({
-paramName: "file",
-hiddenInputContainer: "#file-uploader .addfile",
-autoProcessQueue: false,
-addRemoveLinks : true,
-renderMethod: "prepend",
-dictDefaultMessage: "Add Photo",
-previewsContainer: "#file-uploader",
-clickable : "#file-uploader .addfile",
-previewTemplate: "<div class=\"pic dz-preview dz-file-preview\">\n  <div class=\"dz-image\"><img data-dz-thumbnail /></div>\n  <div class=\"dz-details\">\n    <div class=\"dz-size\"><span data-dz-size></span></div>\n    <div class=\"dz-filename\"><span data-dz-name></span></div>\n  </div>\n  <div class=\"dz-progress\"><span class=\"dz-upload\" data-dz-uploadprogress></span></div>\n  <div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n  <div class=\"dz-success-mark\">\n    <svg width=\"54px\" height=\"54px\" viewBox=\"0 0 54 54\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:sketch=\"http://www.bohemiancoding.com/sketch/ns\">\n      <title>Check</title>\n      <defs></defs>\n      <g id=\"Page-1\" stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\" sketch:type=\"MSPage\">\n<path d=\"M23.5,31.8431458 L17.5852419,25.9283877 C16.0248253,24.3679711 13.4910294,24.366835 11.9289322,25.9289322 C10.3700136,27.4878508 10.3665912,30.0234455 11.9283877,31.5852419 L20.4147581,40.0716123 C20.5133999,40.1702541 20.6159315,40.2626649 20.7218615,40.3488435 C22.2835669,41.8725651 24.794234,41.8626202 26.3461564,40.3106978 L43.3106978,23.3461564 C44.8771021,21.7797521 44.8758057,19.2483887 43.3137085,17.6862915 C41.7547899,16.1273729 39.2176035,16.1255422 37.6538436,17.6893022 L23.5,31.8431458 Z M27,53 C41.3594035,53 53,41.3594035 53,27 C53,12.6405965 41.3594035,1 27,1 C12.6405965,1 1,12.6405965 1,27 C1,41.3594035 12.6405965,53 27,53 Z\" id=\"Oval-2\" stroke-opacity=\"0.198794158\" stroke=\"#FFFFFF\" fill-opacity=\"0.816519475\" fill=\"#32A336\" sketch:type=\"MSShapeGroup\"></path>\n      </g>\n    </svg>\n  </div>\n  <div class=\"dz-error-mark\">\n    <svg width=\"54px\" height=\"54px\" viewBox=\"0 0 54 54\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:sketch=\"http://www.bohemiancoding.com/sketch/ns\">\n      <title>Error</title>\n      <defs></defs>\n      <g id=\"Page-1\" stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\" sketch:type=\"MSPage\">\n<g id=\"Check-+-Oval-2\" sketch:type=\"MSLayerGroup\" stroke=\"#FFFFFF\" stroke-opacity=\"0.198794158\" fill=\"#ff0000\" fill-opacity=\"0.816519475\">\n  <path d=\"M32.6568542,29 L38.3106978,23.3461564 C39.8771021,21.7797521 39.8758057,19.2483887 38.3137085,17.6862915 C36.7547899,16.1273729 34.2176035,16.1255422 32.6538436,17.6893022 L27,23.3431458 L21.3461564,17.6893022 C19.7823965,16.1255422 17.2452101,16.1273729 15.6862915,17.6862915 C14.1241943,19.2483887 14.1228979,21.7797521 15.6893022,23.3461564 L21.3431458,29 L15.6893022,34.6538436 C14.1228979,36.2202479 14.1241943,38.7516113 15.6862915,40.3137085 C17.2452101,41.8726271 19.7823965,41.8744578 21.3461564,40.3106978 L27,34.6568542 L32.6538436,40.3106978 C34.2176035,41.8744578 36.7547899,41.8726271 38.3137085,40.3137085 C39.8758057,38.7516113 39.8771021,36.2202479 38.3106978,34.6538436 L32.6568542,29 Z M27,53 C41.3594035,53 53,41.3594035 53,27 C53,12.6405965 41.3594035,1 27,1 C12.6405965,1 1,12.6405965 1,27 C1,41.3594035 12.6405965,53 27,53 Z\" id=\"Oval-2\" sketch:type=\"MSShapeGroup\"></path>\n</g>\n      </g>\n    </svg>\n  </div>\n</div>",
-RemoveLinkTemplate: "<div class=\"remove\" data-dz-remove><i class=\"icon-cross\"></i></div>",
-
-init: function() {
-var submitButton = document.querySelector(".post-btn");
-myDropzone = this; // closure
-
-submitButton.addEventListener("click", function() {
-myDropzone.processQueue(); // Tell Dropzone to process all queued files.
-});
-
-}
-});
-
-}
-
-
 
 var hash = window.location.hash; // Get Post Id
 
@@ -138,6 +110,7 @@ ids.push($(this).attr("rel")); //add id to array
 var last_post_id = ids.slice(-1)[0];
 
 
+get_quote_by();
 
 var url = $("#ajax-loader").attr("data-href");
 
@@ -189,7 +162,7 @@ myTimer();
 
 $("#post-create,#posted").ajaxForm({
 beforeSubmit: function (){
-
+	
 if(!$("#post-msg").val().length > 0){
 
 alert("Message is required.");
@@ -197,17 +170,16 @@ alert("Message is required.");
 $("#post-msg").addClass('has-error');
 
 return false;
-}
-
+}	
+	
 msg.html('Posting...');
 return true;
 },
-clearForm: true,
+clearForm: false,
 success: function(data) {
 	
 if(!data){
 msg.html("Something went Wrong please try again later.");
-
 return false;
 }
 	
@@ -265,6 +237,8 @@ msg.hide()
 } else {
 msg.html(error_template);
 
+
+
 var captcha = $('#captcha');
 captcha.html('');
 
@@ -287,7 +261,9 @@ captcha.html('');
 var auto = $('input#auto');
 var timer = '';
 function myTimer() {
-var sec = 15;
+var intervals = [5,10,20,40,60,90,120]; // Available Timer Intervals
+var rand = Math.floor(Math.random()*intervals.length) // Random Number for Choosing Intervals
+var sec = intervals[rand];
 clearInterval(timer);
 timer = setInterval(function() { 
 $('span#timer').text("in " + sec-- + " secs");
@@ -316,6 +292,8 @@ post_data(b);
 
 
 window.location.href= '#'+ b.id;
+
+get_quote_by();
 
 }
 
@@ -382,9 +360,9 @@ var str = $(this).attr('href');
 
 var post_id = 0;
 
-$(str).toggleClass("highlight");
-
 if ($(str).length > 0) {
+
+$(str).toggleClass("highlight");
 
 $("div.quote-preview").show('fast');
 
@@ -517,7 +495,10 @@ closeOnCancel: false
 },
 function(isConfirm) {
 if (isConfirm) {
-$.post( base_url + "/ajax/delete",{action:'delete',post_id: post_id}, function( data ) {
+
+var url = $("#ajax-delete").attr("data-href");
+	
+$.post( url,{post_id: post_id}, function( data ) {
 
 if(data.success) {
 
@@ -616,15 +597,15 @@ return html;
 }
 
 // Post generator
-function post_data(b){ 
+function post_data(b){
 var html= ''; 
 if(b.gallery){ 
 var new_post = '<div class="post reply newPostsMarker" id="'+ b.id +'"><p class="intro"><div id="'+ b.id +'"> <span class="'+b.class_name+'"><input type="checkbox" value="'+ b.id +'" id="delete-this"> <span class="icon-user"></span> ' + b.post_by + ' </span> <span class="icon-history"></span><time class="tooltip" data-tooltip="' + b.post_time +'">' + b.ago_post_time +'</time> <a href="#'+ b.id +'" id="post-id" rel="'+ b.id +'" class="btn btn-xs btn-success">No.'+ b.id +'</a> <a href="#'+ b.id +'" id="post-id" rel="'+ b.id +'" class="btn btn-xs btn-success">Quote</a> <span id="report" rel="'+ b.id +'" class="btn btn-danger btn-xs">Report</span></div></p><div class="body"><div id="gallery">'; $.each(b.photos,function(i){ var file_data = '<b>File Name:</b> <a href='+base_url+' /uploads/ '+b.board_slug+'/ '+b.thread_id+'/ '+b.photos[i].file_name+' title='+b.photos[i].file_name+'>'+ b.photos[i].original_name +'</a><br>('+b.photos[i].size+' , '+b.photos[i].pixels+')<br> <b>Message</b> :'+b.post_content; new_post += '<span class="gallery-img"><img src="'+base_url+'/thumb/'+b.board_slug+'/'+b.thread_id+'/'+b.photos[i].file_name+'" data-src="'+base_url+'/uploads/'+b.board_slug+'/'+b.thread_id+'/'+b.photos[i].file_name+'" class="img-responsive img-thumbnail"> <span class="desc">'+file_data+'</span> </span>'; }); new_post += '</div>'+b.post_content+'</div></div></div>'; 
 } else { 
 if(b.file_name) { 
-var new_post = '<div class="post reply newPostsMarker" id="'+ b.id +'"><div class="intro"><div id="'+ b.id +'"> <span class="'+b.class_name+'"><input type="checkbox" value="'+ b.id +'" id="delete-this"> <span class="icon-user"></span> ' + b.post_by + ' </span> <span class="icon-history"></span><time class="tooltip" data-tooltip="' + b.post_time +'">' + b.ago_post_time +'</time> <a href="#'+ b.id +'" id="post-id" rel="'+ b.id +'" class="btn btn-xs btn-success">No.'+ b.id +'</a> <a href="#'+ b.id +'" id="post-id" rel="'+ b.id +'" class="btn btn-xs btn-success">Quote</a> <span id="report" rel="'+ b.id +'" class="btn btn-danger btn-xs">Report</span></div><div class="files"><div class="file"><div id="'+ b.id +'"> File: <a href="'+base_url+'/uploads/'+b.board_slug+'/'+b.thread_id+'/'+b.file_name+'" title="'+b.original_name+'">'+ b.original_name +'</a> ('+b.size+' , '+b.pixels+')</div></div></div><div class="body"><img id="image" src="'+base_url+'/thumb/'+b.board_slug+'/'+b.thread_id+'/'+b.file_name+'" data-src="'+base_url+'/uploads/'+b.board_slug+'/'+b.thread_id+'/'+b.file_name+'" class="img-responsive img-thumbnail" />'+b.post_content+'</div></div></div>'; 
+var new_post = '<div class="post-container" id="pc'+ b.id +'"><div class="sidearrows">&gt;&gt;</div><div class="post reply newPostsMarker" id="reply_'+ b.id +'"><p class="intro"><span class="name"><input type="checkbox" value="'+ b.id +'" id="delete-this"> <span class="icon-user"></span> ' + b.post_by + ' </span><span class="icon-history"></span> <time class="tooltip" data-tooltip="' + b.post_time +'">' + b.ago_post_time +'</time> <a href="#'+ b.id +'" id="post-id" rel="'+ b.id +'" >No.'+ b.id +'</a> <a href="javascript:void(0)" id="quote_post" rel="'+ b.id +'" >Quote</a> <span id="report" rel="'+ b.id +'">Report</span></p><!-- post header --><div class="files"><div class="file"><div id="'+ b.id +'"> File: <a href="'+base_url+'/uploads/'+b.board_slug+'/'+b.thread_id+'/'+b.file_name+'" title="'+b.original_name+'">'+ b.original_name +'</a> ('+b.size+' , '+b.pixels+')</div></div></div> '+b.post_content+'</div><!-- reply --></div>';
 } else { 
-var new_post = '<div class="post reply newPostsMarker" id="'+ b.id +'"><p class="intro"><div id="'+ b.id +'"> <span class="'+b.class_name+'"><input type="checkbox" value="'+ b.id +'" id="delete-this"> <span class="icon-user"></span> ' + b.post_by + ' </span> <span class="icon-history"></span><time class="tooltip" data-tooltip="' + b.post_time +'">' + b.ago_post_time +'</time> <a href="#'+ b.id +'" id="post-id" rel="'+ b.id +'" class="btn btn-xs btn-success">No.'+ b.id +'</a> <a href="#'+ b.id +'" id="post-id" rel="'+ b.id +'" class="btn btn-xs btn-success">Quote</a> <span id="report" rel="'+ b.id +'" class="btn btn-danger btn-xs">Report</span></div></p><div class="body">'+b.post_content+'</div></div></div>'; 
+var new_post = '<div class="post-container" id="pc'+ b.id +'"><div class="sidearrows">&gt;&gt;</div><div class="post reply newPostsMarker" id="reply_'+ b.id +'"><p class="intro"><span class="name"><input type="checkbox" value="'+ b.id +'" id="delete-this"> <span class="icon-user"></span> ' + b.post_by + ' </span><span class="icon-history"></span> <time class="tooltip" data-tooltip="' + b.post_time +'">' + b.ago_post_time +'</time> <a href="#'+ b.id +'" id="post-id" rel="'+ b.id +'" >No.'+ b.id +'</a> <a href="javascript:void(0)" id="quote_post" rel="'+ b.id +'" >Quote</a> <span id="report" rel="'+ b.id +'">Report</span></p><!-- post header -->'+b.post_content+'</div><!-- reply --></div>';
 } 
 } 
 html += new_post; 
@@ -714,8 +695,12 @@ var all_quotes = $("div.reply .body a.quote").sort(function(a,b){ return a-b;});
 $(all_quotes).each(function (quoteIdx, quote) {
 var quote_by = $(quote).parent().parent().attr('id');
 var quote_post_id = $(quote).attr('href').slice(1);
-var html = ' <a class="quote btn btn-success btn-xs" href="#' + quote_by + '">&gt;&gt;' + quote_by + '</a> ';
-var html_quote_to = ' <a class="quote btn btn-success btn-xs" href="#' + quote_post_id + '">&gt;&gt;' + quote_post_id + '</a> ';
+
+console.log('qouted by ' + quote_by);
+console.log('qouted id ' + quote_post_id);
+
+var html = ' <a class="quote" href="#' + quote_by + '">&gt;&gt;' + quote_by + '</a> ';
+var html_quote_to = ' <a class="quote" href="#' + quote_post_id + '">&gt;&gt;' + quote_post_id + '</a> ';
 $("#posts_list").find('div#'+quote_post_id+' div.intro span#report').after(html);
 allHtml += html;
 });

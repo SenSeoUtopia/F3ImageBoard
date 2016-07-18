@@ -11,9 +11,6 @@
 <meta name="description" content="">
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="shortcut icon" type="image/x-icon" href="{{ @home_url }}/img/favicon.ico">
-<link media="all" type="text/css" rel="stylesheet" href="{{ @home_url }}/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="{{ @home_url }}/css/style.css">
-<link rel="stylesheet" type="text/css" href="{{ @home_url }}/css/dropzone.css">
 <check if="{{ @current_style }}">
 <true>
 <link rel="stylesheet" type="text/css" href="{{ @home_url }}/css/{{ @current_style }}.css" data-theme="current">	
@@ -22,15 +19,22 @@
 <link rel="stylesheet" type="text/css" href="{{ @home_url }}/css/YotsubaBlue.css" data-theme="current">
 </false>
 </check>
-
 <link media="all" type="text/css" rel="stylesheet" href="{{ @home_url }}/css/pace-flash.css">
-<link media="all" type="text/css" rel="stylesheet" href="{{ @home_url }}/css/twemoji-awesome.css">
 <script src="{{ @home_url }}/js/jquery.min.js"></script>
 <script src="{{ @home_url }}/js/jquery-ui.min.js"></script>
 <script src="{{ @home_url }}/js/pace.min.js"></script>
 <script src="{{ @home_url }}/js/jquery.form.min.js"></script>
 <script src="{{ @home_url }}/js/bootstrap-suggest.js"></script>
-<script src="{{ @home_url }}/js/dropzone.js"></script>
+<script src="{{ @home_url }}/js/sweetalert.min.js"></script>
+<check if="{{ @page.post_list }}">
+<link media="all" type="text/css" rel="stylesheet" href="{{ @home_url }}/css/sweetalert.css">
+<link media="all" type="text/css" rel="stylesheet" href="{{ @home_url }}/css/bootstrap-suggest.css">
+<link media="all" type="text/css" rel="stylesheet" href="{{ @home_url }}/css/twemoji-awesome.css">
+<link media="all" type="text/css" rel="stylesheet" href="{{ @home_url }}/css/sweetalert.css">
+<link media="all" type="text/css" rel="stylesheet" href="{{ @home_url }}/css/SimpleSlider.css">
+<script src="{{ @home_url }}/js/sweetalert.min.js"></script>
+<script src="{{ @home_url }}/js/SimpleSlider.js"></script>
+</check>
 <script src="{{ @home_url }}/js/ajax.js"></script>
 <script type="text/javascript">
 var base_url = '{{ @home_url }}';
@@ -41,7 +45,7 @@ var max_char_limit = 1000;
 </check>
 var guest = 0;
 var is_logged_in = false;
-<check if="{{ @page['board_id']}}">
+<check if="{{ @page.board_id }}">
 <true>var board_id = {{ @page.board_id }};</true>
 <false>var board_id = 0;</false>
 </check>
@@ -64,6 +68,7 @@ Style:
 
 {{
 @form->select('style', [
+"style" => "Default",
 "Yotsuba" => "Yotsuba",
 "YotsubaBlue" => "Yotsuba Blue",
 "Futaba" => "Futaba",
@@ -76,10 +81,10 @@ Style:
 }}
 
 </div>
-<check if="{{ @thread_viewer }}">
-<div class="post-btn pull-right">
+<check if="{{ @page.post_list }}">
+<div class="delete pull-right">
 [Delete Post
-<a href="javascript:void(0);" class="btn btn-xs btn-danger" id="delete">Delete</a>]
+<a href="javascript:void(0);" id="delete">Delete</a>]
 </div>
 </check>
 </div>

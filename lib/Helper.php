@@ -41,14 +41,26 @@ $patterns = array(
 "/&amp;gt;&amp;gt;(\d*)/i", // Quotes Posts
 "/(\s|>|^)(https?:[^\s<]*)/i", // oEmebed
 "/^&amp;gt;(.*)/i", // Quotes
-"/&lt;br \/&gt;/i" // Br Tag
+"/&lt;br \/&gt;/i", // Br Tag
+"/(\[b\])(.*?)(\[\/b\])/",
+"/(\[i\])(.*?)(\[\/i\])/",
+"/(\[u\])(.*?)(\[\/u\])/",
+"/(\[s\])(.*?)(\[\/s\])/",
+"/(\[spoiler\])(.*?)(\[\/spoiler\])/",
+"/(\[img\])(.*?)(\[\/img\])/",
 );
 $replacements = array(
-"<i class=\"twa twa-lg twa_$1\" title=\"$1\"></i>", //Emoji
-"<a href='#$1' class='quote btn btn-success btn-xs'>&gt;&gt; $1</a>", // Post Quotes
+"<i class=\"twa twa-lg twa_$1\" title=\"$0\"></i>", //Emoji
+"<a href='#$1' class='quote'>&gt;&gt; $1</a>", // Post Quotes
 "$1<a href=\"$2\" id=\"embed\" class=\"embed-responsive embed-responsive-16by9\">$2</a>", // oEmebed
 "<span class='quotes'>&gt; <q>$1</q></span>", // Self Quotes
-"<br/>" // Self Quotes
+"<br/>", // Self Quotes
+"<strong>$2</strong>",
+"<em>$2</em>",
+"<u>$2</u>",
+"<strike>$2</strike>",
+"<span class=\"spoiler\">$2</span>",
+"<img src=\"$2\" alt=\"$2\"/>",
 );
 
 return preg_replace($patterns,$replacements,$string);

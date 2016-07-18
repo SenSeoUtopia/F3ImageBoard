@@ -4,12 +4,14 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit747e52268a6def06ace5e9aedcde6100
+class ComposerStaticInit6235f8cb75bb85a9fbc5ac9fdadc218c
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
+        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
+        '7e702cccdb9dd904f2ccf22e5f37abae' => __DIR__ . '/..' . '/facebook/php-sdk-v4/src/Facebook/polyfills.php',
         '45e8c92354af155465588409ef796dbc' => __DIR__ . '/../..' . '/lib/base.php',
         '18c49467ca53b9724783956115da353a' => __DIR__ . '/../..' . '/app/functions.php',
     );
@@ -24,12 +26,25 @@ class ComposerStaticInit747e52268a6def06ace5e9aedcde6100
         array (
             'ReCaptcha\\' => 10,
         ),
+        'P' => 
+        array (
+            'Psr\\Http\\Message\\' => 17,
+        ),
         'I' => 
         array (
+            'Intervention\\Image\\' => 19,
             'Illuminate\\Support\\' => 19,
             'Illuminate\\Database\\' => 20,
             'Illuminate\\Contracts\\' => 21,
             'Illuminate\\Container\\' => 21,
+        ),
+        'G' => 
+        array (
+            'GuzzleHttp\\Psr7\\' => 16,
+        ),
+        'F' => 
+        array (
+            'Facebook\\' => 9,
         ),
         'C' => 
         array (
@@ -50,6 +65,14 @@ class ComposerStaticInit747e52268a6def06ace5e9aedcde6100
         array (
             0 => __DIR__ . '/..' . '/google/recaptcha/src/ReCaptcha',
         ),
+        'Psr\\Http\\Message\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+        ),
+        'Intervention\\Image\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/intervention/image/src/Intervention/Image',
+        ),
         'Illuminate\\Support\\' => 
         array (
             0 => __DIR__ . '/..' . '/illuminate/support',
@@ -65,6 +88,14 @@ class ComposerStaticInit747e52268a6def06ace5e9aedcde6100
         'Illuminate\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/illuminate/container',
+        ),
+        'GuzzleHttp\\Psr7\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
+        ),
+        'Facebook\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/facebook/php-sdk-v4/src/Facebook',
         ),
         'Carbon\\' => 
         array (
@@ -88,10 +119,16 @@ class ComposerStaticInit747e52268a6def06ace5e9aedcde6100
         'Boards' => __DIR__ . '/../..' . '/app/models/Boards.php',
         'Category' => __DIR__ . '/../..' . '/app/models/Category.php',
         'Controller' => __DIR__ . '/../..' . '/app/controller/Controller.php',
+        'Cookie' => __DIR__ . '/../..' . '/app/classes/Cookie.php',
+        'File' => __DIR__ . '/../..' . '/app/classes/File.php',
+        'Form' => __DIR__ . '/../..' . '/app/classes/Form.php',
+        'Html' => __DIR__ . '/../..' . '/app/classes/Html.php',
+        'ImageController' => __DIR__ . '/../..' . '/app/controller/ImageController.php',
         'MainController' => __DIR__ . '/../..' . '/app/controller/MainController.php',
         'Photos' => __DIR__ . '/../..' . '/app/models/Photos.php',
         'PostingController' => __DIR__ . '/../..' . '/app/controller/PostingController.php',
         'Posts' => __DIR__ . '/../..' . '/app/models/Posts.php',
+        'Str' => __DIR__ . '/../..' . '/app/classes/Str.php',
         'Threads' => __DIR__ . '/../..' . '/app/models/Threads.php',
         'User' => __DIR__ . '/../..' . '/app/models/User.php',
     );
@@ -99,10 +136,10 @@ class ComposerStaticInit747e52268a6def06ace5e9aedcde6100
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit747e52268a6def06ace5e9aedcde6100::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit747e52268a6def06ace5e9aedcde6100::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit747e52268a6def06ace5e9aedcde6100::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit747e52268a6def06ace5e9aedcde6100::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit6235f8cb75bb85a9fbc5ac9fdadc218c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit6235f8cb75bb85a9fbc5ac9fdadc218c::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit6235f8cb75bb85a9fbc5ac9fdadc218c::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit6235f8cb75bb85a9fbc5ac9fdadc218c::$classMap;
 
         }, null, ClassLoader::class);
     }

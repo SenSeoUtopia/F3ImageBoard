@@ -5,6 +5,8 @@ class Photos extends Eloquent{
 
 protected $table = "photos";
 
+protected $fillable = ['original_name'];
+
 // Relationship Post
 public function post(){
 return $this->belongsTo("Posts");

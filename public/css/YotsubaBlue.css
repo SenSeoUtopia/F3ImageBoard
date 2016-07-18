@@ -680,9 +680,16 @@ td {margin:0px;padding:0px;font-size:10pt}
 .passNotice {padding-left:6px}
 
 /* Home Page Style */
-div.boards,div.bans,div.recent-posts { border: 1px solid #98E; width: 100%; margin: 0 auto; margin-bottom:10px }
-div.boards p, div.boards h1,div.bans p,div.recent-posts p, div.recent-posts h1,div.bans h1{ padding: 3px 7px; margin:4px; }
-div.boards h1,div.bans h1,div.recent-posts  h1{ background: #98E; color:#fff; font-size: 16px; word-wrap: break-word; margin: 0px; }
+div.recent-photos,div.boards,div.bans,div.recent-posts { border: 1px solid #98E; width: 100%; margin: 0 auto; margin-bottom:10px }
+div.boards p, 
+div.boards h1,
+div.bans p,
+div.recent-photos p,
+div.recent-posts p, 
+div.recent-posts h1,
+div.recent-photos h1,
+div.bans h1{ padding: 3px 7px; margin:4px; }
+div.recent-photos h1,div.boards h1,div.bans h1,div.recent-posts  h1{ background: #98E; color:#fff; font-size: 16px; word-wrap: break-word; margin: 0px; }
 
 div.recent-posts ul{ padding: 2px; margin: 2px; }
 
@@ -692,7 +699,7 @@ div.boards li { margin: 2px; margin-right:8px;}
 div.boards .column{float: left; width: 200px;}
 div.boards .column h1{font-size:14px;}
 
-div.recent-posts li .photo{ display: block; margin:4px auto; text-align:center; border: 1px solid #98E; }
+div.recent-photos li{ text-align: center; }
 
 /* Content  */
 #content{padding:8px; border-radius:5px; margin-top:20px;}

@@ -17,9 +17,13 @@
         //on image click   
         $(this).click(function () {
 		
+		var img_src = $(this).attr('data-src');
+		
+		console.log(this);
+		
             $('.gallery-popup').fadeIn(500);
             $('body').css({ 'overflow': 'hidden' });
-            $('.popup-content .image img').attr('src', $(this).find('img').attr('data-src'));
+            $('.popup-content .image img').attr('src', img_src);
             $('.popup-content .information p').html($(this).find('span.desc').html());
             $Current = $(this);
             $PreviousElm = $(this).prev();
@@ -34,7 +38,7 @@
             $NewCurrent = $nextElm;
             $PreviousElm = $NewCurrent.prev();
             $nextElm = $NewCurrent.next();
-            $('.popup-content .image img').clearQueue().animate({ opacity: '0' }, 0).attr('src', $NewCurrent.find('img').attr('data-src')).animate({ opacity: '1' }, 500);
+            $('.popup-content .image img').clearQueue().animate({ opacity: '0' }, 0).attr('src', $NewCurrent.attr('data-src')).animate({ opacity: '1' }, 500);
           
           
             
@@ -49,7 +53,7 @@
             $NewCurrent = $PreviousElm;
             $PreviousElm = $NewCurrent.prev();
             $nextElm = $NewCurrent.next();
-            $('.popup-content .image img').clearQueue().animate({ opacity: '0' }, 0).attr('src', $NewCurrent.find('img').attr('data-src')).animate({ opacity: '1' }, 500);
+            $('.popup-content .image img').clearQueue().animate({ opacity: '0' }, 0).attr('src', $NewCurrent.attr('data-src')).animate({ opacity: '1' }, 500);
             
             $('.popup-content .information p').html($NewCurrent.find('span.desc').html());
             if ($PreviousElm.length === 0) { $('.nav-btn.prev').hide(); }
@@ -79,7 +83,7 @@
                 $NewCurrent = $nextElm;
                 $PreviousElm = $NewCurrent.prev();
                 $nextElm = $NewCurrent.next();
-                $('.popup-content .image img').clearQueue().animate({ opacity: '0' }, 0).attr('src', $NewCurrent.find('img').attr('data-src')).animate({ opacity: '1' }, 500);
+                $('.popup-content .image img').clearQueue().animate({ opacity: '0' }, 0).attr('src', $NewCurrent.attr('data-src')).animate({ opacity: '1' }, 500);
                 
                 $('.popup-content .information p').html($NewCurrent.find('span.desc').html());
                 if ($PreviousElm.length === 0) { $('.nav-btn.prev').hide(); }
@@ -95,7 +99,7 @@
                 $NewCurrent = $PreviousElm;
                 $PreviousElm = $NewCurrent.prev();
                 $nextElm = $NewCurrent.next();
-                $('.popup-content .image img').clearQueue().animate({ opacity: '0' }, 0).attr('src', $NewCurrent.find('img').attr('data-src')).animate({ opacity: '1' }, 500);
+                $('.popup-content .image img').clearQueue().animate({ opacity: '0' }, 0).attr('src', $NewCurrent.attr('data-src')).animate({ opacity: '1' }, 500);
         
                 $('.popup-content .information p').html($NewCurrent.find('span.desc').html());
                 if ($PreviousElm.length === 0) { $('.nav-btn.prev').hide(); }

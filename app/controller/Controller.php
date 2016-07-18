@@ -12,22 +12,9 @@ protected $tpl = "base.htm";
 
 function __construct() {
 
-$f3=Base::instance();
-$this->f3=$f3;
+$f3 = Base::instance();
+$this->f3 = $f3;
 $this->home_url = $this->f3->get('SCHEME').'://'.$this->f3->get('HOST').$this->f3->get('BASE');
-
-try {
-$db=new DB\SQL(
-$f3->get('db_dns') . $f3->get('db_name'),
-$f3->get('db_user'),
-$f3->get('db_pass')
-);
-} catch (PDOException $e) {
-echo "<h1>Error establishing a database connection</h1>";
-exit;
-}
-
-$this->db=$db;
 
 // Uploads Dir
 $this->upload_dir = $f3->get('upload_dir');

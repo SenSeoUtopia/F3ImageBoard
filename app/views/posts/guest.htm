@@ -1,63 +1,31 @@
 <form role="form" method="post" enctype="multipart/form-data" id="post-create" class="dropzone" action="{{@home_url}}/ajax/{{ @board_slug }}/thread/{{ @thread_id }}/reply">
 <div id="msg"></div>
-<table>
-<tr>
-<td>
+<div class="u-form-group">
 <input name="user_name" size="25" maxlength="35" autocomplete="off" type="text" placeholder="Anonymous">
-</td>
-</tr>
-<tr>
-<td>
+</div>
+<div class="u-form-group">
 <input name="email" size="25" maxlength="40" autocomplete="off" type="text" placeholder="Email">
-</td>
-</tr>
-<tr>
-<td>
+</div>
+<div class="u-form-group">
 <input name="subject" size="25" maxlength="100" autocomplete="off" type="text" placeholder="Subject">
-</td>
-</tr>
-<tr>
-<td>
-<input type="button" value="B" onclick="formatText ('b');" /> 
-<input type="button" value="I" onclick="formatText ('i');" /> 
-<input type="button" value="U" onclick="formatText ('u');" />
-<input type="button" value="IMG" onclick="formatText ('img');" />
-<textarea name="message" id="post-msg" rows="5" cols="35" placeholder="What is in your Mind?"></textarea>
-</td>
-</tr>
-<tr>
-<td>
-<div id="file-uploader">
-<div class="addfile">
-<span class="add-file" data-dz-message data-toggle="tooltip" title="Add Photo"><i class="icon-add"></i>
-<div class="fallback">
-<input name="photo" id="chose-photo" multiple="" type="file">
 </div>
-</span>
+<div class="u-form-group">
+<input type="button" value="B" onclick="formatText ('b');" title="[b]Bold[/b]"/> 
+<input type="button" value="I" onclick="formatText ('i');" title="[i]Italic[/i]"/> 
+<input type="button" value="U" onclick="formatText ('u');" title="[u]Underline[/u]"/>
+<input type="button" value="S" onclick="formatText ('s');" title="[s]Strike through[/s]"/> 
+<input type="button" value="IMG" onclick="formatText ('img');" title="[img]https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png[/img]"/> 
+<input type="button" value="Spoiler" onclick="formatText ('spoiler');" title="[spoiler]Spoiler Text[/spoiler]"/> 
+<textarea name="message" id="post-msg" rows="5" cols="35" placeholder="Comment"></textarea>
 </div>
-</div>
-</td>
-</tr>
-<tr>
-<td>
+<div class="u-form-group">
 <label for="captcha">Captcha: </label> <a href="javascript:void(0)" onclick="grecaptcha.reset();">Reload Captcha</a>
 <div class="g-recaptcha" data-sitekey="{{$site_key}}"></div>
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
-</td>
-</tr>
-<tr>
-<td>	
-<span id="char-left">144 characters remaining</span>
-</td>
-</tr>
-<tr>
-<td>
-<div class="u-form-group">
-<button accesskey="s" name="post" type="submit" class="post-btn">New Reply</button></td>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>	
 </div>
-</td>
-</tr>
-</table>
+<div class="u-form-group">
+<input title="Shift + Click to remove the file" class="qrFile" name="upfile" tabindex="0" type="file">
+<span class="qrSpoiler"><label>[<input value="on" name="spoiler" type="checkbox">Spoiler?]</label></span>
+<input value="Post" tabindex="0" type="submit">
+</div>
 </form>
-
-<div id="ajax-loader" data-href="{{@home_url}}/ajax/{{ @board_slug }}/thread/{{ @thread_id }}/thread.json"></div>

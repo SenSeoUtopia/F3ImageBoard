@@ -4,6 +4,48 @@ class AjaxController extends Controller{
 	
 protected $tpl = null;
 
+/* Set Users Settings */
+public function set_settings($f3,$args){
+
+$settings = $f3->get("GET");
+
+// Thread Watcher
+$thread_watcher = isset($settings['thread_watcher']) ? true : false;
+// Auto Loader
+$thread_watcher = isset($settings['thread_watcher']) ? true : false;
+// Updated Sound
+$thread_watcher = isset($settings['updater_sound']) ? true : false;
+// Quick Reply
+$thread_watcher = isset($settings['quick_reply']) ? true : false;
+// Show Spoiler Images
+$thread_watcher = isset($settings['thread_watcher']) ? true : false;
+// Show Quote by
+$thread_watcher = isset($settings['thread_watcher']) ? true : false;
+// Show Thread Stats
+$thread_watcher = isset($settings['thread_watcher']) ? true : false;
+//
+$thread_watcher = isset($settings['thread_watcher']) ? true : false;
+
+$thread_watcher = isset($settings['thread_watcher']) ? true : false;
+
+$thread_watcher = isset($settings['thread_watcher']) ? true : false;
+
+$thread_watcher = isset($settings['thread_watcher']) ? true : false;
+
+$thread_watcher = isset($settings['thread_watcher']) ? true : false;
+
+$thread_watcher = isset($settings['thread_watcher']) ? true : false;
+
+$thread_watcher = isset($settings['thread_watcher']) ? true : false;
+
+$thread_watcher = isset($settings['thread_watcher']) ? true : false;
+
+
+return Response::json($settings);
+}
+
+
+/* Get Selected Post Data */
 public function get_post($f3,$args){
 $post_id = $args['post_id'];
 
@@ -59,17 +101,21 @@ $patterns = array(
 "/(\[b\])(.*?)(\[\/b\])/",
 "/(\[i\])(.*?)(\[\/i\])/",
 "/(\[u\])(.*?)(\[\/u\])/",
+"/(\[s\])(.*?)(\[\/s\])/",
+"/(\[spoiler\])(.*?)(\[\/spoiler\])/",
 "/(\[img\])(.*?)(\[\/img\])/",
 );
 $replacements = array(
 "<i class=\"twa twa-lg twa_$1\" title=\"$0\"></i>", //Emoji
-"<a href='#$1' class='quote btn btn-success btn-xs'>&gt;&gt; $1</a>", // Post Quotes
+"<a href='#$1' class='quote'>&gt;&gt; $1</a>", // Post Quotes
 "$1<a href=\"$2\" id=\"embed\" class=\"embed-responsive embed-responsive-16by9\">$2</a>", // oEmebed
 "<span class='quotes'>&gt; <q>$1</q></span>", // Self Quotes
 "<br/>", // Self Quotes
 "<strong>$2</strong>",
 "<em>$2</em>",
 "<u>$2</u>",
+"<strike>$2</strike>",
+"<span class=\"spoiler\">$2</span>",
 "<img src=\"$2\" alt=\"$2\"/>",
 );
 
@@ -170,8 +216,44 @@ echo Response::json($json_data);
 
 }
 
+/* Ajax Delete Post */
+public function post_delete($f3){
 
-// Loading Posts
+$post_id = $f3->get("POST.post_id");
+
+if(isset($post_id)){
+
+if(count($post_id) > 1){
+
+foreach($post_id as $post_number){
+
+$post = Posts::find($post_number);
+
+if($post->delete()){
+$msg = array("success" => true,"msg" => "Your Message has been deleted. :)");
+}
+
+}
+
+} else {
+$post = Posts::find($post_id[0]);
+
+if($post->delete()){
+$msg = array("success" => true,"msg" => "Your Message has been deleted. :)");
+}
+
+}
+
+} else {
+$msg = array("error" => true,"msg" => "Unable to Delete Selected Post");
+}
+
+
+return Response::json($msg);
+}
+
+
+/* Loading Post Data */
 public function post_loader($f3,$args){
 
 $board_slug = $args['board_slug'];
@@ -228,17 +310,21 @@ $patterns = array(
 "/(\[b\])(.*?)(\[\/b\])/",
 "/(\[i\])(.*?)(\[\/i\])/",
 "/(\[u\])(.*?)(\[\/u\])/",
+"/(\[s\])(.*?)(\[\/s\])/",
+"/(\[spoiler\])(.*?)(\[\/spoiler\])/",
 "/(\[img\])(.*?)(\[\/img\])/",
 );
 $replacements = array(
 "<i class=\"twa twa-lg twa_$1\" title=\"$0\"></i>", //Emoji
-"<a href='#$1' class='quote btn btn-success btn-xs'>&gt;&gt; $1</a>", // Post Quotes
+"<a href='#$1' class='quote'>&gt;&gt; $1</a>", // Post Quotes
 "$1<a href=\"$2\" id=\"embed\" class=\"embed-responsive embed-responsive-16by9\">$2</a>", // oEmebed
 "<span class='quotes'>&gt; <q>$1</q></span>", // Self Quotes
 "<br/>", // Self Quotes
 "<strong>$2</strong>",
 "<em>$2</em>",
 "<u>$2</u>",
+"<strike>$2</strike>",
+"<span class=\"spoiler\">$2</span>",
 "<img src=\"$2\" alt=\"$2\"/>",
 );
 
