@@ -1,0 +1,36 @@
+<check if="{{ @page.board }}">
+<true>
+<form role="form" method="post" enctype="multipart/form-data" id="post-create">
+<div id="msg"></div>
+<div class="u-form-group">
+<label>Board Name</label>	
+<input name="name" autocomplete="off" type="text" placeholder="Board Title" value="{{ @page.board.name }}">
+</div>
+<div class="u-form-group">
+<label>Board Short Code</label>
+<input name="slug" autocomplete="off" type="text" placeholder="Board Short Name" value="{{ @page.board.slug }}">
+</div>
+<div class="u-form-group">
+<label>Category</label>
+<select name="category_id">
+<repeat group="{{@page.category_list }}" value="{{ @category }}" counter="{{ @counter}}">
+<check if="{{ @category.id === @page.board.category_id}}">
+<true><option value="{{ @category.id }}" selected="selected">{{ @category.name }}</option></true>
+<false><option value="{{ @category.id }}">{{ @category.name }}</option></false>
+</check>
+</repeat>
+</select>
+</div>
+<div class="u-form-group">
+<label>Show Country Flag</label>
+<input name="show_contry_flag" autocomplete="off" type="checkbox" value="1" <check if="{{ @page.board.show_contry_flag }}">checked="checked"</check>>
+</div>
+<div class="u-form-group">
+<button type="submit">Save Changes</button>
+</div>
+</form>
+</true>
+<false>
+<div id="error-msg">No Boards is Exists Create a New One</div>
+</false>
+</check>

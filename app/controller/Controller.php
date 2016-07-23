@@ -58,6 +58,9 @@ $f3->set('users',$get_auth);
 
 }
 
+/* Set Boards List */
+$board_list = Boards::all();
+$f3->set('board_list',$board_list);
 
 if(isset($this->tpl)){
 /* Register Filters */

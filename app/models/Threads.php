@@ -5,6 +5,8 @@ class Threads extends Eloquent{
 
 protected $table = "threads";
 
+protected $fillable = ['name'];
+
 // Relationship Post
 public function posts(){
 return $this->hasMany("Posts","thread_id");

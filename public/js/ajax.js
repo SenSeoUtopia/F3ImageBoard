@@ -1,6 +1,6 @@
 var cache = {};
 
-var page_title =document.title;
+var page_title = document.title;
 
 function qr(showhide){
 	
@@ -19,7 +19,6 @@ if(typeof grecaptcha !== 'undefined' && grecaptcha) grecaptcha.reset();
 $('#quick-reply').hide(); /* If the function is called with the variable 'hide', hide the login box */
 $("#post-create,#posted").clearForm();
 $("#post-msg").removeClass('has-error');
-
 $('#msg').empty();
 
 } 
@@ -29,7 +28,24 @@ $('#msg').empty();
 
 $(function(){
 
+
+$("#sort_by").on('change', function(){
+$('#Grid').mixItUp('sort', this.value);
+ });
+
+$("#image_size").change(function(){
+var value = this.value, old;
+$(".grid-li").removeClass("grid-size-vsmall");
+$(".grid-li").removeClass("grid-size-small");
+$(".grid-li").removeClass("grid-size-large");
+$(".grid-li").addClass("grid-size-"+value);
+});
+
+$('#Grid').mixItUp({});
+
+
 // Emoji
+if($('textarea').length > 0){
 $('textarea').suggest(':', {
 data: function(q) {
 if (q && q.length > 1) {
@@ -41,6 +57,7 @@ console.log(emoji);
 return { value: emoji.value, text: '<span class="twa twa-lg twa_'+emoji.code+'"></span> <strong>'+emoji.text+'</strong> ' }
 }
 });
+}
 
 if($('.gallery-img').length > 0){
 $('.gallery-img').SimpleSlider();
@@ -76,7 +93,7 @@ $("#quick-reply").draggable({ containment: 'window', scroll: false });
 
 /* Search */
 
-$("#menu .search .filter").keyup(function () {
+$("#menu .search").keyup(function () {
 var rex = new RegExp($(this).val(), 'i');
 $('.thread').hide();
 $('.thread').filter(function () {
@@ -162,16 +179,6 @@ myTimer();
 
 $("#post-create,#posted").ajaxForm({
 beforeSubmit: function (){
-	
-if(!$("#post-msg").val().length > 0){
-
-alert("Message is required.");
-
-$("#post-msg").addClass('has-error');
-
-return false;
-}	
-	
 msg.html('Posting...');
 return true;
 },
@@ -226,14 +233,12 @@ $("#menu div.thread-stats span.images").html(b.total_images);
 
 });
 
+setTimeout(function(){msg.hide() }, 200000);
 }
 
 });
 
 
-setTimeout(function(){
-msg.hide()
-}, 10000);
 } else {
 msg.html(error_template);
 
@@ -263,7 +268,7 @@ var timer = '';
 function myTimer() {
 var intervals = [5,10,20,40,60,90,120]; // Available Timer Intervals
 var rand = Math.floor(Math.random()*intervals.length) // Random Number for Choosing Intervals
-var sec = intervals[rand];
+var sec = sec = 0 ? intervals[0]: intervals[rand];
 clearInterval(timer);
 timer = setInterval(function() { 
 $('span#timer').text("in " + sec-- + " secs");
@@ -388,7 +393,7 @@ if(post_id in cache){
 return pop_up_info(cache[post_id]);
 }
 else{
-$.post(base_url +'/ajax/get_post', {"post_id": b }, function(a) {
+$.post(base_url +'/ajax/get_post/'+b,function(a) {
 cache[post_id] = a;
 pop_up_info(cache[post_id]);
 });

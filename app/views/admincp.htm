@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>{{ @page.title }} - {{ @site_title}}</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="shortcut icon" type="image/x-icon" href="{{ @home_url }}/img/favicon.ico">
+<link rel="stylesheet" type="text/css" href="{{ @home_url }}/css/style.css">
+</head>
+<body>
+<div class="container-fluid">
+
+<h1 class="board_name"><a href="{{ @home_url }}"><img src="{{ @home_url }}/img/logo.png" ></a></h1>
+<div class="clear"></div>
+
+<div class="title-green">{{ @page.title }}</div>
+<ul class="status-list">
+<li><a <check if="{{ @active_menu ==='/admincp' }}"> class="active" </check>href="{{ @home_url }}/admincp"><i class="icon-home"></i> AdninCP</a></li>
+<li><a <check if="{{ @active_menu ==='/admincp/boards' }}"> class="active" </check>href="{{ @home_url }}/admincp/boards"><i class="icon-eye"></i> Boards</a></li>
+<li><a <check if="{{ @active_menu ==='/admincp/threads' }}"> class="active" </check>href="{{ @home_url }}/admincp/threads"><i class="icon-star-full"></i> Threads</a></li>
+<li><a <check if="{{ @active_menu ==='/admincp/posts' }}"> class="active" </check>href="{{ @home_url }}/admincp/posts">Posts</a></li>
+<li><a <check if="{{ @active_menu ==='/admincp/photos' }}"> class="active" </check>href="{{ @home_url }}/admincp/photos">Photos</a></li>
+<li><a <check if="{{ @active_menu ==='/admincp/reports' }}"> class="active" </check>href="{{ @home_url }}/admincp/reports">Reports</a></li>
+<li><a <check if="{{ @active_menu ==='/admincp/bans' }}"> class="active" </check>href="{{ @home_url }}/admincp/bans">Bans</a></li>
+<li><a <check if="{{ @active_menu ==='/admincp/settings' }}"> class="active" </check>href="{{ @home_url }}/admincp/settings">Settings</a></li>
+</ul>
+
+<include if="{{ isset(@page.content) }}" href="{{ @page.content }}" />
+
+<div class="clear"></div>
+<p class="center">All trademarks and copyrights on this page are owned by their respective parties. Images uploaded are the responsibility of the Poster. Comments are owned by the Poster.</p>
+</div>
+</body>
+</html>

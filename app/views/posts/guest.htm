@@ -1,4 +1,4 @@
-<form role="form" method="post" enctype="multipart/form-data" id="post-create" class="dropzone" action="{{@home_url}}/ajax/{{ @board_slug }}/thread/{{ @thread_id }}/reply">
+<form role="form" method="post" enctype="multipart/form-data" id="post-create" action="{{@home_url}}/ajax/{{ @board_slug }}/thread/{{ @thread_id }}/reply">
 <div id="msg"></div>
 <div class="u-form-group">
 <input name="user_name" size="25" maxlength="35" autocomplete="off" type="text" placeholder="Anonymous">
@@ -20,7 +20,7 @@
 </div>
 <div class="u-form-group">
 <label for="captcha">Captcha: </label> <a href="javascript:void(0)" onclick="grecaptcha.reset();">Reload Captcha</a>
-<div class="g-recaptcha" data-sitekey="{{$site_key}}"></div>
+<div class="g-recaptcha" data-sitekey="{{ @site_key }}"></div>
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>	
 </div>
 <div class="u-form-group">

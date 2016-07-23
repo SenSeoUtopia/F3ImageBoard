@@ -1,24 +1,43 @@
-<div class="uk-form">
-<span data-uk-margin> Sort By: 
-<select id="order"> 
-<option value="thread_id" data-uk-filter="id">Bump order</option> 
-<option value="updated_at" data-uk-filter="updated_at">Last reply</option> 
-<option value="created_at" data-uk-filter="created_at">Creation date</option> 
-<option value="total_reply" data-uk-filter="total_reply">Reply count</option> 
+<include href="posts/guest_topic.htm" with="board_slug = {{ @page.board_slug }}"/>
+
+<check if="{{ isset(@page.board_list.threads) }}">
+<div id="menu">
+<span class="pull-right options"> 
+Image Size:
+<select id="image_size">
+<option value="vsmall">Very small</option>
+<option value="small">Small</option>
+<option selected="selected" value="large">Large</option>
 </select>
-<span class="search">[Search] <input type="text" class="filter"><i class="icon-search"></i></span>
+Sort By: 
+<select id="sort_by">
+<option selected="selected" value="default">Bump order</option>
+<option value="time:asc">Creation date</option>
+<option value="reply:desc">Reply count</option>
+<option value="random">Random</option>
+</select>
 </span>
+<span class="search_bar">[Search] <input type="search" class="search"><i class="icon-search"></i></span>
 </div>
 
-<div class="extended-small" id="threads" data-uk-grid="{controls: '#order'}">
-
-<repeat group="{{ @page.board_list.threads }}" value="{{ @threads }}" counter="{{ @counter }}">
-
-<div id="thread-{{ @threads.id }}" class="thread" data-uk-filter="id,created_at,updated_at,total_reply">
-<a href="{{ @home_url }}/{{ @page.board_list.slug }}/thread/{{ @threads.id }}/{{ @threads.name | remove_white_spaces }}"><img class="thumb img-thumbnail img-responsive" src="{{ @home_url }}/uploads/{{ @page.board_list.slug }}/{{ @threads.id }}/{{ @threads.photos->first()->file_name }}"></a>
-<div title="(R)eplies / (I)mages">R: <b>{{ @threads.posts->count() }}</b> / I: <b>1</b></div>
-<div class="teaser">{{ @threads.name }} <p>{{ @threads.content }}</p></div>
-</div>
+<div class="threads">
+<ul id="Grid"><!-- grid -->
+<repeat group="{{ @page.board_list.threads }}" value="{{ @threads }}" counter="{{ @counter }}">	
+<li class="mix" data-reply="{{ @threads.posts->count() }}" data-bump="{{ @threads.created_at }}" data-time="{{ @threads.posts->last()->created_at }}">
+<div class="thread grid-li grid-size-large">
+<a href="{{ @home_url }}/{{ @page.board_list.slug }}/thread/{{ @threads.id }}/{{ @threads.name | remove_white_spaces }}">
+<img class="thumb img-thumbnail img-responsive" src="{{ @home_url }}/uploads/{{ @page.board_list.slug }}/{{ @threads.id }}/thumb/{{ @threads.photos->first()->file_name }}">
+</a>
+<div class="replies">
+<strong title="(R)eplies / (I)mages">R: {{ @threads.posts->count() }} / I: {{ @threads.photos->count() }}</strong>
+<check if="{{ @threads.name }}">
+<p class="intro"><span class="subject">{{ @threads.name }}</span></p>
+</check>
+{{ @threads.posts->first()->content}}
+</div> 
+</div><!-- thread Grid -->                   
+</li>
 </repeat>
-
-</div>
+</ul>
+</div><!-- threads -->
+</check>

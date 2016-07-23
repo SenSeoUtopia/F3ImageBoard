@@ -49,48 +49,15 @@ return Response::json($settings);
 public function get_post($f3,$args){
 $post_id = $args['post_id'];
 
-// Models
-$board_list = new Boards($this->db);
-$topic_list = new Threads($this->db);
-$posts_list = new Posts($this->db);
-$load_photos = new Photos($this->db);
+$posts = Posts::find($post_id);
 
-$results = $posts_list->find(array('id =? ',$post_id));
+if($posts){
 
-$result = array();
+$board_slug = $posts->board->slug;
 
-if(isset($results) and !empty($results)){
-foreach ($results as $posts) {
-	
-$board_list->load(array('id=?', $posts['board_id']));
+$thread_id = $posts->thread_id;
 
-$board_name = $board_list->name;
-$board_id = $board_list->id;
-$board_slug = $board_list->slug;
-
-$topic_list->load(array('id=?',$posts['thread_id']));
-
-$topic_title = $topic_list->name;
-$topic_id = $topic_list->id;	
-	
-	
-$post_id = $posts['id'];
-
-$get_poster_id = $posts['user_id'];
-
-$img_id = $posts['img'];
-
-$user = new User($this->db);
-$check_is_admin = $user->check_is_admin($get_poster_id);
-
-if($check_is_admin > 0){ $class = "admin"; } else { $class ="name";}
-
-if(!empty($posts['user_name'])) {
-$post_by = htmlspecialchars($posts['user_name']);
-}
-else {
-$post_by = "Anonymous";
-}
+$thread_title = $posts->thread->name;
 
 $patterns = array(
 "/:(.*?):/i", //Emoji
@@ -121,99 +88,12 @@ $replacements = array(
 
 $text = preg_replace($patterns,$replacements,htmlspecialchars($posts['content']));
 
-$post_content = $text;
+} else{
 
-$get_photos = $load_photos->get_photos_all($topic_id,$post_id);
-
-$photo_list = array();
-
-if(count($get_photos) > 1){
-foreach($get_photos as $photo){
-$fileName = $photo['file_name'];
-$org_file_name = $photo['original_name'];
-$file_size = formatSizeUnits($photo['size']);
-$file_pixels = $photo['pixels'];
-$photo_list[] = array(
-"file_name" => $fileName,
-'original_name' => $org_file_name,
-'size' => $file_size,
-'pixels' => $file_pixels
-);
-}
-} else {
-foreach($get_photos as $photo){
-$fileName = $photo['file_name'];
-$org_file_name = $photo['original_name'];
-$file_size = formatSizeUnits($photo['size']);
-$file_pixels = $photo['pixels'];
-}
+return false;
 }
 
-$post_time = $posts['created_at'];
-
-$ago_post_time = nicetime($posts['created_at']);
-
-if(count($get_photos) !== 0 && count($get_photos) < 2){
-$data = array(
-"id" => $post_id,
-"class_name" => $class,
-"board_slug" => $board_slug,
-"thread_id" => $thread_id,
-"thread_title" => $topic_title,
-"post_by" => $post_by,
-"post_time" => $post_time,
-"ago_post_time" => $ago_post_time,
-"post_content" => $post_content,
-"file_name" => $fileName,
-"original_name" => $org_file_name,
-"size" => $file_size,
-"pixels" => $file_pixels
-);
-} 
-elseif(count($get_photos) > 0){
-$data = array(
-"id" => $post_id,
-"class_name" => $class,
-"board_slug" => $board_slug,
-"thread_id" => $thread_id,
-"thread_title" => $topic_title,
-"post_by" => $post_by,
-"post_time" => $post_time,
-"ago_post_time" => $ago_post_time,
-"gallery" => true,
-"photos" => $photo_list,
-"post_content" => $post_content
-);
-}
-
-else {
-$data = array(
-"id" => $post_id,
-"class_name" => $class,
-"board_slug" => $board_slug,
-"thread_id" => $thread_id,
-"thread_title" => $topic_title,
-"post_by" => $post_by,
-"post_time" => $post_time,
-"ago_post_time" => $ago_post_time,
-"post_content" => $post_content
-);
-}
-
-array_push($result,$data);
-
-}
-}
-
-if(isset($result)){
-$json_data = $result;
-} else {
-$json_data = array("error"=> 400,"msg" => "Post not Found");
-}
-
-echo Response::json($json_data);
-
-
+return Response::json($posts);
 }
 
 /* Ajax Delete Post */

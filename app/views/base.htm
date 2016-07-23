@@ -11,24 +11,22 @@
 <meta name="description" content="">
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="shortcut icon" type="image/x-icon" href="{{ @home_url }}/img/favicon.ico">
+<link rel="stylesheet" type="text/css" href="{{ @home_url }}/css/style.css">
 <check if="{{ @current_style }}">
-<true>
-<link rel="stylesheet" type="text/css" href="{{ @home_url }}/css/{{ @current_style }}.css" data-theme="current">	
-</true>
-<false>
-<link rel="stylesheet" type="text/css" href="{{ @home_url }}/css/YotsubaBlue.css" data-theme="current">
-</false>
-</check>
+<true><link rel="stylesheet" type="text/css" href="{{ @home_url }}/css/{{ @current_style }}.css" data-theme="current"></true>
+<false><link rel="stylesheet" type="text/css" href="{{ @home_url }}/css/YotsubaBlue.css" data-theme="current"></false></check>
 <link media="all" type="text/css" rel="stylesheet" href="{{ @home_url }}/css/pace-flash.css">
 <script src="{{ @home_url }}/js/jquery.min.js"></script>
-<script src="{{ @home_url }}/js/jquery-ui.min.js"></script>
 <script src="{{ @home_url }}/js/pace.min.js"></script>
+<script src="{{ @home_url }}/js/jquery.mixitup.min.js"></script>
+<check if="{{ @page.board_slug }}">
+<script src="{{ @home_url }}/js/jquery-ui.min.js"></script>
 <script src="{{ @home_url }}/js/jquery.form.min.js"></script>
 <script src="{{ @home_url }}/js/bootstrap-suggest.js"></script>
-<script src="{{ @home_url }}/js/sweetalert.min.js"></script>
+<link media="all" type="text/css" rel="stylesheet" href="{{ @home_url }}/css/bootstrap-suggest.css">
+</check>
 <check if="{{ @page.post_list }}">
 <link media="all" type="text/css" rel="stylesheet" href="{{ @home_url }}/css/sweetalert.css">
-<link media="all" type="text/css" rel="stylesheet" href="{{ @home_url }}/css/bootstrap-suggest.css">
 <link media="all" type="text/css" rel="stylesheet" href="{{ @home_url }}/css/twemoji-awesome.css">
 <link media="all" type="text/css" rel="stylesheet" href="{{ @home_url }}/css/sweetalert.css">
 <link media="all" type="text/css" rel="stylesheet" href="{{ @home_url }}/css/SimpleSlider.css">
@@ -39,27 +37,20 @@
 <script type="text/javascript">
 var base_url = '{{ @home_url }}';
 var max_char_limit = 1000;
-<check if="{{ @page.thread_id }}">
-<true>var thread_id = {{ @page.thread_id }};</true>
-<false>var thread_id = 0;</false>
-</check>
-var guest = 0;
 var is_logged_in = false;
-<check if="{{ @page.board_id }}">
-<true>var board_id = {{ @page.board_id }};</true>
-<false>var board_id = 0;</false>
-</check>
 </script>
 </head>
 <body>
 	
 <div class="container-fluid">
+<include if="{{ isset(@board_list)}}" href="widgets/board_list.htm" with="board_list = {{ @board_list }},total_boards = {{ count(@board_list) }}"/>
+
 <h1 class="board_name"><a href="{{ @home_url }}"><img src="{{ @home_url }}/img/logo.png" ></a></h1>
 <check if="{{ @page.board_slug }}">
 <h1 class="board_name"><a href="{{ @home_url }}/{{ @page.board_slug }}">{{ @page.board_title }}</a></h1>
 </check>
 
-<include if="{{ !empty(@page['content']) }}" href="{{ @page['content'] }}" />
+<include if="{{ !empty(@page.content) }}" href="{{ @page.content }}" />
 
 <div id="menu">
 <div class="post-btn">
@@ -89,10 +80,6 @@ Style:
 </check>
 </div>
 <div class="clear"></div>
-
-
-<p class="muted pull-right">&copy {{ date('Y') }} 4ch . All rights reserved</p>
-
 <p class="center">All trademarks and copyrights on this page are owned by their respective parties. Images uploaded are the responsibility of the Poster. Comments are owned by the Poster.</p>
 </div>
 </body>

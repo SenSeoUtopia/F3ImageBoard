@@ -1,0 +1,11 @@
+<check if="{{ @page.boards_list }}">
+<table>
+<repeat group = "{{ @page.boards_list }}" value="{{ @boards_list }}" counter="{{ @counter }}">
+<tr>
+<td><a href="{{@home_url}}/admincp/boards/{{ @boards_list.slug }}/edit">{{ @boards_list.name }}</a></td></tr>
+</repeat>
+</table>
+<false>
+<div id="error-msg">No Boards is Exists Create a New One</div>
+</false>
+</check>

@@ -1,28 +1,12 @@
-<?php 
-$board_list = \app\models\Boards::all();
-$home_url = URL::to('/');
-$setting_url = URL::to('settings');
-$register_url = URL::to('register');
-$login_url = URL::to('login');
-$log_out = URL::to('logout');
-
-$i = 0; $total_boards = count($board_list);
-echo "[";
-foreach($board_list as $boards){
-$i++;
-$board_name = $boards['name'];
-$board_slug = $boards['slug'];
-$board_url = URL::to($board_slug);
-if($i == $total_boards){
-echo "<a href=\"$board_url/\" title=\"$board_name\">$board_slug</a> ";
-} else {
-echo "<a href=\"$board_url/\" title=\"$board_name\">$board_slug</a> / ";
-}
-}
-echo "]";
-if(\Auth::check()){
-$user_name = \Auth::user()->user_name;	
-echo "<span class=\"pull-right\">[<a href=\"$home_url\">Home</a>] [<b>$user_name</b> <a href=\"$log_out\"><span class=\"icon-logout\"></span> Logout </a>]</span>";
-} else {
-echo "<span class=\"pull-right\">[<a href=\"$home_url\">Home</a>] [<a href=\"$login_url\"><span class=\"icon-login\"></span> Login </a> / <a href=\"$register_url\">Register</a>]</span>";
-}
+[
+<repeat group="{{@board_list}}" value="{{@boards}}" counter="{{@counter}}">
+<check if="{{ @counter === @total_boards }}">
+<true>
+<a href="{{@home_url}}/{{@boards.slug}}" title="{{@boards.name}}">{{@boards.slug}}</a>
+</true>
+<false>
+<a href="{{@home_url}}/{{@boards.slug}}" title="{{@boards.name}}">{{@boards.slug}}</a> /
+</false>
+</check>
+</repeat>
+]

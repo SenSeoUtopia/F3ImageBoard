@@ -5,6 +5,8 @@ class Posts extends Eloquent{
 
 protected $table = "posts";
 
+protected $fillable = ['content','ip','user_name','thread_id','board_id'];
+
 // Boards
 public function boards(){
 return $this->belongsTo("Boards");
