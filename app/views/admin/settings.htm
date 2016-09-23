@@ -1,46 +1,79 @@
 <form role="form" method="post" enctype="multipart/form-data" id="post-create" class="settings">
-<div id="msg"></div>
+<check if="{{ @page.msg }}">
+<check if="{{ @page.msg.success }}">
+<true>
+<div id="success-msg"><i class="icon-ok"></i> {{ @page.msg.msg }}</div>
+</true>
+<false>
+<div id="error-msg"><i class="icon-cross"></i> {{ @page.msg.msg }}</div>
+</false>
+</check>
+</check>
 <div class="u-form-group">
 <label>Site Title</label>	
-<input type="text" name="site_title" value="">
+<input type="text" name="site_title" value="{{ @page.settings.site_title }}">
 </div>
 <div class="u-form-group">
 <label>Meta Description</label>	
-<input type="text" name="site_desc" value="">
+<input type="text" name="site_desc" value="{{ @page.settings.site_description }}">
 </div>
 <div class="u-form-group">
 <label>Meta Keyword</label>	
-<input type="text" name="site_title" value="">
+<input type="text" name="site_keyword" value="{{ @page.settings.site_keyword }}">
 </div>
 <div class="u-form-group half">
 <label>Recaptcha</label>
 <div class="switch">
-<input id="recaptcha" class="cmn-toggle cmn-toggle-round" type="checkbox">
+<input id="recaptcha" name="recaptcha" class="cmn-toggle cmn-toggle-round" type="checkbox" value="1" <check if="{{ @page.settings.recaptcha }}">checked="checked"</check>>
 <label for="recaptcha"></label>
 </div>
 </div>
 <div class="u-form-group half">
 <label>Recaptcha Key</label>	
-<input type="text" name="site_title" value="">
+<input type="text" name="recaptcha_key" value="{{ @page.settings.recaptcha_key }}">
 </div>
 <div class="u-form-group half">
 <label>Recaptcha Secret Key</label>	
-<input type="text" name="site_title" value="">
+<input type="text" name="recaptcha_secret" value="{{ @page.settings.recaptcha_secret }}">
 </div>
 <div class="u-form-group half">
 <label>Maintenance</label>
 <div class="switch">
-<input id="maintenance" class="cmn-toggle cmn-toggle-round" type="checkbox">
+<input id="maintenance" name="maintenance" class="cmn-toggle cmn-toggle-round" type="checkbox" value="1" <check if="{{ @page.settings.maintenance }}">checked="checked"</check>>
 <label for="maintenance"></label>
 </div>
 </div>
-<div class="u-form-group">
-<label></label>	
-<input type="text" name="site_title" value="">
+<div class="u-form-group half">
+<label>Https</label>
+<div class="switch">
+<input id="https" name="https_enable" class="cmn-toggle cmn-toggle-round" type="checkbox" value="1" <check if="{{ @page.settings.https_enable }}">checked="checked"</check>>
+<label for="https"></label>
+</div>
+</div>
+<div class="u-form-group half">
+<label>Quick Reply</label>
+<div class="switch">
+<input id="enable_qr" name="quick_reply" class="cmn-toggle cmn-toggle-round" type="checkbox" value="1" <check if="{{ @page.settings.quick_reply }}">checked="checked"</check>>
+<label for="enable_qr"></label>
+</div>
+</div>
+<div class="u-form-group half">
+<label>Emoji</label>
+<div class="switch">
+<input id="emoji" name="emoji" class="cmn-toggle cmn-toggle-round" type="checkbox" value="1" <check if="{{ @page.settings.emoji }}">checked="checked"</check>>
+<label for="emoji"></label>
+</div>
+</div>
+<div class="u-form-group half">
+<label>BBCode</label>
+<div class="switch">
+<input id="bbcode" name="bbcode" class="cmn-toggle cmn-toggle-round" type="checkbox" value="1" <check if="{{ @page.settings.bbcode }}">checked="checked"</check>>
+<label for="bbcode"></label>
+</div>
 </div>
 <div class="u-form-group">
-<label></label>	
-<input type="text" name="site_title" value="">
+<label>Footer Message</label>	
+<input type="text" name="footer" value="{{ @page.settings.footer }}">
 </div>
 <div class="u-form-group">
 <button type="submit">Update Settings</button>

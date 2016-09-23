@@ -63,13 +63,12 @@ $upload_dir = $this->upload_dir;
 $org_file_name = preg_replace('/\s+/', '_', $file_name); // Original Name
 list($width, $height) = getimagesize($file_tmp);
 $file_pixels = $width.'x'.$height;
-$fileName = time().$org_file_name; // renaming image
+$fileName = $org_file_name; // renaming image
 
 
 // Thread Create
 $thread = Threads::firstorNew(['name' => $thread_title]);
 $thread->user_id = 0;
-$thread->post_id = 0;
 $thread->board_id = $board_id;
 $thread->save();
 
@@ -175,15 +174,9 @@ $data = $f3->get("POST");
 
 $files = $f3->get("FILES.upfile");
 
-$status = 200;
-
-$rules = array(
-"message" => "required"
-);
-
-$valid = Validate::is_valid($data, $rules);
-
-if($valid === true) {
+if(empty($data['message']) && empty($files)){
+return Response::json(array("error" => true,"msg" => "Invalid Data"));
+}
 
 $options = ['cost' => 12, 'salt' => mcrypt_create_iv(22, MCRYPT_DEV_URANDOM)];	
 	
@@ -195,7 +188,7 @@ $ip = $f3->get('IP');
 
 $user_id = 0;
 
-$user_name = !empty($data['user_name']) ? trim($data['user_name']) : 'Anonymous';
+$user_name = empty($data['user_name']) ? 'Anonymous' : trim($data['user_name']) ;
 
 $board_slug = $args['board_slug'];
 
@@ -245,7 +238,7 @@ $upload_dir = $this->upload_dir;
 $org_file_name = preg_replace('/\s+/', '_', $file_name); // Original Name
 list($width, $height) = getimagesize($file_tmp);
 $file_pixels = $width.'x'.$height;
-$fileName = time().$org_file_name; // renaming image
+$fileName = $org_file_name; // renaming image
 
 /* Move File Path */
 $destination = "$upload_dir/$board_slug/$thread_id/$fileName";
@@ -300,7 +293,6 @@ $msg = array("error" => true,"msg" => $errors);
 
 /* Insert new data */
 $posts = new Posts;
-
 $posts->user_id = 0;
 $posts->user_name = isset($user_name) ? $user_name : 'Anonymous';
 $posts->is_thread = 0;
@@ -318,11 +310,7 @@ $msg = array("success" => true,"msg" => "You've Commented Successfully.");
 
 }
 
-} else {
-$msg = array("error" => true,"msg" => $valid);
-}
-
-return Response::json($msg,$status);
+return Response::json($msg);
 }
 
 

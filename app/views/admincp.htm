@@ -9,6 +9,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="shortcut icon" type="image/x-icon" href="{{ @home_url }}/img/favicon.ico">
 <link rel="stylesheet" type="text/css" href="{{ @home_url }}/css/style.css">
+<link rel="stylesheet" type="text/css" href="{{ @home_url }}/css/admincp.css">
 </head>
 <body>
 <div class="container-fluid">
@@ -16,17 +17,27 @@
 <h1 class="board_name"><a href="{{ @home_url }}"><img src="{{ @home_url }}/img/logo.png" ></a></h1>
 <div class="clear"></div>
 
-<div class="title-green">{{ @page.title }}</div>
 <ul class="status-list">
 <li><a <check if="{{ @active_menu ==='/admincp' }}"> class="active" </check>href="{{ @home_url }}/admincp"><i class="icon-home"></i> AdninCP</a></li>
-<li><a <check if="{{ @active_menu ==='/admincp/boards' }}"> class="active" </check>href="{{ @home_url }}/admincp/boards"><i class="icon-eye"></i> Boards</a></li>
+<li class="dropdown"><a <check if="{{ @active_menu ==='/admincp/boards' }}"> class="active" </check>href="{{ @home_url }}/admincp/boards"><i class="icon-eye"></i> Boards</a>
+<div class="dropdown-content">
+<a href="{{ @home_url }}/admincp/boards/create">Create Board</a>
+</div>
+</li>
 <li><a <check if="{{ @active_menu ==='/admincp/threads' }}"> class="active" </check>href="{{ @home_url }}/admincp/threads"><i class="icon-star-full"></i> Threads</a></li>
 <li><a <check if="{{ @active_menu ==='/admincp/posts' }}"> class="active" </check>href="{{ @home_url }}/admincp/posts">Posts</a></li>
 <li><a <check if="{{ @active_menu ==='/admincp/photos' }}"> class="active" </check>href="{{ @home_url }}/admincp/photos">Photos</a></li>
 <li><a <check if="{{ @active_menu ==='/admincp/reports' }}"> class="active" </check>href="{{ @home_url }}/admincp/reports">Reports</a></li>
-<li><a <check if="{{ @active_menu ==='/admincp/bans' }}"> class="active" </check>href="{{ @home_url }}/admincp/bans">Bans</a></li>
+<li class="dropdown"><a <check if="{{ @active_menu ==='/admincp/bans' }}"> class="active" </check>href="{{ @home_url }}/admincp/bans">Bans</a>
+<div class="dropdown-content">
+<a href="{{ @home_url }}/admincp/boards/create">Ban User</a>
+</div>
+</li>
 <li><a <check if="{{ @active_menu ==='/admincp/settings' }}"> class="active" </check>href="{{ @home_url }}/admincp/settings">Settings</a></li>
 </ul>
+<div class="clear"></div>
+
+<div class="title-green">{{ @page.title }}</div>
 
 <include if="{{ isset(@page.content) }}" href="{{ @page.content }}" />
 

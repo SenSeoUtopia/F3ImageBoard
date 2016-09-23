@@ -1,50 +1,57 @@
+<form role="form" method="post" enctype="multipart/form-data" id="post-create" action="{{@home_url}}/ajax/{{ @page.board_slug }}/thread/{{ @page.thread_id }}/reply">
 <table>
 <tr>
-<td colspan="5"><div id="thread-msg">Post a Reply</div></td>	
+<td colspan="5"><div id="thread-msg">Post a Reply</div><div id="msg"></div></td>	
 </tr>
 <tr>
-<th>Name
-<input value="" name="lastname" type="hidden">
-</th>
+<th>Name</th>
 <td>
-<input name="name" size="25" maxlength="35" autocomplete="off" type="text">
-<input style="display:none" value="" name="ca3q720lxfoz96♘jg1uwdb48ki♲" type="text">
+<input name="user_name" size="25" maxlength="35" autocomplete="off" type="text" placeholder="Anonymous">
 </td>
 </tr>
 <tr>
 <th>Email</th>
 <td>
-<input name="email" size="25" maxlength="40" autocomplete="off" type="text">
+<input name="email" size="25" maxlength="40" autocomplete="off" type="text" placeholder="Email">
 </td>
 </tr>
 <tr>
 <th>Subject</th>
 <td>
-<input style="float:left;" name="subject" size="25" maxlength="100" autocomplete="off" type="text">
-<input accesskey="s" style="margin-left:2px;" name="post" value="New Reply" type="submit">
+<input name="subject" size="25" maxlength="100" autocomplete="off" type="text" placeholder="Subject">
+<input accesskey="s" name="post" value="New Reply" type="submit">
+</td>
+</tr>
+<tr>
+<th>BBCode</th>
+<td>
+<input type="button" value="B" onclick="formatText ('b');" title="[b]Bold[/b]"/> 
+<input type="button" value="I" onclick="formatText ('i');" title="[i]Italic[/i]"/> 
+<input type="button" value="U" onclick="formatText ('u');" title="[u]Underline[/u]"/>
+<input type="button" value="S" onclick="formatText ('s');" title="[s]Strike through[/s]"/> 
+<input type="button" value="IMG" onclick="formatText ('img');" title="[img]https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png[/img]"/> 
+<input type="button" value="Spoiler" onclick="formatText ('spoiler');" title="[spoiler]Spoiler Text[/spoiler]"/> 
 </td>
 </tr>
 <tr>
 <th>Comment</th>
 <td>
-<textarea name="body" id="body" rows="5" cols="35"></textarea>
+<textarea name="message" id="post-msg" rows="5" cols="35" placeholder="Comment"></textarea>
 </td>
 </tr>
 <tr id="upload">
 <th>File</th>
 <td>
-<input name="file" id="upload_file" type="file">
+<input title="Shift + Click to remove the file" class="qrFile" name="upfile" tabindex="0" type="file">
 </td>
 </tr>
 <tr>
-<th>Password
-<input style="display: none" type="text">
-<input style="display: none" type="password">
-</th>
+<th>Password</th>
 <td>
-<input name="password" value="" size="12" maxlength="18" autocomplete="off" type="password"> <span class="unimportant">(For file deletion.)</span></td>
+<input name="password" size="12" maxlength="18" autocomplete="off" type="password"> <span class="unimportant">(For file deletion.)</span></td>
 </tr>
 </table>
+</form>
 
 <div id="menu">
 <div class="post-btn">
@@ -81,7 +88,7 @@ Reply to Thread No. #{{ @page.thread_id }}
 <div class="files">
 <div id="{{ @posts.id }}" class="file">
 <p class="fileinfo">File: <a href="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @page.thread_id}}/{{ @posts.photos->first()->file_name }}">{{ @posts.photos->first()->original_name }}</a> ({{ formatSizeUnits(@posts.photos->first()->size) }} , {{ @posts.photos->first()->pixels }})</p>
-<img class="post-image" id="image" src="{{ @home_url }}/thumb/{{ @page.board_slug }}/{{ @page.thread_id}}/{{ @posts.photos->first()->file_name }}" data-src="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @page.thread_id }}/{{ @posts.photos->first()->file_name }}">
+<img class="post-image" id="image" src="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @page.thread_id}}/thumb/{{ @posts.photos->first()->file_name }}" data-src="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @page.thread_id }}/{{ @posts.photos->first()->file_name }}">
 </div>
 </div>
 <div class="post op" id="{{ @posts.id }}">
@@ -95,7 +102,8 @@ Reply to Thread No. #{{ @page.thread_id }}
 <span class="icon-history"></span> 
 <time class="tooltip" data-tooltip="{{ @posts->created_at->format('m/d/y (D) H:i:s') }}">{{ nicetime(@posts.created_at) }}</time>
 <a class="post_no" href="#{{ @posts.id }}" id="post-id" rel="{{ @posts.id }}">No. {{ @posts.id }}</a>
-<a class="post_no" href="javascript:void(0)" id="quote_post" rel="{{ @posts.id }}">Quote</a> 
+<a class="post_no" href="javascript:void(0)" id="quote_post" rel="{{ @posts.id }}">Quote</a>
+<span id="report" rel="{{ @posts.id }}">Report</span>
 </p>
 <div class="body">{{ @posts.content | remove_execute_code,remove_spaces,replace_data }}</div>
 </div>
@@ -119,7 +127,7 @@ Reply to Thread No. #{{ @page.thread_id }}
 <true>
 <div id="gallery">
 <repeat group="{{ @posts.photos }}" value="{{ @pics }}" counter="{{ @counter }}" >
-<img src="{{ @home_url }}/thumb/{{ @page.board_slug }}/{{ @page.thread_id}}/{{ @pics->file_name }}" data-src="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @page.thread_id }}/{{ @pics->file_name }}" class="gallery-img img-responsive img-thumbnail"> 
+<img src="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @page.thread_id}}/thumb/{{ @pics->file_name }}" data-src="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @page.thread_id }}/{{ @pics->file_name }}" class="gallery-img img-responsive img-thumbnail"> 
 </repeat>
 </div>
 <span class="desc">{{ @posts.content | remove_execute_code,remove_spaces,replace_data }}</span>
@@ -128,7 +136,7 @@ Reply to Thread No. #{{ @page.thread_id }}
 <div class="files">	
 <div class="file">
 <p class="fileinfo">File: <a href="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @page.thread_id}}/{{ @posts.photos->first()->file_name }}">{{ @posts.photos->first()->original_name }}</a> ({{ formatSizeUnits(@posts.photos->first()->size) }} , {{ @posts.photos->first()->pixels }})</p>
-<img class="post-image" id="image" src="{{ @home_url }}/thumb/{{ @page.board_slug }}/{{ @page.thread_id}}/{{ @posts.photos->first()->file_name }}" data-src="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @page.thread_id }}/{{ @posts.photos->first()->file_name }}" class="img-responsive img-thumbnail">
+<img class="post-image" id="image" src="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @page.thread_id}}/thumb/{{ @posts.photos->first()->file_name }}" data-src="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @page.thread_id }}/{{ @posts.photos->first()->file_name }}" class="img-responsive img-thumbnail">
 </div>
 </div><!-- files -->
 <div class="body">{{ @posts.content | remove_execute_code,remove_spaces,replace_data }}</div>

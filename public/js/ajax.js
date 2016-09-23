@@ -43,19 +43,17 @@ $(".grid-li").addClass("grid-size-"+value);
 
 $('#Grid').mixItUp({});
 
+get_quote_by();
 
 // Emoji
 if($('textarea').length > 0){
+$.getJSON(base_url + '/ajax/emoji', function(jsonData) {
 $('textarea').suggest(':', {
-data: function(q) {
-if (q && q.length > 1) {
-return $.getJSON(base_url + "/ajax/emoji");
-}
-},
+data: jsonData,
 map: function(emoji) {
-console.log(emoji);	
 return { value: emoji.value, text: '<span class="twa twa-lg twa_'+emoji.code+'"></span> <strong>'+emoji.text+'</strong> ' }
 }
+});
 });
 }
 
@@ -177,7 +175,7 @@ myTimer();
 
 /* Post a Reply */
 
-$("#post-create,#posted").ajaxForm({
+$("#post-create").ajaxForm({
 beforeSubmit: function (){
 msg.html('Posting...');
 return true;
@@ -186,7 +184,7 @@ clearForm: false,
 success: function(data) {
 	
 if(!data){
-msg.html("Something went Wrong please try again later.");
+msg.html("<div id='error-msg'><span class='icon-cross'></span> Something went Wrong please try again later</div>");
 return false;
 }
 	
@@ -608,7 +606,7 @@ if(b.gallery){
 var new_post = '<div class="post reply newPostsMarker" id="'+ b.id +'"><p class="intro"><div id="'+ b.id +'"> <span class="'+b.class_name+'"><input type="checkbox" value="'+ b.id +'" id="delete-this"> <span class="icon-user"></span> ' + b.post_by + ' </span> <span class="icon-history"></span><time class="tooltip" data-tooltip="' + b.post_time +'">' + b.ago_post_time +'</time> <a href="#'+ b.id +'" id="post-id" rel="'+ b.id +'" class="btn btn-xs btn-success">No.'+ b.id +'</a> <a href="#'+ b.id +'" id="post-id" rel="'+ b.id +'" class="btn btn-xs btn-success">Quote</a> <span id="report" rel="'+ b.id +'" class="btn btn-danger btn-xs">Report</span></div></p><div class="body"><div id="gallery">'; $.each(b.photos,function(i){ var file_data = '<b>File Name:</b> <a href='+base_url+' /uploads/ '+b.board_slug+'/ '+b.thread_id+'/ '+b.photos[i].file_name+' title='+b.photos[i].file_name+'>'+ b.photos[i].original_name +'</a><br>('+b.photos[i].size+' , '+b.photos[i].pixels+')<br> <b>Message</b> :'+b.post_content; new_post += '<span class="gallery-img"><img src="'+base_url+'/thumb/'+b.board_slug+'/'+b.thread_id+'/'+b.photos[i].file_name+'" data-src="'+base_url+'/uploads/'+b.board_slug+'/'+b.thread_id+'/'+b.photos[i].file_name+'" class="img-responsive img-thumbnail"> <span class="desc">'+file_data+'</span> </span>'; }); new_post += '</div>'+b.post_content+'</div></div></div>'; 
 } else { 
 if(b.file_name) { 
-var new_post = '<div class="post-container" id="pc'+ b.id +'"><div class="sidearrows">&gt;&gt;</div><div class="post reply newPostsMarker" id="reply_'+ b.id +'"><p class="intro"><span class="name"><input type="checkbox" value="'+ b.id +'" id="delete-this"> <span class="icon-user"></span> ' + b.post_by + ' </span><span class="icon-history"></span> <time class="tooltip" data-tooltip="' + b.post_time +'">' + b.ago_post_time +'</time> <a href="#'+ b.id +'" id="post-id" rel="'+ b.id +'" >No.'+ b.id +'</a> <a href="javascript:void(0)" id="quote_post" rel="'+ b.id +'" >Quote</a> <span id="report" rel="'+ b.id +'">Report</span></p><!-- post header --><div class="files"><div class="file"><div id="'+ b.id +'"> File: <a href="'+base_url+'/uploads/'+b.board_slug+'/'+b.thread_id+'/'+b.file_name+'" title="'+b.original_name+'">'+ b.original_name +'</a> ('+b.size+' , '+b.pixels+')</div></div></div> '+b.post_content+'</div><!-- reply --></div>';
+var new_post = '<div class="post-container" id="pc'+ b.id +'"><div class="sidearrows">&gt;&gt;</div><div class="post reply newPostsMarker" id="reply_'+ b.id +'"><p class="intro"><span class="name"><input type="checkbox" value="'+ b.id +'" id="delete-this"> <span class="icon-user"></span> ' + b.post_by + ' </span><span class="icon-history"></span> <time class="tooltip" data-tooltip="' + b.post_time +'">' + b.ago_post_time +'</time> <a href="#'+ b.id +'" id="post-id" rel="'+ b.id +'" >No.'+ b.id +'</a> <a href="javascript:void(0)" id="quote_post" rel="'+ b.id +'" >Quote</a> <span id="report" rel="'+ b.id +'">Report</span></p><!-- post header --><div class="files"><div class="file"><div id="'+ b.id +'"> File: <a href="'+base_url+'/uploads/'+b.board_slug+'/'+b.thread_id+'/'+b.file_name+'" title="'+b.original_name+'">'+ b.original_name +'</a> ('+b.size+' , '+b.pixels+')</div><img class="post-image" id="image" src="'+base_url+'/uploads/'+b.board_slug+'/'+b.thread_id+'/thumb/'+b.file_name+'" data-src="'+base_url+'/uploads/'+b.board_slug+'/'+b.thread_id+'/'+b.file_name+'" class="img-responsive img-thumbnail"></div></div> '+b.post_content+'</div><!-- reply --></div>';
 } else { 
 var new_post = '<div class="post-container" id="pc'+ b.id +'"><div class="sidearrows">&gt;&gt;</div><div class="post reply newPostsMarker" id="reply_'+ b.id +'"><p class="intro"><span class="name"><input type="checkbox" value="'+ b.id +'" id="delete-this"> <span class="icon-user"></span> ' + b.post_by + ' </span><span class="icon-history"></span> <time class="tooltip" data-tooltip="' + b.post_time +'">' + b.ago_post_time +'</time> <a href="#'+ b.id +'" id="post-id" rel="'+ b.id +'" >No.'+ b.id +'</a> <a href="javascript:void(0)" id="quote_post" rel="'+ b.id +'" >Quote</a> <span id="report" rel="'+ b.id +'">Report</span></p><!-- post header -->'+b.post_content+'</div><!-- reply --></div>';
 } 
@@ -706,7 +704,10 @@ console.log('qouted id ' + quote_post_id);
 
 var html = ' <a class="quote" href="#' + quote_by + '">&gt;&gt;' + quote_by + '</a> ';
 var html_quote_to = ' <a class="quote" href="#' + quote_post_id + '">&gt;&gt;' + quote_post_id + '</a> ';
-$("#posts_list").find('div#'+quote_post_id+' div.intro span#report').after(html);
+
+console.log('div#'+quote_post_id+' p.intro span#report');
+
+$("#posts_list").find('div#'+quote_post_id+' p.intro span#report').after(html);
 allHtml += html;
 });
 return allHtml;

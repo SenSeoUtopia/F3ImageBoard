@@ -14,7 +14,7 @@ return $this->belongsTo("Boards");
 
 // Relationship Photos
 public function threads(){
-return $this->hasOne("Threads","post_id");
+return $this->belongsTo("Threads", "thread_id");
 }
 
 // Relationship Post

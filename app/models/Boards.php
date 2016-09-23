@@ -5,9 +5,11 @@ class Boards extends Eloquent {
 
 protected $table = "boards";
 
+protected $fillable = ['name','slug','category_id'];
+
 // Relationship Post
 public function posts(){
-return $this->hasMany("Posts");
+return $this->hasMany("Posts","board_id");
 }
 
 // Relationship Photos

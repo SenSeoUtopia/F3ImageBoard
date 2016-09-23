@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>{{ @page['title']}}</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="stylesheet" type="text/css" href="{{@home_url}}/css/install.css">
+<link rel="stylesheet" type="text/css" href="{{@home_url}}/css/installer.css">
+<link rel="stylesheet" type="text/css" href="{{@home_url}}/css/pace.css">
+<link rel="stylesheet" type="text/css" href="{{@home_url}}/css/bootstrap-datepicker.min.css">
+<script type="text/javascript" src="{{@home_url}}/js/jquery.min.js"></script>
+<script type="text/javascript" src="{{@home_url}}/js/pace.min.js"></script>
+<script type="text/javascript" src="{{@home_url}}/js/ajaxify.min.js"></script>
+<script type="text/javascript" src="{{@home_url}}/js/admin/validator.min.js"></script>
+<script type="text/javascript" src="{{@home_url}}/js/admin/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+$("#installer").ajaxify({prefetch : true});
+
+if($('#date_of_birth').length > 0){
+$('#date_of_birth').datepicker({
+format: "yyyy/mm/dd",
+clearBtn: true,
+todayHighlight: true,
+defaultViewDate: { year: 1970, month: 00, day: 25 }
+});
+}
+
+});
+</script>
+
+</head>
+<body>
+<div id="installer" class="tm-background uk-height-viewport uk-flex uk-flex-center uk-flex-middle">
+<div class="tm-container">
+
+<div class="uk-animation-slide-left">
+<include if="{{ !empty(@page['content']) }}" href="{{ @page['content'] }}" />
+</div>
+
+</div>
+
+</div> <!-- row -->
+
+</div><!-- container -->
+
+</body>
+</html>

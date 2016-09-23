@@ -5,7 +5,7 @@ class Threads extends Eloquent{
 
 protected $table = "threads";
 
-protected $fillable = ['name'];
+protected $fillable = ["name"];
 
 // Relationship Post
 public function posts(){

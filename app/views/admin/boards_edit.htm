@@ -1,3 +1,20 @@
+<check if="{{ isset(@page.msg) }}">
+<check if="{{ isset(@page.msg.success) }}">
+<div class="u-form-group">
+<true>
+<div id="success-msg">
+<i class="icon-ok"></i> {{@page.msg.msg}}
+</div>	
+</true>
+<false>
+<div id="error-msg">
+<i class="icon-cross"></i> {{@page.msg.msg}}
+</div>
+</false>
+</div>
+</check>
+</check>
+
 <check if="{{ @page.board }}">
 <true>
 <form role="form" method="post" enctype="multipart/form-data" id="post-create">

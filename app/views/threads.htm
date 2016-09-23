@@ -1,4 +1,4 @@
-<include href="posts/guest_topic.htm" with="board_slug = {{ @page.board_slug }}"/>
+<include href="posts/guest_topic.htm" with="site_key = {{ @page.site_key }},board_slug = {{ @page.board_slug }}"/>
 
 <check if="{{ isset(@page.board_list.threads) }}">
 <div id="menu">

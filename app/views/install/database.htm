@@ -1,0 +1,64 @@
+<div class="uk-panel uk-panel-box panel-success">
+
+<h1 class="uk-margin-small-bottom uk-text-center"> Connect database </h1>
+<div class="uk-margin-large-bottom uk-text-muted uk-text-center"> Enter your database connection details </div>
+
+<check if="{{ @page['errors'] }}">
+<div class="alert alert-danger"><i class="icon-cross"></i> {{ @page['errors'] }}</div>
+</check>
+<check if="{{ @page['msg'] }}">
+<div class="alert alert-danger"><i class="icon-cross"></i> {{ @page['msg'] }}</div>
+</check>
+
+<form method="post" enctype="multipart/form-data" class="uk-form uk-form-horizontal tm-form-horizontal">
+
+<div class="uk-form-row has-feedback">
+<label class="uk-form-label" for="db_host">Database Host</label>
+<div class="uk-form-controls">
+<input type="text" class="uk-width-1-1" id="db_host" name="db_host" placeholder="localhost" data-error="Fill Correct Database Host Name" required>
+<span class="glyphicon uk-form-row-feedback" aria-hidden="true"></span>
+<div class="help-block with-errors"></div>
+</div>
+</div>
+<div class="uk-form-row has-feedback">
+<label class="uk-form-label" for="db_name">Database Name</label>
+<div class="uk-form-controls">
+<input type="text" class="uk-width-1-1" id="db_name" name="db_name" placeholder="social" data-error="Enter correct Database where all tables will be created." required>
+<span class="glyphicon uk-form-row-feedback" aria-hidden="true"></span>
+<div class="help-block with-errors"></div>
+</div></div>
+<div class="uk-form-row has-feedback">
+<label class="uk-form-label" for="db_user">Database User</label>
+<div class="uk-form-controls">
+<input type="text" class="uk-width-1-1" id="db_user" name="db_user" placeholder="root" data-error="Enter correct User Name of That Database to access it." required>
+<span class="glyphicon uk-form-row-feedback" aria-hidden="true"></span>
+<div class="help-block with-errors"></div>
+</div></div>
+<div class="uk-form-row has-feedback">
+<label class="uk-form-label" for="db_pass">Database Password</label>
+<div class="uk-form-controls">
+<input type="password" class="uk-width-1-1" id="db_pass" name="db_pass" placeholder="password" data-error="Enter correct Password of That Database to access it." required>
+<span class="glyphicon uk-form-row-feedback" aria-hidden="true"></span>
+<div class="help-block with-errors"></div>
+</div></div>
+<div class="uk-form-row has-feedback">
+<label class="uk-form-label" for="db_prefix">Database Prefix</label>
+<div class="uk-form-controls">
+<input type="text" class="uk-width-1-1" id="db_prefix" name="db_prefix" placeholder="Default : senseo_">
+<span class="glyphicon uk-form-row-feedback" aria-hidden="true"></span>
+<div class="help-block with-errors"></div>
+</div></div>
+<p class="uk-text-right">
+<button class="uk-button uk-button-primary" type="submit">
+<span class="uk-flex-inline uk-flex-middle">Next
+<svg class="uk-margin-small-left" width="18" height="11" viewBox="0 0 18 11" xmlns="http://www.w3.org/2000/svg">
+<line fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-miterlimit="10" x1="3" y1="5.5" x2="15" y2="5.5"></line>
+<path fill="#FFFFFF" d="M10.5,10.9c-0.128,0-0.256-0.049-0.354-0.146c-0.195-0.195-0.195-0.512,0-0.707l4.597-4.597l-4.597-4.597
+c-0.195-0.195-0.195-0.512,0-0.707s0.512-0.195,0.707,0l4.95,4.95c0.195,0.195,0.195,0.512,0,0.707l-4.95,4.95
+C10.756,10.852,10.628,10.9,10.5,10.9z"></path>
+</svg>
+</span>
+</button>
+</p>
+</form>
+</div>

@@ -1,0 +1,26 @@
+<div class="uk-panel uk-panel-box panel-success">
+<h1 class="uk-margin-large-bottom uk-text-center">Requirements </h1>
+<div class="panel-body">
+
+<h4> File and Directory Permission and Requirements</h4>
+
+<div class="uk-list uk-list-space">
+
+<li class="list-group-item <check if="{{ @page['check_php'] }}"><true>list-group-item-success</true><false>list-group-item-danger</false></check>">PHP > 5.5 <i class="pull-right">{{ @page['check_php_msg'] | raw }}</i></li>
+<li class="list-group-item <check if="{{ @page['check_gd'] }}"><true>list-group-item-success</true><false>list-group-item-danger</false></check>">GD Library <i class="pull-right">{{ @page['check_gd_msg'] | raw }}</i></li>
+<li class="list-group-item <check if="{{ @page['check_mysqli'] }}"><true>list-group-item-success</true><false>list-group-item-danger</false></check>">Mysqli <i class="pull-right">{{ @page['check_mysqli_msg'] | raw }}</i></li>
+<li class="list-group-item <check if="{{ @page['check_curl'] }}"><true>list-group-item-success</true><false>list-group-item-danger</false></check>">cUrl <i class="pull-right">{{ @page['check_curl_msg'] | raw }}</i></li>
+<li class="list-group-item <check if="{{ @page['check_mbstring'] }}"><true>list-group-item-success</true><false>list-group-item-danger</false></check>">Mbstring <i class="pull-right">{{ @page['check_mbstring_msg'] | raw }}</i></li>
+<li class="list-group-item <check if="{{ @page['check_mycrypt'] }}"><true>list-group-item-success</true><false>list-group-item-danger</false></check>">MyCrypt <i class="pull-right">{{ @page['check_mycrypt_msg'] | raw }}</i></li>
+<li class="list-group-item <check if="{{ @page['app_check'] }}"><true>list-group-item-success</true><false>list-group-item-danger</false></check>">App Folder <i class="pull-right">{{ @page['check_app_folder'] | raw }}</i></li>
+<li class="list-group-item <check if="{{ @page['public_check'] }}"><true>list-group-item-success</true><false>list-group-item-danger</false></check>">Public Folder <i class="pull-right">{{ @page['public_folder'] | raw }}</i></li>
+<li class="list-group-item <check if="{{ @page['config_check'] }}"><true>list-group-item-success</true><false>list-group-item-danger</false></check>"> Config File <i class="pull-right">{{ @page['config_file'] | raw }}</i></li>
+</div>
+
+<check if="{{ @page['success'] }}">
+<p class="uk-text-right">
+<a href="{{ @home_url }}/install/database" class="uk-button uk-button-primary" >Next</a>
+</p>
+</check>
+</div>
+</div>

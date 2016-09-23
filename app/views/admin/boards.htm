@@ -1,8 +1,20 @@
 <check if="{{ @page.boards_list }}">
-<table>
+<table cellpadding="0" cellspacing="0" width="100%">
+<tr class="headline">
+<td class="series">#</td>
+<td class="chapter">Boards</td>
+<td class="date">Threads</td>
+<td class="date">Posts</td>
+<td class="date">Photos</td>
+</tr>	
 <repeat group = "{{ @page.boards_list }}" value="{{ @boards_list }}" counter="{{ @counter }}">
-<tr>
-<td><a href="{{@home_url}}/admincp/boards/{{ @boards_list.slug }}/edit">{{ @boards_list.name }}</a></td></tr>
+<tr class="{{ (@counter%2) ? 'even' : 'odd'}}">
+<td>{{ @counter }}</td>	
+<td><a href="{{@home_url}}/admincp/boards/{{ @boards_list.id }}/edit">{{ @boards_list.name }}</a></td>
+<td>{{ @boards_list->threads->count() }}</td>
+<td>{{ @boards_list->posts->count() }}</td>
+<td>{{ @boards_list->photos->count() }}</td>
+</tr>
 </repeat>
 </table>
 <false>
