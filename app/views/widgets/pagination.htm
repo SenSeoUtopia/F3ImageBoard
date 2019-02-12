@@ -1,0 +1,22 @@
+<div id="Navigation">
+<span>
+<ul>
+<li>Page {{ @pg.currentPage }} of {{ @pg.lastPage }}</li>
+<F3:check if="{{@pg.firstPage}}">
+<li><a href="{{@SCHEME.'://'.@HOST.@BASE.@pg.route.@pg.prefix.@pg.firstPage}}">First</a></li>
+</F3:check>
+<F3:check if="{{@pg.prevPage}}">
+<li><a href="{{@SCHEME.'://'.@HOST.@BASE.@pg.route.@pg.prefix.@pg.prevPage}}">Previous</a></li>
+</F3:check>
+<F3:repeat group="{{@pg.rangePages}}" value="{{@page}}">
+<li><a href="{{@SCHEME.'://'.@HOST.@BASE.@pg.route.@pg.prefix.@page}}" {{ (@page== @pg.currentPage) ? ' class="sel"':''}}>{{@page}}</a></li>
+</F3:repeat>
+<F3:check if="{{@pg.nextPage}}">
+<li><a href="{{@SCHEME.'://'.@HOST.@BASE.@pg.route.@pg.prefix.@pg.nextPage}}" class="next">Next</a></li>
+</F3:check>
+<F3:check if="{{@pg.currentPage < @pg.lastPage}}">
+<li><a href="{{@SCHEME.'://'.@HOST.@BASE.@pg.route.@pg.prefix.@pg.lastPage}}">Last [{{ @pg.lastPage }}]</a></li>
+</F3:check>
+</ul>
+</span>
+</div>

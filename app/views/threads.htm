@@ -1,43 +1,171 @@
-<include href="posts/guest_topic.htm" with="site_key = {{ @page.site_key }},board_slug = {{ @page.board_slug }}"/>
+<include href="widgets/new_thread.htm">
 
-<check if="{{ isset(@page.board_list.threads) }}">
-<div id="menu">
-<span class="pull-right options"> 
-Image Size:
-<select id="image_size">
-<option value="vsmall">Very small</option>
-<option value="small">Small</option>
-<option selected="selected" value="large">Large</option>
-</select>
-Sort By: 
-<select id="sort_by">
-<option selected="selected" value="default">Bump order</option>
-<option value="time:asc">Creation date</option>
-<option value="reply:desc">Reply count</option>
-<option value="random">Random</option>
-</select>
-</span>
-<span class="search_bar">[Search] <input type="search" class="search"><i class="icon-search"></i></span>
+<hr>
+
+<div class="thread-menu">
+    <div class="post-btn">
+        [<a href="{{ @home_url }}/{{ @page.board_slug }}/catalog"><span class="icon-th-large"></span> Catalog</a>]
+        [<a href="javascript:void(0)" id="go_to_bottom"><span class="icon-bottom"></span> Bottom</a>]
+    </div>
 </div>
 
-<div class="threads">
-<ul id="Grid"><!-- grid -->
-<repeat group="{{ @page.board_list.threads }}" value="{{ @threads }}" counter="{{ @counter }}">	
-<li class="mix" data-reply="{{ @threads.posts->count() }}" data-bump="{{ @threads.created_at }}" data-time="{{ @threads.posts->last()->created_at }}">
-<div class="thread grid-li grid-size-large">
-<a href="{{ @home_url }}/{{ @page.board_list.slug }}/thread/{{ @threads.id }}/{{ @threads.name | remove_white_spaces }}">
-<img class="thumb img-thumbnail img-responsive" src="{{ @home_url }}/uploads/{{ @page.board_list.slug }}/{{ @threads.id }}/thumb/{{ @threads.photos->first()->file_name }}">
-</a>
-<div class="replies">
-<strong title="(R)eplies / (I)mages">R: {{ @threads.posts->count() }} / I: {{ @threads.photos->count() }}</strong>
-<check if="{{ @threads.name }}">
-<p class="intro"><span class="subject">{{ @threads.name }}</span></p>
-</check>
-{{ @threads.posts->first()->content}}
-</div> 
-</div><!-- thread Grid -->                   
-</li>
+<div class="clear"></div>
+
+<hr>
+
+<repeat group="{{ @page.post_list}}" value="{{ @thread}}">
+
+    <div id="t{{ @thread.id }}" class="thread">
+
+    <repeat group="{{ @thread.posts->take(5) }}" value="{{ @posts }}" counter="{{ @counter }}">
+
+        <check if="{{ @counter === 1}}">
+            <true>
+                <switch expr="{{ @posts.photos->first()->photo_type }}">
+                    <case value="video" break="true">
+                        <p class="fileinfo">File: <a href="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @posts.thread_id}}/{{ @posts.photos->first()->file_name }}">{{ @posts.photos->first()->original_name }} ({{ formatSizeUnits(@posts.photos->first()->size) }} , {{ @posts.photos->first()->pixels }})</a>
+                            <span class="video_close" data-pic=""></span> </p>
+
+                        <div id="video-image">
+                            <img src="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @posts.thread_id}}/thumb/{{ @posts.photos->first()->file_name_only }}.jpg" data-pic="video" data-type="{{ @posts.photos->first()->file_type }}" class="post-image img-responsive img-thumbnail">
+                        </div>
+                    </case>
+                    <case value="audio" break="true">
+                        <p class="fileinfo">File: <a href="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @posts.thread_id}}/{{ @posts.photos->first()->file_name }}">{{ @posts.photos->first()->original_name }} ({{ formatSizeUnits(@posts.photos->first()->size) }})</a></p>
+
+                        <audio controls loop>
+                            <source src="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @posts.thread_id}}/{{ @posts.photos->first()->file_name }}" type="{{ @posts.photos->first()->file_type }}"/>
+                        </audio>
+                    </case>
+                    <case value="image" break="true">
+                        <div class="files">
+                            <div class="file">
+                                <p class="fileinfo">File: <a href="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @posts.thread_id}}/{{ @posts.photos->first()->file_name }}" target="_blank">{{ @posts.photos->first()->original_name }}</a> ({{ formatSizeUnits(@posts.photos->first()->size) }} , {{ @posts.photos->first()->pixels }})</p>
+                                <img class="post-image" id="image" src="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @posts.thread_id}}/thumb/{{ @posts.photos->first()->file_name }}" data-src="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @posts.thread_id }}/{{ @posts.photos->first()->file_name }}" class="img-responsive img-thumbnail">
+                            </div>
+                        </div><!-- files -->
+                    </case>
+                    <default>
+                        <div class="files">
+                            <div class="file">
+                                <p class="fileinfo">File: <a href="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @page.thread_id}}/{{ @posts.photos->first()->file_name }}">{{ @posts.photos->first()->original_name }}</a> ({{ formatSizeUnits(@posts.photos->first()->size) }} , {{ @posts.photos->first()->pixels }})</p>
+                                <img class="post-image" id="image" src="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @page.thread_id}}/thumb/{{ @posts.photos->first()->file_name }}" data-src="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @posts.thread_id }}/{{ @posts.photos->first()->file_name }}" class="img-responsive img-thumbnail">
+                            </div>
+                        </div><!-- files -->
+                    </default>
+                </switch>
+                <div class="post op" id="{{ @posts.id }}">
+                    <p class="intro">
+                        <span class="name"><input value="{{ @posts.id }}" id="delete-this" type="checkbox">
+                        <check if="{{ @posts.threads.name }}">
+                        <span class="subject"> {{ @posts.threads.name | remove_execute_code,remove_spaces }}</span>
+                        </check>
+                        <check if="{{ @posts.boards.show_contry_flag }}">
+                        <i class="country country-{{ @posts.ip | country_flag }}"></i>
+                        </check>
+                        <span class="icon-user"></span> {{ @posts.user_name | remove_execute_code,remove_spaces }} </span>
+                        <span class="icon-history"></span>
+                        <time class="tooltip">{{ @posts->created_at->format('m/d/y (D) H:i:s') }}</time>
+                        <a class="post_no" href="{{ @home_url }}/{{ @page.board_slug }}/thread/{{ @thread.id}}/#{{ @posts.id }}" id="post-id" rel="{{ @posts.id }}">No. {{ @posts.id }}</a>
+                        <span id="report" rel="{{ @posts.id }}">Report</span>
+                        <a href="{{ @home_url }}/{{ @page.board_slug }}/thread/{{ @thread.id}}">[Reply]</a>
+                        <span class="quote_by"></span>
+                    </p>
+                    <div class="body">{{ @posts.content | remove_execute_code,remove_spaces,replace_data }}</div>
+                </div>
+            </true>
+            <false>
+                <div class="post-container" id="pc{{ @posts.id }}">
+                    <div class="sidearrows">&gt;&gt;</div>
+                    <div class="post reply" id="{{ @posts.id }}">
+                        <p class="intro">
+                            <check if="{{ @posts.boards.show_country_flag }}">
+                                <i class="country country-{{ @posts.ip | country_flag }}"></i>
+                            </check>
+                            <span class="name"><input value="{{ @posts.id }}" id="delete-this" type="checkbox">
+                            <span class="icon-user"></span> {{ @posts.user_name | remove_execute_code,remove_spaces }} </span>
+                            <span class="icon-history"></span>
+                            <time class="tooltip">{{ @posts->created_at->format('m/d/y (D) H:i:s') }}</time>
+                            <a href="{{ @home_url }}/{{ @page.board_slug }}/thread/{{ @thread.id}}/#{{ @posts.id }}" id="post-id" rel="{{ @posts.id }}">No.{{ @posts.id }}</a>
+                            <span class="quote_by"></span>
+                        </p><!-- post header -->
+                        <check if="{{ @posts.photos->count() }}">
+                            <true>
+
+                                <check if="{{ @posts.photos->count() > 1 }}">
+                                    <true>
+                                        <div id="gallery">
+                                            <repeat group="{{ @posts.photos }}" value="{{ @pics }}" counter="{{ @counter }}" >
+                                                <img src="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @thread.id}}/thumb/{{ @pics->file_name }}" data-src="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @thread.id }}/{{ @pics->file_name }}" class="gallery-img img-responsive img-thumbnail">
+                                            </repeat>
+                                        </div>
+                                        <span class="desc">{{ @posts.content | remove_execute_code,remove_spaces,replace_data }}</span>
+                                    </true>
+                                    <false>
+                                        <switch expr="{{ @posts.photos->first()->photo_type }}">
+                                            <case value="video" break="true">
+                                                <p class="fileinfo">File: <a href="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @thread.id}}/{{ @posts.photos->first()->file_name }}">{{ @posts.photos->first()->original_name }} ({{ formatSizeUnits(@posts.photos->first()->size) }} , {{ @posts.photos->first()->pixels }})</a>
+                                                    <span class="video_close" data-pic=""></span> </p>
+
+                                                <div id="video-image">
+                                                    <img src="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @thread.id}}/thumb/{{ @posts.photos->first()->file_name_only }}.jpg" data-pic="video" data-type="{{ @posts.photos->first()->file_type }}" class="post-image img-responsive img-thumbnail">
+                                                </div>
+                                            </case>
+                                            <case value="audio" break="true">
+                                                <p class="fileinfo">File: <a href="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @thread.id}}/{{ @posts.photos->first()->file_name }}">{{ @posts.photos->first()->original_name }} ({{ formatSizeUnits(@posts.photos->first()->size) }})</a></p>
+
+                                                <audio controls loop>
+                                                    <source src="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @thread.id}}/{{ @posts.photos->first()->file_name }}" type="{{ @posts.photos->first()->file_type }}"/>
+                                                </audio>
+
+                                            </case>
+                                            <case value="image" break="true">
+                                                <div class="files">
+                                                    <div class="file">
+                                                        <p class="fileinfo">File: <a href="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @thread.id}}/{{ @posts.photos->first()->file_name }}">{{ @posts.photos->first()->original_name }}</a> ({{ formatSizeUnits(@posts.photos->first()->size) }} , {{ @posts.photos->first()->pixels }})</p>
+                                                        <img class="post-image" id="image" src="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @thread.id}}/thumb/{{ @posts.photos->first()->file_name }}" data-src="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @thread.id }}/{{ @posts.photos->first()->file_name }}" class="img-responsive img-thumbnail">
+                                                    </div>
+                                                </div><!-- files -->
+                                            </case>
+                                            <default>
+                                                <div class="files">
+                                                    <div class="file">
+                                                        <p class="fileinfo">File: <a href="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @thread.id}}/{{ @posts.photos->first()->file_name }}">{{ @posts.photos->first()->original_name }}</a> ({{ formatSizeUnits(@posts.photos->first()->size) }} , {{ @posts.photos->first()->pixels }})</p>
+                                                        <img class="post-image" id="image" src="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @thread.id}}/thumb/{{ @posts.photos->first()->file_name }}" data-src="{{ @home_url }}/uploads/{{ @page.board_slug }}/{{ @thread.id }}/{{ @posts.photos->first()->file_name }}" class="img-responsive img-thumbnail">
+                                                    </div>
+                                                </div><!-- files -->
+                                            </default>
+                                        </switch>
+                                        <div class="body"><check if="{{ @posts.spoiler }}"><true><span class="spoiler">{{ @posts.content | remove_execute_code,remove_spaces,replace_data }}</span></true><false>{{ @posts.content | remove_execute_code,remove_spaces,replace_data }} </false></check></div>
+                                    </false>
+                                </check>
+
+                            </true>
+                            <false>
+                                <div class="body"><check if="{{ @posts.spoiler }}"><true><span class="spoiler">{{ @posts.content | remove_spaces,replace_data }}</span></true><false>{{ @posts.content | remove_spaces,replace_data }} </false></check></div>
+                            </false>
+                        </check>
+                    </div><!-- reply -->
+                </div><!-- post container -->
+            </false>
+        </check>
+    </repeat>
+
+    </div>
+
+    <div class="clear"></div>
+    <hr>
 </repeat>
-</ul>
-</div><!-- threads -->
-</check>
+
+{{ @pagebrowser | raw }}
+
+<div class="thread-menu">
+    <div class="post-btn">
+        [<a href="{{ @home_url }}/{{ @page.board_slug }}/catalog"><span class="icon-th-large"></span> Catalog</a>]
+        [<a href="javascript:void(0)" id="go_to_top"><span class="icon-top"></span> Top</a>]
+    </div>
+</div>
+
+<div class="clear"></div>
+
+<hr>

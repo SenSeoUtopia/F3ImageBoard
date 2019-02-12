@@ -1,0 +1,51 @@
+<include href="widgets/new_thread.htm">
+<hr>
+<check if="{{ isset(@page.board_list.threads) }}">
+<div class="catalog-menu">
+<span class="pull-right options"> 
+Image Size:
+<select id="image_size">
+<option value="vsmall">Very small</option>
+<option value="small">Small</option>
+<option selected="selected" value="large">Large</option>
+</select>
+Sort By: 
+<select id="sort_by">
+<option selected="selected" value="default">Bump order</option>
+<option value="time:asc">Creation date</option>
+<option value="reply:desc">Reply count</option>
+<option value="random">Random</option>
+</select>
+</span>
+<span class="search_bar">[Search] <input type="search" class="search"></span>
+</div>
+<hr>
+
+<div class="threads">
+<ul id="Grid"><!-- grid -->
+<repeat group="{{ @page.board_list.threads }}" value="{{ @threads }}" counter="{{ @counter }}">	
+<li class="mix" data-reply="{{ @threads.posts->count() }}" data-bump="{{ @threads.created_at }}" data-time="{{ @threads.posts->last()->created_at }}">
+<div class="catalog grid-li grid-size-large">
+<a href="{{ @home_url }}/{{ @page.board_list.slug }}/thread/{{ @threads.id }}/{{ @threads.name | remove_white_spaces }}">
+<check if="{{ @threads.photos->first()->photo_type === 'video' }}">
+    <true>
+        <img class="thumb img-thumbnail img-responsive" src="{{ @home_url }}/uploads/{{ @page.board_list.slug }}/{{ @threads.id }}/thumb/{{ @threads.photos->first()->file_name_only }}.jpg">
+    </true>
+    <false>
+        <img class="thumb img-thumbnail img-responsive" src="{{ @home_url }}/uploads/{{ @page.board_list.slug }}/{{ @threads.id }}/thumb/{{ @threads.photos->first()->file_name }}">
+    </false>
+</check>
+</a>
+<div class="replies">
+<strong title="(R)eplies / (I)mages">R: {{ @threads.posts->count() }} / I: {{ @threads.photos->count() }}</strong>
+<check if="{{ @threads.name }}">
+<p class="intro"><span class="subject">{{ @threads.name }}</span></p>
+</check>
+{{ @threads.posts->first()->content}}
+</div> 
+</div><!-- thread Grid -->                   
+</li>
+</repeat>
+</ul>
+</div><!-- threads -->
+</check>

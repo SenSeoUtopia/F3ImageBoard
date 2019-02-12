@@ -1,0 +1,29 @@
+<div class="thread-menu">
+<div class="post-btn">
+        [<a href="{{ @home_url }}/{{ @page.board_slug }}"><span class="icon-home"></span> Return</a>]
+        [<a href="{{ @home_url }}/{{ @page.board_slug }}/catalog"><span class="icon-th-large"></span> Catalog</a>]
+        [<a href="javascript:void(0)" id="go_to_top"><span class="icon-top"></span> Top</a>]
+        [<a href="javascript:void(0)" onClick="return false" id="refresh" title="Check new Posts"><span class="icon-restart"></span> Update</a>]
+        [<label class="auto-update">
+    <input type="checkbox" value="1" id="auto" title="Fetch new replies automatically">
+    <span class="icon-reload spin"></span>  Auto Update</label>
+    <b><span id="timer"></span></b>]
+    <div id="ajax-loader" data-href="{{@home_url}}/ajax/{{ @page.board_slug }}/thread/{{ @page.thread_id }}/thread.json"></div>
+    <div id="ajax-delete" data-href="{{@home_url}}/ajax/{{ @page.board_slug }}/thread/{{ @page.thread_id }}/delete"></div>
+    <div class="quote-preview"></div>
+</div>
+    <a href="javascript:qr('show');" class="qr-btn" title="New Reply"><span class="icon-add"></span> New Reply</a>
+    <div class="thread-stats">
+        <span class="icon-comment"></span> Replies <span class="reply">{{ @page.total_posts }} </span> /
+        <span class="icon-image"></span> Images <span class="images">{{ @page.total_images }}</span> /
+        <span class="icon-user"></span> Posters: {{ @page.total_posters }}
+    </div>
+    <div class="clearfix"></div>
+    <div class="delete clearfix">
+        Delete Post [<input title="Delete file only" name="file" id="delete_file" type="checkbox"> <label for="delete_file">File</label>]
+        <label for="password">Password</label> <input id="password" name="password" size="12" maxlength="18" type="password">
+        <input name="delete" value="Delete" type="button" id="delete">
+    </div>
+</div>
+
+<div class="clear"></div>

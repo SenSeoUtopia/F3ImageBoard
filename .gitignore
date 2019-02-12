@@ -1,9 +1,14 @@
+.idea
+vendor
+app/tmp
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
 
 # Folder config file
 Desktop.ini
+app/Database.ini
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/

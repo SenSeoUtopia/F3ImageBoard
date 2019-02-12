@@ -1,52 +1,49 @@
-<check if="{{ isset(@page.msg) }}">
-<check if="{{ isset(@page.msg.success) }}">
-<div class="u-form-group">
-<true>
-<div id="success-msg">
-<i class="icon-ok"></i> {{@page.msg.msg}}
-</div>	
-</true>
-<false>
-<div id="error-msg">
-<i class="icon-cross"></i> {{@page.msg.msg}}
-</div>
-</false>
-</div>
+<check if="{{ isset(@page.success) }}">
+    <check if="{{ isset(@page.success.msg) }}">
+            <true>
+                <div class="alert alert-success">
+                    <i class="icon-ok"></i> {{@page.success.msg}}
+                </div>
+            </true>
+            <false>
+                <div class="alert alert-danger">
+                    <i class="icon-cross"></i> {{@page.success.msg}}
+                </div>
+            </false>
+    </check>
 </check>
-</check>
-<check if="{{ isset(@page.error) }}">
-<div class="u-form-group">
-<div id="error-msg">
-<i class="icon-cross"></i>
-<repeat group="{{ @page.errors }}" value="{{ @errors }}">
-{{ @errors | raw }} <br>
-</repeat>
-</div>	
-</div>
+<check if="{{ isset(@page.errors) }}">
+        <div class="alert alert-danger">
+            <i class="icon-cross"></i>
+            <repeat group="{{ @page.errors }}" value="{{ @errors }}">
+                {{ @errors | raw }} <br>
+            </repeat>
+        </div>
 </check>
 <form role="form" method="post" enctype="multipart/form-data" id="post-create">
-<div id="msg"></div>
-<div class="u-form-group">
-<label>Board Name</label>	
-<input name="name" autocomplete="off" type="text" placeholder="Board Title">
-</div>
-<div class="u-form-group">
-<label>Board Short Code</label>
-<input name="slug" autocomplete="off" type="text" placeholder="Board Short Name">
-</div>
-<div class="u-form-group">
-<label>Category</label>
-<select name="category_id">
-<repeat group="{{@page.category_list }}" value="{{ @category }}" counter="{{ @counter}}">
-<option value="{{ @category.id }}">{{ @category.name }}</option>
-</repeat>
-</select>
-</div>
-<div class="u-form-group">
-<label>Show Country Flag</label>
-<input name="show_contry_flag" autocomplete="off" type="checkbox" value="1">
-</div>
-<div class="u-form-group">
-<button type="submit">Create Board</button>
-</div>
+    <div id="msg"></div>
+    <div class="u-form-group">
+        <label>Board Name</label>
+        <input name="name" autocomplete="off" type="text" placeholder="Board Title" class="form-control">
+    </div>
+    <div class="u-form-group">
+        <label>Board Short Code</label>
+        <input name="slug" autocomplete="off" type="text" placeholder="Board Short Name" class="form-control">
+    </div>
+    <div class="u-form-group">
+        <label>Category</label>
+        <select name="category_id" class="form-control">
+            <repeat group="{{@page.category_list }}" value="{{ @category }}" counter="{{ @counter}}">
+                <option value="{{ @category.id }}">{{ @category.name }}</option>
+            </repeat>
+        </select>
+    </div>
+    <div class="u-form-group">
+        <label>Show Country Flag</label>
+        <input name="show_contry_flag" autocomplete="off" type="checkbox" value="1">
+    </div>
+
+    <div class="u-form-group">
+        <button type="submit">Create Board</button>
+    </div>
 </form>

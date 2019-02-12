@@ -1,2 +1,20 @@
-<?php 
-$menu = Posts::where(array('board_id'=> $board_id,'thread_id' => $topic_id))->count();
+<div class="thread-menu">
+<div class="post-btn">
+        [<a href="{{ @home_url }}/{{ @page.board_slug }}"><span class="icon-home"></span> Return</a>]
+        [<a href="{{ @home_url }}/{{ @page.board_slug }}/catalog"><span class="icon-th-large"></span> Catalog</a>]
+        [<a href="javascript:void(0)" id="go_to_bottom"><span class="icon-bottom"></span> Bottom</a>]
+        [<a href="javascript:void(0)" onClick="return false" id="refresh" title="Check new Posts"><span class="icon-restart"></span> Update</a>]
+        [<label class="auto-update">
+    <input type="checkbox" value="1" id="auto" title="Fetch new replies automatically">
+    <span class="icon-reload spin"></span>  Auto Update</label>
+    <b><span id="timer"></span></b>]
+</div>
+
+    <div class="thread-stats">
+        <span class="icon-comment"></span> Replies <span class="reply">{{ @page.total_posts }} </span> /
+        <span class="icon-image"></span> Images <span class="images">{{ @page.total_images }}</span> /
+        <span class="icon-user"></span> Posters: {{ @page.total_posters }}
+    </div>
+</div>
+
+<div class="clear"></div>

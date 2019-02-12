@@ -1,21 +1,30 @@
-<check if="{{ @page.bans_list }}">
-<table cellpadding="0" cellspacing="0" width="100%">
-<tr class="headline">
-<td class="series">#</td>
-<td class="chapter">Bans</td>
-<td class="date">Reason</td>
-<td class="date">Ban Period</td>
-</tr>	
-<repeat group = "{{ @page.bans_list }}" value="{{ @bans }}" counter="{{ @counter }}">
-<tr class="{{ (@counter%2) ? 'even' : 'odd'}}">
-<td>{{ @counter }}</td>	
-<td><a href="{{@home_url}}/admincp/bans/{{ @bans.id }}/edit">{{ @bans.name }}</a></td>
-<td>{{ @bans.reason }}</td>
-<td>{{ @bans.ban_time }}</td>
-</tr>
-</repeat>
-</table>
-<false>
-<div id="error-msg"><i class="icon-cross"></i> Currently No User is Banned. </div>
-</false>
-</check>
+<div class="box">
+        <h3 class="box-title">{{ @page.title}}</h3>
+        <!-- /.box-tools -->
+    <!-- /.box-header -->
+    <div class="box-content">
+        <check if="{{ @page.bans_list }}">
+            <table cellpadding="0" cellspacing="0" width="100%">
+                <tr class="headline">
+                    <td class="series">#</td>
+                    <td class="chapter">Bans</td>
+                    <td class="date">Reason</td>
+                    <td class="date">Ban Period</td>
+                </tr>
+                <repeat group="{{ @page.bans_list }}" value="{{ @bans }}" counter="{{ @counter }}">
+                    <tr class="{{ (@counter%2) ? 'even' : 'odd'}}">
+                        <td>{{ @counter }}</td>
+                        <td><a href="{{@home_url}}/admincp/bans/{{ @bans.id }}/edit">{{ @bans.name }}</a></td>
+                        <td>{{ @bans.reason }}</td>
+                        <td>{{ @bans.ban_time }}</td>
+                    </tr>
+                </repeat>
+            </table>
+            <false>
+                <div class="alert alert-danger">
+                    Currently No User is Banned.
+                </div>
+            </false>
+        </check>
+    </div>
+</div>

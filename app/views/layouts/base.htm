@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<check if="{{ @active_menu = '/'}}">
+<true><title>{{ @page.title }} - {{ @site_title}}</title></true>
+<false><title>{{ @page.title }} - {{ @site_title}}</title></false>
+</check>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="shortcut icon" type="image/x-icon" href="{{ @home_url }}/img/favicon.ico">
+<link rel="stylesheet" href="{{ @home_url }}/css/style.css">
+<script type="text/javascript">
+var base_url = '{{ @home_url }}';
+</script>
+</head>
+<body>
+<include if="{{ isset(@board_list)}}" href="widgets/board_list.htm" with="board_list = {{ @board_list }},total_boards = {{ count(@board_list) }}"/>
+
+<include if="{{ !empty(@page.content) }}" href="{{ @page.content }}" />
+
+<include href="widgets/settings.htm">
+<div class="clear"></div>
+<footer class="footer" id="bottom">
+    <p class="text-center">All trademarks, copyrights, comments, and images on this page are owned by and are the responsibility of their respective parties.</p>
+</footer>
+<link media="all" type="text/css" rel="stylesheet" href="{{ @home_url }}/css/pace-flash.css">
+<script src="{{ @home_url }}/js/jquery.min.js"></script>
+<script src="{{ @home_url }}/js/pace.min.js"></script>
+<script src="{{ @home_url }}/js/jquery.mixitup.min.js"></script>
+<check if="{{ @page.board_slug }}">
+    <script src="{{ @home_url }}/js/jquery-ui.min.js"></script>
+    <script src="{{ @home_url }}/js/jquery.form.min.js"></script>
+    <script src="{{ @home_url }}/js/bootstrap-suggest.js"></script>
+    <link media="all" type="text/css" rel="stylesheet" href="{{ @home_url }}/css/bootstrap-suggest.css">
+    <link media="all" type="text/css" rel="stylesheet" href="{{ @home_url }}/css/flag-icon.min.css">
+    <link media="all" type="text/css" rel="stylesheet" href="{{ @home_url }}/css/twemoji-awesome.css">
+	<link media="all" type="text/css" rel="stylesheet" href="{{ @home_url }}/css/toastr.css">
+    <script src="{{ @home_url }}/js/toastr.min.js"></script>
+</check>
+<check if="{{ @page.post_list }}">
+    <link media="all" type="text/css" rel="stylesheet" href="{{ @home_url }}/css/sweetalert.css">
+    <script src="{{ @home_url }}/js/sweetalert.min.js"></script>
+</check>
+<script src="{{ @home_url }}/js/plugins.js"></script>
+<script src="{{ @home_url }}/js/ajax.js"></script>
+</body>
+</html>

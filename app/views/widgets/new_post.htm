@@ -1,0 +1,65 @@
+<div id="msg"></div>
+<form role="form" method="post" enctype="multipart/form-data" id="post-create" action="{{@home_url}}/ajax/{{ @page.board_slug }}/thread/{{ @page.thread_id }}/reply">
+    <table>
+        <tr>
+            <th>Name</th>
+            <td>
+                <input name="user_name" size="25" maxlength="35" autocomplete="off" type="text" placeholder="Anonymous">
+            </td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>
+                <input name="email" size="25" maxlength="40" autocomplete="off" type="text" placeholder="Email">
+            </td>
+        </tr>
+        <tr>
+            <th>Subject</th>
+            <td>
+                <input name="subject" size="25" maxlength="100" autocomplete="off" type="text" placeholder="Subject">
+                <input accesskey="s" name="post" value="Post" type="submit">
+            </td>
+        </tr>
+        <tr>
+            <th>BBCode</th>
+            <td>
+                <include href="widgets/bbcode.htm">
+            </td>
+        </tr>
+        <tr>
+            <th>Comment</th>
+            <td>
+                <textarea name="message" id="post-msg" rows="5" cols="35" placeholder="Comment"></textarea>
+            </td>
+        </tr>
+        <check if="{{ @settings.enable_recaptcha }}">
+            <tr>
+                <th>Verification</th>
+                <td>
+                    <a href="javascript:void(0)" onclick="grecaptcha.reset();">Reload Captcha</a>
+                    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+                    <div class="g-recaptcha" data-sitekey="{{ @settings.recaptcha_key }}"></div>
+                </td>
+            </tr>
+        </check>
+        <tr id="upload">
+            <th>File</th>
+            <td>
+                <input name="upload_file" id="file-select" type="file">
+            </td>
+        </tr>
+        <tr>
+            <th>Password</th>
+            <td>
+                <input name="password" value="" size="12" maxlength="18" autocomplete="off" type="password">
+                <span class="unimportant">(For file deletion.)</span></td>
+        </tr>
+        <tr class="rules">
+            <td colspan="2">
+                <ul class="rules">
+                    <li>Supported file types are: jpg, png, gif, mp3, wav, swf, mp4, webm</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+</form>

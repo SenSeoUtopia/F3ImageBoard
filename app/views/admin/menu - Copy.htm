@@ -1,0 +1,63 @@
+<li class="nav-item {{ set_active('/admincp') }}">
+    <a class="nav-link" href="{{ @home_url }}/admincp">
+        <i class="fa fa-dashboard"></i>
+        <span>Dashboard</span>
+    </a>
+</li>
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="boards" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-folder"></i>
+        <span>Boards</span>
+    </a>
+    <div class="dropdown-menu" aria-labelledby="boards">
+        <a class="dropdown-item" href="{{ @home_url }}/admincp/boards"><i class="fa fa-circle-o"></i> Manage Boards</a>
+        <a class="dropdown-item" href="{{ @home_url }}/admincp/boards/create"><i class="fa fa-circle-o"></i> Boards Create</a>
+    </div>
+</li>
+<li class="nav-item dropdown">
+    <a href="javascript:void(0)" class="nav-link dropdown-toggle" id="general-settings" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-cog"></i>
+        <span>General</span></a>
+        <div class="dropdown-menu" aria-labelledby="general-settings">
+            <a class="dropdown-item" href="{{ @home_url }}/admincp/announcements"><i class="fa fa-circle-o"></i> Announcements</a>
+            <a class="dropdown-item" href="{{ @home_url }}/admincp/news"><i class="fa fa-circle-o"></i> News</a>
+            <a class="dropdown-item" href="{{ @home_url }}/admincp/notes"><i class="fa fa-circle-o"></i> Notes</a>
+            <a class="dropdown-item" href="{{ @home_url }}/admincp/ipnotes"><i class="fa fa-circle-o"></i> IP notes</a>
+            <a class="dropdown-item" href="{{ @home_url }}/admincp/recent/posts"><i class="fa fa-circle-o"></i> Recent posts</a>
+            <a class="dropdown-item" href="{{ @home_url }}/admincp/recent/files"><i class="fa fa-circle-o"></i> Recently uploaded images</a>
+            <a class="dropdown-item" href="{{ @home_url }}/admincp/reports"><i class="fa fa-circle-o"></i> Report queue (0)</a>
+            <a class="dropdown-item" href="{{ @home_url }}/admincp/bans"><i class="fa fa-circle-o"></i> Banlist</a>
+            <a class="dropdown-item" href="{{ @home_url }}/admincp/warnings"><i class="fa fa-circle-o"></i> Warnings</a>
+            <a class="dropdown-item" href="{{ @home_url }}/admincp/whitelist"><i class="fa fa-circle-o"></i> Manage whitelist</a>
+            <a class="dropdown-item" href="{{ @home_url }}/admincp/bans/add"><i class="fa fa-circle-o"></i> Add new ban</a>
+            <a class="dropdown-item" href="{{ @home_url }}/admincp/warnings/add"><i class="fa fa-circle-o"></i> Add warning</a>
+            <a class="dropdown-item" href="{{ @home_url }}/admincp/ban_requests"><i class="fa fa-circle-o"></i> Ban requests (0)</a>
+            <a class="dropdown-item" href="{{ @home_url }}/admincp/appeals"><i class="fa fa-circle-o"></i> Ban appeals (0)</a>
+            <a class="dropdown-item" href="{{ @home_url }}/admincp/rangebans"><i class="fa fa-circle-o"></i> Manage range bans</a>
+            <a class="dropdown-item" href="{{ @home_url }}/admincp/rangebans/add"><i class="fa fa-circle-o"></i> Add range ban</a>
+            <a class="dropdown-item" href="{{ @home_url }}/admincp/announcements/add"><i class="fa fa-circle-o"></i> New announcement</a>
+            <a class="dropdown-item" href="{{ @home_url }}/admincp/news/add"><i class="fa fa-circle-o"></i> Add news entry</a>
+            <a class="dropdown-item" href="{{ @home_url }}/admincp/locked"><i class="fa fa-circle-o"></i> Locked threads</a>
+            <a class="dropdown-item" href="{{ @home_url }}/admincp/sticky"><i class="fa fa-circle-o"></i> Sticky threads</a>
+    </div>
+</li>
+<li class="nav-item dropdown">
+    <a href="javascript:void(0)" class="nav-link dropdown-toggle" id="main-settings" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-cogs"></i>
+        <span>Administration</span></a>
+    <div class="dropdown-menu" aria-labelledby="main-settings">
+        <a class="dropdown-item" href="{{ @home_url }}/admincp/settings"><i class="fa fa-circle-o"></i> Configuration</a>
+        <a class="dropdown-item" href="{{ @home_url }}/admincp/boards"><i class="fa fa-circle-o"></i> Manage boards</a>
+        <a class="dropdown-item" href="{{ @home_url }}/admincp/ads"><i class="fa fa-circle-o"></i> Manage ads</a>
+        <a class="dropdown-item" href="{{ @home_url }}/admincp/users"><i class="fa fa-circle-o"></i> Manage users</a>
+        <a class="dropdown-item" href="{{ @home_url }}/admincp/news"><i class="fa fa-circle-o"></i> Manage news entries</a>
+        <a class="dropdown-item" href="{{ @home_url }}/admincp/announcements"><i class="fa fa-circle-o"></i> Manage announcements</a>
+        <a class="dropdown-item" href="{{ @home_url }}/admincp/bbcodes"><i class="fa fa-circle-o"></i> Manage BBCodes</a>
+        <a class="dropdown-item" href="{{ @home_url }}/admincp/embeds"><i class="fa fa-circle-o"></i> Manage embeds</a>
+        <a class="dropdown-item" href="{{ @home_url }}/admincp/styles"><i class="fa fa-circle-o"></i> Manage styles</a>
+        <a class="dropdown-item" href="{{ @home_url }}/admincp/wordfilter"><i class="fa fa-circle-o"></i> Manage wordfilter</a>
+        <a class="dropdown-item" href="{{ @home_url }}/admincp/spamfilter"><i class="fa fa-circle-o"></i> Manage spamfilter</a>
+        <a class="dropdown-item" href="{{ @home_url }}/admincp/modules"><i class="fa fa-circle-o"></i> Manage modules</a>
+        <a class="dropdown-item" href="{{ @home_url }}/admincp/message"><i class="fa fa-circle-o"></i> Global message</a>
+    </div>
+</li>

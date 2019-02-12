@@ -1,18 +1,19 @@
-<check if="{{ isset(@page.msg) }}">
-<check if="{{ isset(@page.msg.success) }}">
-<div class="u-form-group">
-<true>
-<div id="success-msg">
-<i class="icon-ok"></i> {{@page.msg.msg}}
-</div>	
-</true>
-<false>
-<div id="error-msg">
-<i class="icon-cross"></i> {{@page.msg.msg}}
-</div>
-</false>
-</div>
-</check>
+<check if="{{ isset(@page.msg)}}">
+    <div class="u-form-group">
+        <check if="{{ is_array(@page.msg)}}">
+            <true>
+                <div id="{{ (@page.success) ? 'success-msg' : 'error-msg' }}">
+                    <h1>{{ (@page.success) ? '<i class="icon-ok"></i> Success!' : '<i class="icon-cross"></i> Fix the Following Errors:' }}</h1>
+                    <repeat group="{{ @page.msg }}" value="{{ @error_msg }}" counter="{{ @counter }}">
+                        {{ @counter }}. {{ @error_msg | raw }} <br>
+                    </repeat>
+                </div>
+            </true>
+            <false>
+                {{ @page.msg | raw }}
+            </false>
+        </check>
+    </div>
 </check>
 
 <check if="{{ @page.board }}">
@@ -20,15 +21,15 @@
 <form role="form" method="post" enctype="multipart/form-data" id="post-create">
 <div id="msg"></div>
 <div class="u-form-group">
-<label>Board Name</label>	
+<label class="control-label">Board Name</label>	
 <input name="name" autocomplete="off" type="text" placeholder="Board Title" value="{{ @page.board.name }}">
 </div>
 <div class="u-form-group">
-<label>Board Short Code</label>
+<label class="control-label">Board Short Code</label>
 <input name="slug" autocomplete="off" type="text" placeholder="Board Short Name" value="{{ @page.board.slug }}">
 </div>
 <div class="u-form-group">
-<label>Category</label>
+<label class="control-label">Category</label>
 <select name="category_id">
 <repeat group="{{@page.category_list }}" value="{{ @category }}" counter="{{ @counter}}">
 <check if="{{ @category.id === @page.board.category_id}}">
@@ -38,16 +39,23 @@
 </repeat>
 </select>
 </div>
-<div class="u-form-group">
-<label>Show Country Flag</label>
-<input name="show_contry_flag" autocomplete="off" type="checkbox" value="1" <check if="{{ @page.board.show_contry_flag }}">checked="checked"</check>>
+<div class="checkbox">
+<label>
+<input name="show_contry_flag" autocomplete="off" type="checkbox" value="1" <check if="{{ @page.board.show_contry_flag }}">checked="checked"</check>> Show Country Flag
+</label>
 </div>
-<div class="u-form-group">
-<button type="submit">Save Changes</button>
-</div>
+
+    <div class="u-form-group">
+        <button type="submit">Save Changes</button>
+    </div>
+
 </form>
 </true>
 <false>
-<div id="error-msg">No Boards is Exists Create a New One</div>
+<div id="error-msg">
+<i class="icon-cross"></i> No Boards is Exists Create a New One <a href="{{ @home_url}}/admincp/boards/create">Create a Board</a>
+</div>
 </false>
 </check>
+</div>
+</div>

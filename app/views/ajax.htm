@@ -1,0 +1,31 @@
+<div class="post-container" id="pc{{ @posts.id }}">
+<div class="sidearrows">&gt;&gt;</div>	
+<div class="post reply newPostsMarker" id="{{ @posts.id }}">
+<p class="intro">
+<span class="name"><input value="{{ @posts.id }}" id="delete-this" type="checkbox">  
+<span class="icon-user"></span> {{ @posts.user_name | remove_execute_code,remove_spaces }} </span> 
+<span class="icon-history"></span> 
+<time class="tooltip">{{ @posts->created_at->format('m/d/y (D) H:i:s') }}</time>
+<a href="#{{ @posts.id }}" id="post-id" rel="{{ @posts.id }}">No.{{ @posts.id }}</a> 
+<a href="javascript:void(0)" id="quote_post" rel="{{ @posts.id }}">Quote</a> 
+<span id="report" rel="{{ @posts.id }}">Report</span>
+</p><!-- post header -->
+<check if="{{ @posts.photos->count() }}">
+<true>
+    <include href="widgets/file_loader.htm" />
+</true>
+<false>
+<div class="body">
+    <check if="{{ @posts.spoiler }}">
+        <true>
+            <span class="spoiler">{{ @posts.content | remove_spaces,replace_data }}</span>
+        </true>
+        <false>
+            {{ @posts.content | remove_spaces,replace_data }}
+        </false>
+    </check>
+</div>
+</false>
+</check>
+</div><!-- reply -->
+</div><!-- post container -->

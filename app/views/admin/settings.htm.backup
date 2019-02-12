@@ -1,0 +1,71 @@
+<div class="col-lg-12 col-md-12">
+<div class="card">
+<div class="card-header" data-background-color="purple">
+<h4 class="title">Settings</h4>
+<p class="category">Change Settings</p>
+</div>
+<div class="card-content">	
+<form role="form" method="post" enctype="multipart/form-data" id="post-create" class="settings">
+<check if="{{ @page.msg }}">
+<check if="{{ @page.msg.success }}">
+<true>
+<div id="success-msg"><i class="icon-ok"></i> {{ @page.msg.msg }}</div>
+</true>
+<false>
+<div id="error-msg"><i class="icon-cross"></i> {{ @page.msg.msg }}</div>
+</false>
+</check>
+</check>
+<div class="form-group label-floating">
+<label class="control-label">Site Title</label>	
+<input type="text" name="site_title" value="{{ @page.settings.site_title }}" class="form-control">
+</div>
+<div class="form-group label-floating">
+<label class="control-label">Meta Description</label>	
+<input type="text" name="site_desc" value="{{ @page.settings.site_description }}" class="form-control">
+</div>
+<div class="form-group label-floating">
+<label class="control-label">Meta Keyword</label>	
+<input type="text" name="site_keyword" value="{{ @page.settings.site_keyword }}" class="form-control">
+</div>
+<div class="checkbox">
+<label class="control-label">
+<input id="recaptcha" name="recaptcha" type="checkbox" value="1" <check if="{{ @page.settings.recaptcha }}">checked="checked"</check>> Enable Recaptcha
+</label>
+</div>
+<div class="form-group label-floating">
+<label class="control-label">Recaptcha Key</label>	
+<input type="text" name="recaptcha_key" value="{{ @page.settings.recaptcha_key }}" class="form-control">
+</div>
+<div class="form-group label-floating">
+<label class="control-label">Recaptcha Secret Key</label>	
+<input type="text" name="recaptcha_secret" value="{{ @page.settings.recaptcha_secret }}" class="form-control">
+</div>
+<div class="checkbox">
+<label class="checkbox-inline">
+<input id="maintenance" name="maintenance" type="checkbox" value="1" <check if="{{ @page.settings.maintenance }}">checked="checked"</check>> Maintenance
+</label>
+<label class="checkbox-inline">
+<input id="https" name="https_enable" type="checkbox" value="1" <check if="{{ @page.settings.https_enable }}">checked="checked"</check>> Https
+</label>
+<label class="checkbox-inline">
+<input id="enable_qr" name="quick_reply" type="checkbox" value="1" <check if="{{ @page.settings.quick_reply }}">checked="checked"</check>> Quick Reply
+</label>
+<label class="checkbox-inline">
+<input id="emoji" name="emoji" type="checkbox" value="1" <check if="{{ @page.settings.emoji }}">checked="checked"</check>> Emoji
+</label>
+<label class="checkbox-inline">
+<input id="bbcode" name="bbcode" type="checkbox" value="1" <check if="{{ @page.settings.bbcode }}">checked="checked"</check>> BBCode
+</label>
+</div>
+<div class="form-group label-floating">
+<label class="control-label">Footer Message</label>	
+<input type="text" name="footer" value="{{ @page.settings.footer }}" class="form-control">
+</div>
+<div class="form-group label-floating">
+<button type="submit" class="btn btn-primary">Update Settings</button>
+</div>
+</form>
+</div>
+</div>
+</div>

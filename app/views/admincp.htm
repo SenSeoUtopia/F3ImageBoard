@@ -8,8 +8,20 @@
 <meta name="description" content="">
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="shortcut icon" type="image/x-icon" href="{{ @home_url }}/img/favicon.ico">
-<link rel="stylesheet" type="text/css" href="{{ @home_url }}/css/style.css">
 <link rel="stylesheet" type="text/css" href="{{ @home_url }}/css/admincp.css">
+<link type="text/css" rel="stylesheet" href="{{ @home_url }}/css/pace-flash.css">
+<script type="text/javascript" src="{{ @home_url }}/js/jquery.min.js"></script>
+<script type="text/javascript" src="{{ @home_url }}/js/pace.min.js"></script>
+<check if="{{ @active_menu ==='/admincp/boards' }}">
+<script type="text/javascript" src="{{@home_url}}/js/admin.js"></script>
+<link rel="stylesheet" type="text/css" href="{{@home_url}}/css/jquery.tablesorter.css">
+<script type="text/javascript" src="{{@home_url}}/js/jquery.tablesorter.js"></script>
+<script type="text/javascript">
+$(function(){	
+$("#boards_list,#posts_list").tablesorter(); 
+});
+</script>
+</check>
 </head>
 <body>
 <div class="container-fluid">

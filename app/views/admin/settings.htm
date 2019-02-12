@@ -1,81 +1,2542 @@
-<form role="form" method="post" enctype="multipart/form-data" id="post-create" class="settings">
-<check if="{{ @page.msg }}">
-<check if="{{ @page.msg.success }}">
-<true>
-<div id="success-msg"><i class="icon-ok"></i> {{ @page.msg.msg }}</div>
-</true>
-<false>
-<div id="error-msg"><i class="icon-cross"></i> {{ @page.msg.msg }}</div>
-</false>
-</check>
-</check>
-<div class="u-form-group">
-<label>Site Title</label>	
-<input type="text" name="site_title" value="{{ @page.settings.site_title }}">
-</div>
-<div class="u-form-group">
-<label>Meta Description</label>	
-<input type="text" name="site_desc" value="{{ @page.settings.site_description }}">
-</div>
-<div class="u-form-group">
-<label>Meta Keyword</label>	
-<input type="text" name="site_keyword" value="{{ @page.settings.site_keyword }}">
-</div>
-<div class="u-form-group half">
-<label>Recaptcha</label>
-<div class="switch">
-<input id="recaptcha" name="recaptcha" class="cmn-toggle cmn-toggle-round" type="checkbox" value="1" <check if="{{ @page.settings.recaptcha }}">checked="checked"</check>>
-<label for="recaptcha"></label>
-</div>
-</div>
-<div class="u-form-group half">
-<label>Recaptcha Key</label>	
-<input type="text" name="recaptcha_key" value="{{ @page.settings.recaptcha_key }}">
-</div>
-<div class="u-form-group half">
-<label>Recaptcha Secret Key</label>	
-<input type="text" name="recaptcha_secret" value="{{ @page.settings.recaptcha_secret }}">
-</div>
-<div class="u-form-group half">
-<label>Maintenance</label>
-<div class="switch">
-<input id="maintenance" name="maintenance" class="cmn-toggle cmn-toggle-round" type="checkbox" value="1" <check if="{{ @page.settings.maintenance }}">checked="checked"</check>>
-<label for="maintenance"></label>
-</div>
-</div>
-<div class="u-form-group half">
-<label>Https</label>
-<div class="switch">
-<input id="https" name="https_enable" class="cmn-toggle cmn-toggle-round" type="checkbox" value="1" <check if="{{ @page.settings.https_enable }}">checked="checked"</check>>
-<label for="https"></label>
-</div>
-</div>
-<div class="u-form-group half">
-<label>Quick Reply</label>
-<div class="switch">
-<input id="enable_qr" name="quick_reply" class="cmn-toggle cmn-toggle-round" type="checkbox" value="1" <check if="{{ @page.settings.quick_reply }}">checked="checked"</check>>
-<label for="enable_qr"></label>
-</div>
-</div>
-<div class="u-form-group half">
-<label>Emoji</label>
-<div class="switch">
-<input id="emoji" name="emoji" class="cmn-toggle cmn-toggle-round" type="checkbox" value="1" <check if="{{ @page.settings.emoji }}">checked="checked"</check>>
-<label for="emoji"></label>
-</div>
-</div>
-<div class="u-form-group half">
-<label>BBCode</label>
-<div class="switch">
-<input id="bbcode" name="bbcode" class="cmn-toggle cmn-toggle-round" type="checkbox" value="1" <check if="{{ @page.settings.bbcode }}">checked="checked"</check>>
-<label for="bbcode"></label>
-</div>
-</div>
-<div class="u-form-group">
-<label>Footer Message</label>	
-<input type="text" name="footer" value="{{ @page.settings.footer }}">
-</div>
-<div class="u-form-group">
-<button type="submit">Update Settings</button>
-</div>
-</form>
+<table class="mod config-editor">
+    <tbody>
+        <tr>
+            <th class="minimal">Name</th>
+            <th>Value</th>
+            <th class="minimal">Type</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <th class="minimal">global_message</th>
+            <td>
+                <input name="global_message" value="" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Global announcement</td>
+        </tr>
+        <tr>
+            <th class="minimal">debug</th>
+            <td>
+                <input name="debug" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Shows some extra information at the bottom of pages. Good for development/debugging.</td>
+        </tr>
+        <tr>
+            <th class="minimal">redirect_http</th>
+            <td>
+                <input name="redirect_http" value="303" type="number"> <small>Default: <code>303</code></small></td>
+            <td class="minimal">integer</td>
+            <td>The HTTP status code to use when redirecting. <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html" rel="nofollow" target="_blank">http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html</a> Can be either 303 "See Other" or 302 "Found". (303 is more correct but both should work.) There is really no reason for you to ever need to change this.</td>
+        </tr>
+        <tr>
+            <th class="minimal">has_installed</th>
+            <td>
+                <input name="has_installed" value=".installed" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>A tiny text file in the main directory indicating that the script has been ran and the board(s) have been generated. This keeps the script from querying the database and causing strain when not needed.</td>
+        </tr>
+        <tr>
+            <th class="minimal">db → type</th>
+            <td>
+                <input name="db/type" value="mysql" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Database driver (<a href="http://www.php.net/manual/en/pdo.drivers.php" rel="nofollow" target="_blank">http://www.php.net/manual/en/pdo.drivers.php</a>) Only MySQL is supported by Tinyboard at the moment, sorry.</td>
+        </tr>
+        <tr>
+            <th class="minimal">db → server</th>
+            <td>
+                <input name="db/server" value="localhost" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Hostname, IP address or Unix socket (prefixed with ":")</td>
+        </tr>
+        <tr>
+            <th class="minimal">db → user</th>
+            <td>
+                <input name="db/user" value="root" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Login</td>
+        </tr>
+        <tr>
+            <th class="minimal">db → database</th>
+            <td>
+                <input name="db/database" value="vichan" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Tinyboard database</td>
+        </tr>
+        <tr>
+            <th class="minimal">db → prefix</th>
+            <td>
+                <input name="db/prefix" value="dosu_" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Table prefix (optional)</td>
+        </tr>
+        <tr>
+            <th class="minimal">db → persistent</th>
+            <td>
+                <input name="db/persistent" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Use a persistent database connection when possible</td>
+        </tr>
+        <tr>
+            <th class="minimal">db → dsn</th>
+            <td>
+                <input name="db/dsn" value="" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Anything more to add to the DSN string (eg. port=xxx;foo=bar)</td>
+        </tr>
+        <tr>
+            <th class="minimal">db → timeout</th>
+            <td>
+                <input name="db/timeout" value="30" type="number"> <small>Default: <code>30</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Connection timeout duration in seconds</td>
+        </tr>
+        <tr>
+            <th class="minimal">cache → enabled</th>
+            <td>
+                <input name="cache/enabled" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">cache → timeout</th>
+            <td>
+                <input name="cache/timeout" value="172800" type="number"> <small>Default: <code>60 * 60 * 48</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Timeout for cached objects such as posts and HTML.</td>
+        </tr>
+        <tr>
+            <th class="minimal">cache → prefix</th>
+            <td>
+                <input name="cache/prefix" value="" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Optional prefix if you're running multiple Tinyboard instances on the same machine.</td>
+        </tr>
+        <tr>
+            <th class="minimal">cookies → mod</th>
+            <td>
+                <input name="cookies/mod" value="mod" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Used for moderation login.</td>
+        </tr>
+        <tr>
+            <th class="minimal">cookies → js</th>
+            <td>
+                <input name="cookies/js" value="serv" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Used for communicating with Javascript; telling it when posts were successful.</td>
+        </tr>
+        <tr>
+            <th class="minimal">cookies → path</th>
+            <td>
+                <input name="cookies/path" value="http://localhost/dosu/" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Cookies path. Defaults to $config['root']. If $config['root'] is a URL, you need to set this. Should be '/' or '/board/', depending on your installation.</td>
+        </tr>
+        <tr>
+            <th class="minimal">cookies → jail</th>
+            <td>
+                <input name="cookies/jail" checked="" type="checkbox"> <small>Default: <code>true</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Where to set the 'path' parameter to $config['cookies']['path'] when creating cookies. Recommended.</td>
+        </tr>
+        <tr>
+            <th class="minimal">cookies → expire</th>
+            <td>
+                <input name="cookies/expire" value="15552000" type="number"> <small>Default: <code>60 * 60 * 24 * 30 * 6</code></small></td>
+            <td class="minimal">integer</td>
+            <td>How long should the cookies last (in seconds). Defines how long should moderators should remain logged in (0 = browser session).</td>
+        </tr>
+        <tr>
+            <th class="minimal">cookies → salt</th>
+            <td>
+                <input name="cookies/salt" value="ODI4ZGYyOThmODhmZWUyMmNjN2ZjND" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Make this something long and random for security.</td>
+        </tr>
+        <tr>
+            <th class="minimal">cookies → httponly</th>
+            <td>
+                <input name="cookies/httponly" checked="" type="checkbox"> <small>Default: <code>true</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Whether or not you can access the mod cookie in JavaScript. Most users should not need to change this.</td>
+        </tr>
+        <tr>
+            <th class="minimal">secure_trip_salt</th>
+            <td>
+                <input name="secure_trip_salt" value="ZDliZWZiNGY2ZDUyNGE3OTc1YTllND" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Used to salt secure tripcodes ("##trip") and poster IDs (if enabled).</td>
+        </tr>
+        <tr>
+            <th class="minimal">spam → checking_enabled</th>
+            <td>
+                <input name="spam/checking_enabled" checked="" type="checkbox"> <small>Default: <code>true</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Disable it only if you have issues with spamfilter.</td>
+        </tr>
+        <tr>
+            <th class="minimal">spam → hidden_inputs_min</th>
+            <td>
+                <input name="spam/hidden_inputs_min" value="4" type="number"> <small>Default: <code>4</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Number of hidden fields to generate.</td>
+        </tr>
+        <tr>
+            <th class="minimal">spam → hidden_inputs_max</th>
+            <td>
+                <input name="spam/hidden_inputs_max" value="12" type="number"> <small>Default: <code>12</code></small></td>
+            <td class="minimal">integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">spam → hidden_inputs_max_pass</th>
+            <td>
+                <input name="spam/hidden_inputs_max_pass" value="12" type="number"> <small>Default: <code>12</code></small></td>
+            <td class="minimal">integer</td>
+            <td>How many times can a "hash" be used to post?</td>
+        </tr>
+        <tr>
+            <th class="minimal">spam → hidden_inputs_expire</th>
+            <td>
+                <input name="spam/hidden_inputs_expire" value="10800" type="number"> <small>Default: <code>60 * 60 * 3</code></small></td>
+            <td class="minimal">integer</td>
+            <td>How soon after regeneration do hashes expire (in seconds)?</td>
+        </tr>
+        <tr>
+            <th class="minimal">spam → unicode</th>
+            <td>
+                <input name="spam/unicode" checked="" type="checkbox"> <small>Default: <code>true</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Whether to use Unicode characters in hidden input names and values.</td>
+        </tr>
+        <tr>
+            <th class="minimal">captcha</th>
+            <td>
+                <input name="captcha" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Simple captcha</td>
+        </tr>
+        <tr>
+            <th class="minimal">recaptcha</th>
+            <td>
+                <input name="recaptcha" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Enable old reCaptcha (API 1.0) to make spam even harder. Rarely necessary.</td>
+        </tr>
+        <tr>
+            <th class="minimal">recaptcha2</th>
+            <td>
+                <input name="recaptcha2" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Enable new reCaptcha (API 2.0) to make spam even harder. Rarely necessary.</td>
+        </tr>
+        <tr>
+            <th class="minimal">recaptcha_public</th>
+            <td>
+                <input name="recaptcha_public" value="6LcXTcUSAAAAAKBxyFWIt2SO8jwx4W7wcSMRoN3f" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Public and private key pair from <a href="https://www.google.com/recaptcha/admin/create" rel="nofollow" target="_blank">https://www.google.com/recaptcha/admin/create</a></td>
+        </tr>
+        <tr>
+            <th class="minimal">recaptcha_private</th>
+            <td>
+                <input name="recaptcha_private" value="6LcXTcUSAAAAAOGVbVdhmEM1_SyRF4xTKe8jbzf_" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">flood_time</th>
+            <td>
+                <input name="flood_time" value="10" type="number"> <small>Default: <code>10</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Minimum time between between each post by the same IP address.</td>
+        </tr>
+        <tr>
+            <th class="minimal">flood_time_ip</th>
+            <td>
+                <input name="flood_time_ip" value="120" type="number"> <small>Default: <code>120</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Minimum time between between each post with the exact same content AND same IP address.</td>
+        </tr>
+        <tr>
+            <th class="minimal">flood_time_same</th>
+            <td>
+                <input name="flood_time_same" value="30" type="number"> <small>Default: <code>30</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Same as above but by a different IP address. (Same content, not necessarily same IP address.)</td>
+        </tr>
+        <tr>
+            <th class="minimal">flood_cache</th>
+            <td>
+                <input name="flood_cache" value="" type="number"> <small>Default: <code>60 * 60 * 24</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Filter flood prevention conditions ("flood-match") depend on a table which contains a cache of recent posts across all boards. This table is automatically purged of older posts, determining the maximum "age" by looking at each filter. However, when determining the maximum age, Tinyboard does not look outside the current board. This means that if you have a special flood condition for a specific board (contained in a board configuration file) which has a flood-time greater than any of those in the global configuration, you need to set the following variable to the maximum flood-time condition value.</td>
+        </tr>
+        <tr>
+            <th class="minimal">force_body</th>
+            <td>
+                <input name="force_body" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Do you need a body for your reply posts?</td>
+        </tr>
+        <tr>
+            <th class="minimal">force_body_op</th>
+            <td>
+                <input name="force_body_op" checked="" type="checkbox"> <small>Default: <code>true</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Do you need a body for new threads?</td>
+        </tr>
+        <tr>
+            <th class="minimal">force_image_op</th>
+            <td>
+                <input name="force_image_op" checked="" type="checkbox"> <small>Default: <code>true</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Require an image for threads?</td>
+        </tr>
+        <tr>
+            <th class="minimal">strip_superfluous_returns</th>
+            <td>
+                <input name="strip_superfluous_returns" checked="" type="checkbox"> <small>Default: <code>true</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Strip superfluous new lines at the end of a post.</td>
+        </tr>
+        <tr>
+            <th class="minimal">strip_combining_chars</th>
+            <td>
+                <input name="strip_combining_chars" checked="" type="checkbox"> <small>Default: <code>true</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Strip combining characters from Unicode strings (eg. "Zalgo").</td>
+        </tr>
+        <tr>
+            <th class="minimal">max_body</th>
+            <td>
+                <input name="max_body" value="1800" type="number"> <small>Default: <code>1800</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Maximum post body length.</td>
+        </tr>
+        <tr>
+            <th class="minimal">max_email</th>
+            <td>
+                <input name="max_email" value="50" type="number"> <small>Default: <code>50</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Maximum email field length. TODO: fix email field in DB</td>
+        </tr>
+        <tr>
+            <th class="minimal">body_truncate</th>
+            <td>
+                <input name="body_truncate" value="15" type="number"> <small>Default: <code>15</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Maximum number of post body lines to show on the index page.</td>
+        </tr>
+        <tr>
+            <th class="minimal">body_truncate_char</th>
+            <td>
+                <input name="body_truncate_char" value="2500" type="number"> <small>Default: <code>2500</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Maximum number of characters to show on the index page.</td>
+        </tr>
+        <tr>
+            <th class="minimal">max_links</th>
+            <td>
+                <input name="max_links" value="20" type="number"> <small>Default: <code>20</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Typically spambots try to post many links. Refuse a post with X links?</td>
+        </tr>
+        <tr>
+            <th class="minimal">max_cites</th>
+            <td>
+                <input name="max_cites" value="45" type="number"> <small>Default: <code>45</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Maximum number of cites per post (prevents abuse, as more citations mean more database queries).</td>
+        </tr>
+        <tr>
+            <th class="minimal">max_cross</th>
+            <td>
+                <input name="max_cross" value="45" type="number"> <small>Default: <code>$config['max_cites']</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Maximum number of cross-board links/citations per post.</td>
+        </tr>
+        <tr>
+            <th class="minimal">track_cites</th>
+            <td>
+                <input name="track_cites" checked="" type="checkbox"> <small>Default: <code>true</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Track post citations (&gt;&gt;XX). Rebuilds posts after a cited post is deleted, removing broken links. Puts a little more load on the database.</td>
+        </tr>
+        <tr>
+            <th class="minimal">max_filename_len</th>
+            <td>
+                <input name="max_filename_len" value="255" type="number"> <small>Default: <code>255</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Maximum filename length (will be truncated).</td>
+        </tr>
+        <tr>
+            <th class="minimal">max_filename_display</th>
+            <td>
+                <input name="max_filename_display" value="30" type="number"> <small>Default: <code>30</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Maximum filename length to display (the rest can be viewed upon mouseover).</td>
+        </tr>
+        <tr>
+            <th class="minimal">delete_time</th>
+            <td>
+                <input name="delete_time" value="10" type="number"> <small>Default: <code>10</code></small></td>
+            <td class="minimal">integer</td>
+            <td>How long after posting should you have to wait before being able to delete that post? (In seconds.)</td>
+        </tr>
+        <tr>
+            <th class="minimal">delete_max_time</th>
+            <td>
+                <input name="delete_max_time" value="600" type="number"> <small>Default: <code>600</code></small></td>
+            <td class="minimal">integer</td>
+            <td>How long after posting you can delete that post? (In seconds.)</td>
+        </tr>
+        <tr>
+            <th class="minimal">reply_limit</th>
+            <td>
+                <input name="reply_limit" value="250" type="number"> <small>Default: <code>250</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Reply limit (stops bumping thread when this is reached).</td>
+        </tr>
+        <tr>
+            <th class="minimal">image_hard_limit</th>
+            <td>
+                <input name="image_hard_limit" value="0" type="number"> <small>Default: <code>0</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Image hard limit (stops allowing new image replies when this is reached if not zero).</td>
+        </tr>
+        <tr>
+            <th class="minimal">reply_hard_limit</th>
+            <td>
+                <input name="reply_hard_limit" value="0" type="number"> <small>Default: <code>0</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Reply hard limit (stops allowing new replies when this is reached if not zero).</td>
+        </tr>
+        <tr>
+            <th class="minimal">robot_enable</th>
+            <td>
+                <input name="robot_enable" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">robot_strip_repeating</th>
+            <td>
+                <input name="robot_strip_repeating" checked="" type="checkbox"> <small>Default: <code>true</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Strip repeating characters when making hashes.</td>
+        </tr>
+        <tr>
+            <th class="minimal">robot_mute</th>
+            <td>
+                <input name="robot_mute" checked="" type="checkbox"> <small>Default: <code>true</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Enabled mutes? Tinyboard uses ROBOT9000's original 2^x implementation where x is the number of times you have been muted in the past.</td>
+        </tr>
+        <tr>
+            <th class="minimal">robot_mute_hour</th>
+            <td>
+                <input name="robot_mute_hour" value="336" type="number"> <small>Default: <code>336</code></small></td>
+            <td class="minimal">integer</td>
+            <td>How long before Tinyboard forgets about a mute?</td>
+        </tr>
+        <tr>
+            <th class="minimal">robot_mute_multiplier</th>
+            <td>
+                <input name="robot_mute_multiplier" value="2" type="number"> <small>Default: <code>2</code></small></td>
+            <td class="minimal">integer</td>
+            <td>If you want to alter the algorithm a bit. Default value is 2.</td>
+        </tr>
+        <tr>
+            <th class="minimal">robot_mute_descritpion</th>
+            <td>
+                <input name="robot_mute_descritpion" value="You have been muted for unoriginal content." type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">auto_unicode</th>
+            <td>
+                <input name="auto_unicode" checked="" type="checkbox"> <small>Default: <code>true</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Automatically convert things like "..." to Unicode characters ("…").</td>
+        </tr>
+        <tr>
+            <th class="minimal">markup_urls</th>
+            <td>
+                <input name="markup_urls" checked="" type="checkbox"> <small>Default: <code>true</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Whether to turn URLs into functional links.</td>
+        </tr>
+        <tr>
+            <th class="minimal">link_prefix</th>
+            <td>
+                <input name="link_prefix" value="" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Optional URL prefix for links (eg. "<a href="http://anonym.to/" rel="nofollow" target="_blank">http://anonym.to/</a>?").</td>
+        </tr>
+        <tr>
+            <th class="minimal">allow_upload_by_url</th>
+            <td>
+                <input name="allow_upload_by_url" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Allow "uploading" images via URL as well. Users can enter the URL of the image and then Tinyboard will download it. Not usually recommended.</td>
+        </tr>
+        <tr>
+            <th class="minimal">upload_by_url_timeout</th>
+            <td>
+                <input name="upload_by_url_timeout" value="15" type="number"> <small>Default: <code>15</code></small></td>
+            <td class="minimal">integer</td>
+            <td>The timeout for the above, in seconds.</td>
+        </tr>
+        <tr>
+            <th class="minimal">always_noko</th>
+            <td>
+                <input name="always_noko" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Always act as if the user had typed "noko" into the email field.</td>
+        </tr>
+        <tr>
+            <th class="minimal">spoiler_images</th>
+            <td>
+                <input name="spoiler_images" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Allow users to mark their image as a "spoiler" when posting. The thumbnail will be replaced with a static spoiler image instead (see $config['spoiler_image']).</td>
+        </tr>
+        <tr>
+            <th class="minimal">autospoiler_images</th>
+            <td>
+                <input name="autospoiler_images" checked="" type="checkbox"> <small>Default: <code>true</code></small></td>
+            <td class="minimal">boolean</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">field_disable_name</th>
+            <td>
+                <input name="field_disable_name" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>When true, all names will be set to $config['anonymous'].</td>
+        </tr>
+        <tr>
+            <th class="minimal">field_disable_email</th>
+            <td>
+                <input name="field_disable_email" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>When true, there will be no email field.</td>
+        </tr>
+        <tr>
+            <th class="minimal">field_disable_subject</th>
+            <td>
+                <input name="field_disable_subject" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>When true, there will be no subject field.</td>
+        </tr>
+        <tr>
+            <th class="minimal">field_disable_reply_subject</th>
+            <td>
+                <input name="field_disable_reply_subject" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>When true, there will be no subject field for replies.</td>
+        </tr>
+        <tr>
+            <th class="minimal">field_disable_password</th>
+            <td>
+                <input name="field_disable_password" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>When true, a blank password will be used for files (not usable for deletion).</td>
+        </tr>
+        <tr>
+            <th class="minimal">country_flags</th>
+            <td>
+                <input name="country_flags" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Attach country flags to posts. Requires the PHP "geoip" extension to be installed: <a href="http://www.php.net/manual/en/intro.geoip.php" rel="nofollow" target="_blank">http://www.php.net/manual/en/intro.geoip.php</a>. In the future, maybe I will find and include a proper pure-PHP geolocation library.</td>
+        </tr>
+        <tr>
+            <th class="minimal">require_ban_view</th>
+            <td>
+                <input name="require_ban_view" checked="" type="checkbox"> <small>Default: <code>true</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Require users to see the ban page at least once for a ban even if it has since expired.</td>
+        </tr>
+        <tr>
+            <th class="minimal">ban_show_post</th>
+            <td>
+                <input name="ban_show_post" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Show the post the user was banned for on the "You are banned" page.</td>
+        </tr>
+        <tr>
+            <th class="minimal">ban_page_extra</th>
+            <td>
+                <input name="ban_page_extra" value="" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Optional HTML to append to "You are banned" pages. For example, you could include instructions and/or a link to an email address or IRC chat room to appeal the ban.</td>
+        </tr>
+        <tr>
+            <th class="minimal">ban_appeals</th>
+            <td>
+                <input name="ban_appeals" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Allow users to appeal bans through Tinyboard.</td>
+        </tr>
+        <tr>
+            <th class="minimal">ban_appeals_min_length</th>
+            <td>
+                <input name="ban_appeals_min_length" value="21600" type="number"> <small>Default: <code>60 * 60 * 6</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Do not allow users to appeal bans that are shorter than this length (in seconds).</td>
+        </tr>
+        <tr>
+            <th class="minimal">ban_appeals_max</th>
+            <td>
+                <input name="ban_appeals_max" value="1" type="number"> <small>Default: <code>1</code></small></td>
+            <td class="minimal">integer</td>
+            <td>How many ban appeals can be made for a single ban?</td>
+        </tr>
+        <tr>
+            <th class="minimal">markup_repair_tidy</th>
+            <td>
+                <input name="markup_repair_tidy" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Repair markup with HTML Tidy. This may be slower, but it solves nesting mistakes. Tinyboad, at the time of writing this, can not prevent out-of-order markup tags (eg. "**''test**'') without help from HTML Tidy.</td>
+        </tr>
+        <tr>
+            <th class="minimal">always_regenerate_markup</th>
+            <td>
+                <input name="always_regenerate_markup" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Always regenerate markup. This isn't recommended and should only be used for debugging; by default, Tinyboard only parses post markup when it needs to, and keeps post-markup HTML in the database. This will significantly impact performance when enabled.</td>
+        </tr>
+        <tr>
+            <th class="minimal">thumb_width</th>
+            <td>
+                <input name="thumb_width" value="255" type="number"> <small>Default: <code>255</code></small></td>
+            <td class="minimal">integer</td>
+            <td>For resizing, maximum thumbnail dimensions.</td>
+        </tr>
+        <tr>
+            <th class="minimal">thumb_height</th>
+            <td>
+                <input name="thumb_height" value="255" type="number"> <small>Default: <code>255</code></small></td>
+            <td class="minimal">integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">thumb_op_width</th>
+            <td>
+                <input name="thumb_op_width" value="255" type="number"> <small>Default: <code>255</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Maximum thumbnail dimensions for thread (OP) images.</td>
+        </tr>
+        <tr>
+            <th class="minimal">thumb_op_height</th>
+            <td>
+                <input name="thumb_op_height" value="255" type="number"> <small>Default: <code>255</code></small></td>
+            <td class="minimal">integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">thumb_ext</th>
+            <td>
+                <input name="thumb_ext" value="png" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Thumbnail extension ("png" recommended). Leave this empty if you want the extension to be inherited from the uploaded file.</td>
+        </tr>
+        <tr>
+            <th class="minimal">thumb_keep_animation_frames</th>
+            <td>
+                <input name="thumb_keep_animation_frames" value="1" type="number"> <small>Default: <code>1</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Maximum amount of animated GIF frames to resize (more frames can mean more processing power). A value of "1" means thumbnails will not be animated. Requires $config['thumb_ext'] to be 'gif' (or blank) and $config['thumb_method'] to be 'imagick', 'convert', or 'convert+gifsicle'. This value is not respected by 'convert'; will just resize all frames if this is &gt; 1.</td>
+        </tr>
+        <tr>
+            <th class="minimal">thumb_method</th>
+            <td>
+                <input name="thumb_method" value="gd" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">strip_exif</th>
+            <td>
+                <input name="strip_exif" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Strip EXIF metadata from JPEG files.</td>
+        </tr>
+        <tr>
+            <th class="minimal">use_exiftool</th>
+            <td>
+                <input name="use_exiftool" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Use the command-line `exiftool` tool to strip EXIF metadata without decompressing/recompressing JPEGs. Ignored when $config['redraw_image'] is true. This is also used to adjust the Orientation tag when $config['strip_exif'] is false and $config['convert_manual_orient'] is true.</td>
+        </tr>
+        <tr>
+            <th class="minimal">redraw_image</th>
+            <td>
+                <input name="redraw_image" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Redraw the image to strip any excess data (commonly ZIP archives) WARNING: This might strip the animation of GIFs, depending on the chosen thumbnailing method. It also requires recompressing the image, so more processing power is required.</td>
+        </tr>
+        <tr>
+            <th class="minimal">convert_auto_orient</th>
+            <td>
+                <input name="convert_auto_orient" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Automatically correct the orientation of JPEG files using -auto-orient in `convert`. This only works when `convert` or `gm` is selected for thumbnailing. Again, requires more processing power because this basically does the same thing as $config['redraw_image']. (If $config['redraw_image'] is enabled, this value doesn't matter as $config['redraw_image'] attempts to correct orientation too.)</td>
+        </tr>
+        <tr>
+            <th class="minimal">convert_manual_orient</th>
+            <td>
+                <input name="convert_manual_orient" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Is your version of ImageMagick or GraphicsMagick old? Older versions may not include the -auto-orient switch. This is a manual replacement for that switch. This is independent from the above switch; -auto-orrient is applied when thumbnailing too.</td>
+        </tr>
+        <tr>
+            <th class="minimal">ie_mime_type_detection</th>
+            <td>
+                <input name="ie_mime_type_detection" value="/<(?:body|head|html|img|plaintext|pre|script|table|title|a href|channel|scriptlet)/i" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Regular expression to check for an XSS exploit with IE 6 and 7. To disable, set to false. Details: <a href="https://github.com/savetheinternet/Tinyboard/issues/20" rel="nofollow" target="_blank">https://github.com/savetheinternet/Tinyboard/issues/20</a></td>
+        </tr>
+        <tr>
+            <th class="minimal">file_icons → default</th>
+            <td>
+                <input name="file_icons/default" value="file.png" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Thumbnail to use for the non-image file uploads.</td>
+        </tr>
+        <tr>
+            <th class="minimal">file_icons → zip</th>
+            <td>
+                <input name="file_icons/zip" value="zip.png" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">file_thumb</th>
+            <td>
+                <input name="file_thumb" value="static/%s" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Location of above images.</td>
+        </tr>
+        <tr>
+            <th class="minimal">spoiler_image</th>
+            <td>
+                <input name="spoiler_image" value="static/spoiler.png" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Location of thumbnail to use for spoiler images.</td>
+        </tr>
+        <tr>
+            <th class="minimal">image_deleted</th>
+            <td>
+                <input name="image_deleted" value="http://localhost/dosu/static/deleted.png" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Location of thumbnail to use for deleted images.</td>
+        </tr>
+        <tr>
+            <th class="minimal">minimum_copy_resize</th>
+            <td>
+                <input name="minimum_copy_resize" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>When a thumbnailed image is going to be the same (in dimension), just copy the entire file and use that as a thumbnail instead of resizing/redrawing.</td>
+        </tr>
+        <tr>
+            <th class="minimal">max_filesize</th>
+            <td>
+                <input name="max_filesize" value="10485760" type="number"> <small>Default: <code>10 * 1024 * 1024</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Maximum image upload size in bytes.</td>
+        </tr>
+        <tr>
+            <th class="minimal">max_width</th>
+            <td>
+                <input name="max_width" value="10000" type="number"> <small>Default: <code>10000</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Maximum image dimensions.</td>
+        </tr>
+        <tr>
+            <th class="minimal">max_height</th>
+            <td>
+                <input name="max_height" value="10000" type="number"> <small>Default: <code>$config['max_width']</code></small></td>
+            <td class="minimal">integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">image_reject_repost</th>
+            <td>
+                <input name="image_reject_repost" checked="" type="checkbox"> <small>Default: <code>true</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Reject duplicate image uploads.</td>
+        </tr>
+        <tr>
+            <th class="minimal">image_reject_repost_in_thread</th>
+            <td>
+                <input name="image_reject_repost_in_thread" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Reject duplicate image uploads within the same thread. Doesn't change anything if $config['image_reject_repost'] is true.</td>
+        </tr>
+        <tr>
+            <th class="minimal">show_ratio</th>
+            <td>
+                <input name="show_ratio" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Display the aspect ratio of uploaded files.</td>
+        </tr>
+        <tr>
+            <th class="minimal">show_filename</th>
+            <td>
+                <input name="show_filename" checked="" type="checkbox"> <small>Default: <code>true</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Display the file's original filename.</td>
+        </tr>
+        <tr>
+            <th class="minimal">image_identification</th>
+            <td>
+                <input name="image_identification" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Display image identification links using regex.info/exif, TinEye and Google Images.</td>
+        </tr>
+        <tr>
+            <th class="minimal">threads_per_page</th>
+            <td>
+                <input name="threads_per_page" value="10" type="number"> <small>Default: <code>10</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Maximum amount of threads to display per page.</td>
+        </tr>
+        <tr>
+            <th class="minimal">max_pages</th>
+            <td>
+                <input name="max_pages" value="10" type="number"> <small>Default: <code>10</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Maximum number of pages. Content past the last page is automatically purged.</td>
+        </tr>
+        <tr>
+            <th class="minimal">threads_preview</th>
+            <td>
+                <input name="threads_preview" value="5" type="number"> <small>Default: <code>5</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Replies to show per thread on the board index page.</td>
+        </tr>
+        <tr>
+            <th class="minimal">threads_preview_sticky</th>
+            <td>
+                <input name="threads_preview_sticky" value="1" type="number"> <small>Default: <code>1</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Same as above, but for stickied threads.</td>
+        </tr>
+        <tr>
+            <th class="minimal">board_abbreviation</th>
+            <td>
+                <input name="board_abbreviation" value="/%s/" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>How to display the URI of boards. Usually '/%s/' (/b/, /mu/, etc). This doesn't change the URL. Find $config['board_path'] if you wish to change the URL.</td>
+        </tr>
+        <tr>
+            <th class="minimal">anonymous</th>
+            <td>
+                <input name="anonymous" value="Anonymous" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>The default name (ie. Anonymous).</td>
+        </tr>
+        <tr>
+            <th class="minimal">report_limit</th>
+            <td>
+                <input name="report_limit" value="3" type="number"> <small>Default: <code>3</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Number of reports you can create at once.</td>
+        </tr>
+        <tr>
+            <th class="minimal">allow_subtitle_html</th>
+            <td>
+                <input name="allow_subtitle_html" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Allow unfiltered HTML in board subtitles. This is useful for placing icons and links.</td>
+        </tr>
+        <tr>
+            <th class="minimal">dice</th>
+            <td>
+                <input name="dice" checked="" type="checkbox"> <small>Default: <code>true</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Enable dices.</td>
+        </tr>
+        <tr>
+            <th class="minimal">dice_limit</th>
+            <td>
+                <input name="dice_limit" value="5" type="number"> <small>Default: <code>5</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Amount of unique dices that can be rolled in a single post.</td>
+        </tr>
+        <tr>
+            <th class="minimal">google_random</th>
+            <td>
+                <input name="google_random" checked="" type="checkbox"> <small>Default: <code>true</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>#random in email field will attach a random pic from google.com.</td>
+        </tr>
+        <tr>
+            <th class="minimal">derpibooru_random</th>
+            <td>
+                <input name="derpibooru_random" checked="" type="checkbox"> <small>Default: <code>true</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>#ponyrand in email field will attach a random pic from derpiboo.ru.</td>
+        </tr>
+        <tr>
+            <th class="minimal">danbooru_random</th>
+            <td>
+                <input name="danbooru_random" checked="" type="checkbox"> <small>Default: <code>true</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>#danrand in email field will attach a random pic from danbooru.donmai.us</td>
+        </tr>
+        <tr>
+            <th class="minimal">gelbooru_random</th>
+            <td>
+                <input name="gelbooru_random" checked="" type="checkbox"> <small>Default: <code>true</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>#gelrand in email field will attach a random pic from gelbooru.com</td>
+        </tr>
+        <tr>
+            <th class="minimal">safebooru_random</th>
+            <td>
+                <input name="safebooru_random" checked="" type="checkbox"> <small>Default: <code>true</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>#saferand in email field will attach a random pic from safebooru.com</td>
+        </tr>
+        <tr>
+            <th class="minimal">giphy_random</th>
+            <td>
+                <input name="giphy_random" checked="" type="checkbox"> <small>Default: <code>true</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>#gifrand in email field will attach a random gif from giphy.com</td>
+        </tr>
+        <tr>
+            <th class="minimal">giphyAPIKey</th>
+            <td>
+                <input name="giphyAPIKey" value="dc6zaTOxFJmzC" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>API key is necessary for $config['giphy_random'], this one is for testing only Register your own API key by contacting api@giphy.com</td>
+        </tr>
+        <tr>
+            <th class="minimal">letstry</th>
+            <td>
+                <input name="letstry" checked="" type="checkbox"> <small>Default: <code>true</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>#letstry in email field will add some hardcoded random string.</td>
+        </tr>
+        <tr>
+            <th class="minimal">letstry_random → enabled</th>
+            <td>
+                <input name="letstry_random/enabled" checked="" type="checkbox"> <small>Default: <code>true</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Attach a random #letstry even without #letstry in email field.</td>
+        </tr>
+        <tr>
+            <th class="minimal">letstry_random → max</th>
+            <td>
+                <input name="letstry_random/max" value="2000" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Random #letstry-related things mt_rand(1, max) = luck</td>
+        </tr>
+        <tr>
+            <th class="minimal">letstry_random → luck</th>
+            <td>
+                <input name="letstry_random/luck" value="555" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">magic8ball</th>
+            <td>
+                <input name="magic8ball" checked="" type="checkbox"> <small>Default: <code>true</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>#8ball in email field to attach a message from Magic 8 Ball</td>
+        </tr>
+        <tr>
+            <th class="minimal">locale</th>
+            <td>
+                <input name="locale" value="en" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Tinyboard has been translated into a few langauges. See inc/locale for available translations.</td>
+        </tr>
+        <tr>
+            <th class="minimal">timezone</th>
+            <td>
+                <input name="timezone" value="America/Los_Angeles" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Timezone to use for displaying dates/tiems.</td>
+        </tr>
+        <tr>
+            <th class="minimal">post_date</th>
+            <td>
+                <input name="post_date" value="%m/%d/%y (%a) %H:%M:%S" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>The format string passed to strftime() for displaying dates. <a href="http://www.php.net/manual/en/function.strftime.php" rel="nofollow" target="_blank">http://www.php.net/manual/en/function.strftime.php</a></td>
+        </tr>
+        <tr>
+            <th class="minimal">ban_date</th>
+            <td>
+                <input name="ban_date" value="%A %e %B, %Y" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Same as above, but used for "you are banned' pages.</td>
+        </tr>
+        <tr>
+            <th class="minimal">button_newtopic</th>
+            <td>
+                <input name="button_newtopic" value="New Topic" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>The names on the post buttons. (On most imageboards, these are both just "Post").</td>
+        </tr>
+        <tr>
+            <th class="minimal">button_reply</th>
+            <td>
+                <input name="button_reply" value="New Reply" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">poster_ids</th>
+            <td>
+                <input name="poster_ids" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Assign each poster in a thread a unique ID, shown by "ID: xxxxx" before the post number.</td>
+        </tr>
+        <tr>
+            <th class="minimal">poster_id_length</th>
+            <td>
+                <input name="poster_id_length" value="5" type="number"> <small>Default: <code>5</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Number of characters in the poster ID (maximum is 40).</td>
+        </tr>
+        <tr>
+            <th class="minimal">thread_subject_in_title</th>
+            <td>
+                <input name="thread_subject_in_title" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Show thread subject in page title.</td>
+        </tr>
+        <tr>
+            <th class="minimal">genpassword_chars</th>
+            <td>
+                <input name="genpassword_chars" value="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&amp;*()_+" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Characters used to generate a random password (with Javascript).</td>
+        </tr>
+        <tr>
+            <th class="minimal">url_banner</th>
+            <td>
+                <input name="url_banner" value="" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Optional banner image at the top of every page.</td>
+        </tr>
+        <tr>
+            <th class="minimal">banner_width</th>
+            <td>
+                <input name="banner_width" value="" type="number"> <small>Default: <code>300</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Banner dimensions are also optional. As the banner loads after the rest of the page, everything may be shifted down a few pixels when it does. Making the banner a fixed size will prevent this.</td>
+        </tr>
+        <tr>
+            <th class="minimal">banner_height</th>
+            <td>
+                <input name="banner_height" value="" type="number"> <small>Default: <code>100</code></small></td>
+            <td class="minimal">integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">uri_stylesheets</th>
+            <td>
+                <input name="uri_stylesheets" value="http://localhost/dosu/stylesheets/" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>The prefix for each stylesheet URI. Defaults to $config['root']/stylesheets/</td>
+        </tr>
+        <tr>
+            <th class="minimal">stylesheets_board</th>
+            <td>
+                <input name="stylesheets_board" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Make stylesheet selections board-specific.</td>
+        </tr>
+        <tr>
+            <th class="minimal">additional_stylesheet_url</th>
+            <td>
+                <input name="additional_stylesheet_url" value="" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Where these stylesheet files are located on the web. Defaults to $config['root'].</td>
+        </tr>
+        <tr>
+            <th class="minimal">boardlist_wrap_bracket</th>
+            <td>
+                <input name="boardlist_wrap_bracket" checked="" type="checkbox"> <small>Default: <code>true</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Whether or not to put brackets around the whole board list</td>
+        </tr>
+        <tr>
+            <th class="minimal">page_nav_top</th>
+            <td>
+                <input name="page_nav_top" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Show page navigation links at the top as well.</td>
+        </tr>
+        <tr>
+            <th class="minimal">catalog_link</th>
+            <td>
+                <input name="catalog_link" value="" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Show "Catalog" link in page navigation. Use with the Catalog theme.</td>
+        </tr>
+        <tr>
+            <th class="minimal">minify_html</th>
+            <td>
+                <input name="minify_html" checked="" type="checkbox"> <small>Default: <code>true</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Automatically remove unnecessary whitespace when compiling HTML files from templates.</td>
+        </tr>
+        <tr>
+            <th class="minimal">display_flags</th>
+            <td>
+                <input name="display_flags" checked="" type="checkbox"> <small>Default: <code>true</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Display flags (when available). This config option has no effect unless poster flags are enabled (see</td>
+        </tr>
+        <tr>
+            <th class="minimal">uri_flags</th>
+            <td>
+                <input name="uri_flags" value="http://localhost/dosu/static/flags/%s.png" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Location of post flags/icons (where "%s" is the flag name). Defaults to static/flags/%s.png.</td>
+        </tr>
+        <tr>
+            <th class="minimal">flag_style</th>
+            <td>
+                <input name="flag_style" value="width:16px;height:11px;" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Width and height (and more?) of post flags. Can be overridden with the Tinyboard post modifier:
+                <tinyboard flag="" style="">.</tinyboard>
+            </td>
+        </tr>
+        <tr>
+            <th class="minimal">flags_spritesheet</th>
+            <td>
+                <input name="flags_spritesheet" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>If you want to increase performance of custom flags, you can use CSS sprite sheets. For example, use this <a href="http://draeton.github.io/stitches/" rel="nofollow" target="_blank">http://draeton.github.io/stitches/</a> to generate a spritesheet.png and stylesheet.css, then add $config['additional_stylesheet'][] = '/path/to/stylesheet.css' with pre-generated flags stylesheet. Don't forget that Fukuro uses "flag flag-flagname" as flag class names, Stitches's editor uses different. To display flags correctly you might add something like this to your additional stylesheet with flags classes. .flag { background-image: url('/path/to/spritesheet.png'); background-repeat: no-repeat; display: inline-block; }</td>
+        </tr>
+        <tr>
+            <th class="minimal">additional_javascript_url</th>
+            <td>
+                <input name="additional_javascript_url" value="http://localhost/dosu/" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Where these script files are located on the web. Defaults to $config['root'].</td>
+        </tr>
+        <tr>
+            <th class="minimal">additional_javascript_compile</th>
+            <td>
+                <input name="additional_javascript_compile" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Compile all additional scripts into one file ($config['file_script']) instead of including them seperately.</td>
+        </tr>
+        <tr>
+            <th class="minimal">minify_js</th>
+            <td>
+                <input name="minify_js" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Minify Javascript using <a href="http://code.google.com/p/minify/" rel="nofollow" target="_blank">http://code.google.com/p/minify/</a>.</td>
+        </tr>
+        <tr>
+            <th class="minimal">quick_reply</th>
+            <td>
+                <input name="quick_reply" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Allows js/quick-reply.js to work. This could make your imageboard more vulnerable to flood attacks.</td>
+        </tr>
+        <tr>
+            <th class="minimal">enable_embedding</th>
+            <td>
+                <input name="enable_embedding" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Enable embedding (see below).</td>
+        </tr>
+        <tr>
+            <th class="minimal">embed_width</th>
+            <td>
+                <input name="embed_width" value="300" type="number"> <small>Default: <code>300</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Embedding width and height.</td>
+        </tr>
+        <tr>
+            <th class="minimal">embed_height</th>
+            <td>
+                <input name="embed_height" value="246" type="number"> <small>Default: <code>246</code></small></td>
+            <td class="minimal">integer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">youtube_apiv3_key</th>
+            <td>
+                <input name="youtube_apiv3_key" value="go-register-your-own-key" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Youtube APIv3 key for js/youtube.js</td>
+        </tr>
+        <tr>
+            <th class="minimal">root</th>
+            <td>
+                <input name="root" value="http://localhost/dosu/" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>The root directory, including the trailing slash, for Tinyboard. Examples: '/', '<a href="http://boards.chan.org/'" rel="nofollow" target="_blank">http://boards.chan.org/'</a>, '/chan/'.</td>
+        </tr>
+        <tr>
+            <th class="minimal">domain</th>
+            <td>
+                <input name="domain" value="http://localhost" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>The scheme and domain. This is used to get the site's absolute URL (eg. for image identification links). If you use the CLI tools, it would be wise to override this setting.</td>
+        </tr>
+        <tr>
+            <th class="minimal">root_file</th>
+            <td>
+                <input name="root_file" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>If for some reason the folders and static HTML index files aren't in the current working direcotry, enter the directory path here. Otherwise, keep it false.</td>
+        </tr>
+        <tr>
+            <th class="minimal">file_index</th>
+            <td>
+                <input name="file_index" value="index.html" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Location of files.</td>
+        </tr>
+        <tr>
+            <th class="minimal">file_page</th>
+            <td>
+                <input name="file_page" value="%d.html" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">file_mod</th>
+            <td>
+                <input name="file_mod" value="mod.php" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">file_post</th>
+            <td>
+                <input name="file_post" value="post.php" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">file_script</th>
+            <td>
+                <input name="file_script" value="main.js" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">board_path</th>
+            <td>
+                <input name="board_path" value="%s/" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Board directory, followed by a forward-slash (/).</td>
+        </tr>
+        <tr>
+            <th class="minimal">dir → img</th>
+            <td>
+                <input name="dir/img" value="src/" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Misc directories.</td>
+        </tr>
+        <tr>
+            <th class="minimal">dir → thumb</th>
+            <td>
+                <input name="dir/thumb" value="thumb/" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">dir → res</th>
+            <td>
+                <input name="dir/res" value="res/" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">dir → static</th>
+            <td>
+                <input name="dir/static" value="http://localhost/dosu/static/" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>For load balancing, having a seperate server (and domain/subdomain) for serving static content is possible. This can either be a directory or a URL. Defaults to $config['root'] . 'static/'.</td>
+        </tr>
+        <tr>
+            <th class="minimal">dir → template</th>
+            <td>
+                <input name="dir/template" value="G:\public_html\dosu/templates" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Where to store the .html templates. This folder and the template files must exist.</td>
+        </tr>
+        <tr>
+            <th class="minimal">dir → themes</th>
+            <td>
+                <input name="dir/themes" value="G:\public_html\dosu/templates/themes" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Location of Tinyboard "themes".</td>
+        </tr>
+        <tr>
+            <th class="minimal">dir → themes_uri</th>
+            <td>
+                <input name="dir/themes_uri" value="templates/themes" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Same as above, but a URI (accessable by web interface).</td>
+        </tr>
+        <tr>
+            <th class="minimal">dir → home</th>
+            <td>
+                <input name="dir/home" value="" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Home directory. Used by themes.</td>
+        </tr>
+        <tr>
+            <th class="minimal">uri_thumb</th>
+            <td>
+                <input name="uri_thumb" value="cdn/thumb" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>If you want to put images and other dynamic-static stuff on another (preferably cookieless) domain. This will override $config['root'] and $config['dir']['...'] directives. "%s" will get replaced with $board['dir'], which includes a trailing slash.</td>
+        </tr>
+        <tr>
+            <th class="minimal">uri_img</th>
+            <td>
+                <input name="uri_img" value="cdn/src" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">url_stylesheet</th>
+            <td>
+                <input name="url_stylesheet" value="http://localhost/dosu/stylesheets/style.css" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Set custom locations for stylesheets and the main script file. This can be used for load balancing across multiple servers or hostnames.</td>
+        </tr>
+        <tr>
+            <th class="minimal">url_javascript</th>
+            <td>
+                <input name="url_javascript" value="http://localhost/dosu/main.js" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">url_favicon</th>
+            <td>
+                <input name="url_favicon" value="" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Website favicon.</td>
+        </tr>
+        <tr>
+            <th class="minimal">try_smarter</th>
+            <td>
+                <input name="try_smarter" checked="" type="checkbox"> <small>Default: <code>true</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>EXPERIMENTAL: Try not to build pages when we shouldn't have to.</td>
+        </tr>
+        <tr>
+            <th class="minimal">noko50_count</th>
+            <td>
+                <input name="noko50_count" value="50" type="number"> <small>Default: <code>50</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Number of posts in a "View Last X Posts" page</td>
+        </tr>
+        <tr>
+            <th class="minimal">noko50_min</th>
+            <td>
+                <input name="noko50_min" value="50" type="number"> <small>Default: <code>50</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Number of posts a thread needs before it gets a "View Last X Posts" page</td>
+        </tr>
+        <tr>
+            <th class="minimal">file_page50</th>
+            <td>
+                <input name="file_page50" value="%d+50.html" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Name of "Last X Posts" page</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → unban_limit</th>
+            <td>
+                <input name="mod/unban_limit" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Limit how many bans can be removed via the ban list. Set to false (or zero) for no limit.</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → lock_ip</th>
+            <td>
+                <input name="mod/lock_ip" checked="" type="checkbox"> <small>Default: <code>true</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Whether or not to lock moderator sessions to IP addresses. This makes cookie theft ineffective.</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → default</th>
+            <td>
+                <input name="mod/default" value="/" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>The page that is first shown when a moderator logs in. Defaults to the dashboard (?/).</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → link_delete</th>
+            <td>
+                <input name="mod/link_delete" value="[D]" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Mod links (full HTML).</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → link_ban</th>
+            <td>
+                <input name="mod/link_ban" value="[B]" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → link_bandelete</th>
+            <td>
+                <input name="mod/link_bandelete" value="[B&amp;amp;D]" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → link_deletefile</th>
+            <td>
+                <input name="mod/link_deletefile" value="[F]" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → link_spoilerimage</th>
+            <td>
+                <input name="mod/link_spoilerimage" value="[S]" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → link_deletebyip</th>
+            <td>
+                <input name="mod/link_deletebyip" value="[D+]" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → link_deletebyip_global</th>
+            <td>
+                <input name="mod/link_deletebyip_global" value="[D++]" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → link_sticky</th>
+            <td>
+                <input name="mod/link_sticky" value="[Sticky]" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → link_desticky</th>
+            <td>
+                <input name="mod/link_desticky" value="[-Sticky]" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → link_lock</th>
+            <td>
+                <input name="mod/link_lock" value="[Lock]" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → link_unlock</th>
+            <td>
+                <input name="mod/link_unlock" value="[-Lock]" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → link_bumplock</th>
+            <td>
+                <input name="mod/link_bumplock" value="[Sage]" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → link_bumpunlock</th>
+            <td>
+                <input name="mod/link_bumpunlock" value="[-Sage]" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → link_editpost</th>
+            <td>
+                <input name="mod/link_editpost" value="[Edit]" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → link_move</th>
+            <td>
+                <input name="mod/link_move" value="[Move]" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → link_arch</th>
+            <td>
+                <input name="mod/link_arch" value="[Archive]" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="minimal">capcode</th>
+            <td>
+                <input name="capcode" value=" <span class=&quot;capcode&quot;>## %s</span>" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Moderator capcodes.</td>
+        </tr>
+        <tr>
+            <th class="minimal">purge_bans</th>
+            <td>
+                <input name="purge_bans" value="43200" type="number"> <small>Default: <code>60 * 60 * 12</code></small></td>
+            <td class="minimal">integer</td>
+            <td>How often (minimum) to purge the ban list of expired bans (which have been seen). Only works when $config['cache'] is enabled and working.</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → dns_lookup</th>
+            <td>
+                <input name="mod/dns_lookup" checked="" type="checkbox"> <small>Default: <code>true</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Do DNS lookups on IP addresses to get their hostname for the moderator IP pages (?/IP/x.x.x.x).</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → ip_recentposts</th>
+            <td>
+                <input name="mod/ip_recentposts" value="5" type="number"> <small>Default: <code>5</code></small></td>
+            <td class="minimal">integer</td>
+            <td>How many recent posts, per board, to show in ?/IP/x.x.x.x.</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → recent_reports</th>
+            <td>
+                <input name="mod/recent_reports" value="10" type="number"> <small>Default: <code>10</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Number of posts to display on the reports page.</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → modlog_page</th>
+            <td>
+                <input name="mod/modlog_page" value="350" type="number"> <small>Default: <code>350</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Number of actions to show per page in the moderation log.</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → banlist_page</th>
+            <td>
+                <input name="mod/banlist_page" value="350" type="number"> <small>Default: <code>350</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Number of bans to show per page in the ban list.</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → news_page</th>
+            <td>
+                <input name="mod/news_page" value="40" type="number"> <small>Default: <code>40</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Number of news entries to display per page.</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → search_page</th>
+            <td>
+                <input name="mod/search_page" value="200" type="number"> <small>Default: <code>200</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Number of results to display per page.</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → noticeboard_page</th>
+            <td>
+                <input name="mod/noticeboard_page" value="50" type="number"> <small>Default: <code>50</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Number of entries to show per page in the moderator noticeboard.</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → noticeboard_dashboard</th>
+            <td>
+                <input name="mod/noticeboard_dashboard" value="5" type="number"> <small>Default: <code>5</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Number of entries to summarize and display on the dashboard.</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → check_ban_message</th>
+            <td>
+                <input name="mod/check_ban_message" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Check public ban message by default.</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → default_ban_message</th>
+            <td>
+                <input name="mod/default_ban_message" value="USER WAS BANNED FOR THIS POST" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Default public ban message. In public ban messages, %length% is replaced with "for x days" or "permanently" (with %LENGTH% being the uppercase equivalent).</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → ban_message</th>
+            <td>
+                <input name="mod/ban_message" value="<span class=&quot;public_ban&quot;>(%s)</span>" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>HTML to append to post bodies for public bans messages (where "%s" is the message).</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → shadow_mesage</th>
+            <td>
+                <input name="mod/shadow_mesage" value="Moved to %s." type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>When moving a thread to another board and choosing to keep a "shadow thread", an automated post (with a capcode) will be made, linking to the new location for the thread. "%s" will be replaced with a standard cross-board post citation (&gt;&gt;&gt;/board/xxx)</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → shadow_capcode</th>
+            <td>
+                <input name="mod/shadow_capcode" value="Mod" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Capcode to use when posting the above message.</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → shadow_name</th>
+            <td>
+                <input name="mod/shadow_name" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Name to use when posting the above message. If false, $config['anonymous'] will be used.</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → rebuild_timelimit</th>
+            <td>
+                <input name="mod/rebuild_timelimit" value="0" type="number"> <small>Default: <code>0</code></small></td>
+            <td class="minimal">integer</td>
+            <td>PHP time limit for ?/rebuild. A value of 0 should cause PHP to wait indefinitely.</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → snippet_length</th>
+            <td>
+                <input name="mod/snippet_length" value="75" type="number"> <small>Default: <code>75</code></small></td>
+            <td class="minimal">integer</td>
+            <td>PM snippet (for ?/inbox) length in characters.</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → raw_html_default</th>
+            <td>
+                <input name="mod/raw_html_default" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Edit raw HTML in posts by default.</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → dismiss_reports_on_lock</th>
+            <td>
+                <input name="mod/dismiss_reports_on_lock" checked="" type="checkbox"> <small>Default: <code>true</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Automatically dismiss all reports regarding a thread when it is locked.</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → skip_per_board</th>
+            <td>
+                <input name="mod/skip_per_board" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Don't worry about per-board moderators. Let all mods moderate any board.</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → show_ip</th>
+            <td>
+                <select name="mod/show_ip">
+                    <option value="10">Janitor</option>
+                    <option value="20" selected="">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>MOD</code></small></td>
+            <td class="minimal">integer</td>
+            <td>View IP addresses</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → delete</th>
+            <td>
+                <select name="mod/delete">
+                    <option value="10" selected="">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>JANITOR</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Delete a post</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → ban</th>
+            <td>
+                <select name="mod/ban">
+                    <option value="10">Janitor</option>
+                    <option value="20" selected="">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>MOD</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Ban a user for a post</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → bandelete</th>
+            <td>
+                <select name="mod/bandelete">
+                    <option value="10">Janitor</option>
+                    <option value="20" selected="">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>MOD</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Ban and delete (one click; instant)</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → unban</th>
+            <td>
+                <select name="mod/unban">
+                    <option value="10">Janitor</option>
+                    <option value="20" selected="">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>MOD</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Remove bans</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → spoilerimage</th>
+            <td>
+                <select name="mod/spoilerimage">
+                    <option value="10" selected="">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>JANITOR</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Spoiler image</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → deletefile</th>
+            <td>
+                <select name="mod/deletefile">
+                    <option value="10" selected="">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>JANITOR</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Delete file (and keep post)</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → deletebyip</th>
+            <td>
+                <select name="mod/deletebyip">
+                    <option value="10">Janitor</option>
+                    <option value="20" selected="">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>MOD</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Delete all posts by IP</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → deletebyip_global</th>
+            <td>
+                <select name="mod/deletebyip_global">
+                    <option value="10">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30" selected="">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>ADMIN</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Delete all posts by IP across all boards</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → sticky</th>
+            <td>
+                <select name="mod/sticky">
+                    <option value="10">Janitor</option>
+                    <option value="20" selected="">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>MOD</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Sticky a thread</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → lock</th>
+            <td>
+                <select name="mod/lock">
+                    <option value="10">Janitor</option>
+                    <option value="20" selected="">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>MOD</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Lock a thread</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → postinlocked</th>
+            <td>
+                <select name="mod/postinlocked">
+                    <option value="10">Janitor</option>
+                    <option value="20" selected="">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>MOD</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Post in a locked thread</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → bumplock</th>
+            <td>
+                <select name="mod/bumplock">
+                    <option value="10">Janitor</option>
+                    <option value="20" selected="">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>MOD</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Prevent a thread from being bumped</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → view_bumplock</th>
+            <td>
+                <select name="mod/view_bumplock">
+                    <option value="10">Janitor</option>
+                    <option value="20" selected="">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>MOD</code></small></td>
+            <td class="minimal">integer</td>
+            <td>View whether a thread has been bumplocked ("-1" to allow non-mods to see too)</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → editpost</th>
+            <td>
+                <select name="mod/editpost">
+                    <option value="10">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30" selected="">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>ADMIN</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Edit posts</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → move</th>
+            <td>
+                <select name="mod/move">
+                    <option value="10">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99" selected="">Disabled</option>
+                </select> <small>Default: <code>DISABLED</code></small></td>
+            <td class="minimal">integer</td>
+            <td>"Move" a thread to another board (EXPERIMENTAL; has some known bugs)</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → arch</th>
+            <td>
+                <select name="mod/arch">
+                    <option value="10">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99" selected="">Disabled</option>
+                </select> <small>Default: <code>DISABLED</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Move generated thread page to /$board/arch</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → bypass_field_disable</th>
+            <td>
+                <select name="mod/bypass_field_disable">
+                    <option value="10">Janitor</option>
+                    <option value="20" selected="">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>MOD</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Bypass "field_disable_*" (forced anonymity, etc.)</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → postunoriginal</th>
+            <td>
+                <select name="mod/postunoriginal">
+                    <option value="10">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30" selected="">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>ADMIN</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Post bypass unoriginal content check on robot-enabled boards</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → bypass_filters</th>
+            <td>
+                <select name="mod/bypass_filters">
+                    <option value="10">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30" selected="">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>ADMIN</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Bypass flood check</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → rawhtml</th>
+            <td>
+                <select name="mod/rawhtml">
+                    <option value="10">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30" selected="">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>ADMIN</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Raw HTML posting</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → reports</th>
+            <td>
+                <select name="mod/reports">
+                    <option value="10" selected="">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>JANITOR</code></small></td>
+            <td class="minimal">integer</td>
+            <td>View the report queue</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → report_dismiss</th>
+            <td>
+                <select name="mod/report_dismiss">
+                    <option value="10" selected="">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>JANITOR</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Dismiss an abuse report</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → report_dismiss_ip</th>
+            <td>
+                <select name="mod/report_dismiss_ip">
+                    <option value="10" selected="">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>JANITOR</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Dismiss all abuse reports by an IP</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → view_banlist</th>
+            <td>
+                <select name="mod/view_banlist">
+                    <option value="10">Janitor</option>
+                    <option value="20" selected="">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>MOD</code></small></td>
+            <td class="minimal">integer</td>
+            <td>View list of bans</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → view_banstaff</th>
+            <td>
+                <select name="mod/view_banstaff">
+                    <option value="10">Janitor</option>
+                    <option value="20" selected="">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>MOD</code></small></td>
+            <td class="minimal">integer</td>
+            <td>View the username of the mod who made a ban</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → view_banquestionmark</th>
+            <td>
+                <input name="mod/view_banquestionmark" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>If the moderator doesn't fit the $config['mod']['view_banstaff''] (previous) permission, show him just a "?" instead. Otherwise, it will be "Mod" or "Admin".</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → view_banexpired</th>
+            <td>
+                <input name="mod/view_banexpired" checked="" type="checkbox"> <small>Default: <code>true</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Show expired bans in the ban list (they are kept in cache until the culprit returns)</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → view_ban</th>
+            <td>
+                <select name="mod/view_ban">
+                    <option value="10">Janitor</option>
+                    <option value="20" selected="">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>$config['mod']['view_banlist']</code></small></td>
+            <td class="minimal">integer</td>
+            <td>View ban for IP address</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → view_notes</th>
+            <td>
+                <select name="mod/view_notes">
+                    <option value="10" selected="">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>JANITOR</code></small></td>
+            <td class="minimal">integer</td>
+            <td>View IP address notes</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → create_notes</th>
+            <td>
+                <select name="mod/create_notes">
+                    <option value="10" selected="">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>$config['mod']['view_notes']</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Create notes</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → remove_notes</th>
+            <td>
+                <select name="mod/remove_notes">
+                    <option value="10">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30" selected="">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>ADMIN</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Remote notes</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → newboard</th>
+            <td>
+                <select name="mod/newboard">
+                    <option value="10">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30" selected="">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>ADMIN</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Create a new board</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → manageboards</th>
+            <td>
+                <select name="mod/manageboards">
+                    <option value="10">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30" selected="">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>ADMIN</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Manage existing boards (change title, etc)</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → deleteboard</th>
+            <td>
+                <select name="mod/deleteboard">
+                    <option value="10">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30" selected="">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>ADMIN</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Delete a board</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → manageusers</th>
+            <td>
+                <select name="mod/manageusers">
+                    <option value="10">Janitor</option>
+                    <option value="20" selected="">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>MOD</code></small></td>
+            <td class="minimal">integer</td>
+            <td>List/manage users</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → promoteusers</th>
+            <td>
+                <select name="mod/promoteusers">
+                    <option value="10">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30" selected="">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>ADMIN</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Promote/demote users</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → editusers</th>
+            <td>
+                <select name="mod/editusers">
+                    <option value="10">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30" selected="">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>ADMIN</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Edit any users' login information</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → change_password</th>
+            <td>
+                <select name="mod/change_password">
+                    <option value="10" selected="">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>JANITOR</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Change user's own password</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → deleteusers</th>
+            <td>
+                <select name="mod/deleteusers">
+                    <option value="10">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30" selected="">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>ADMIN</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Delete a user</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → createusers</th>
+            <td>
+                <select name="mod/createusers">
+                    <option value="10">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30" selected="">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>ADMIN</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Create a user</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → modlog</th>
+            <td>
+                <select name="mod/modlog">
+                    <option value="10">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30" selected="">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>ADMIN</code></small></td>
+            <td class="minimal">integer</td>
+            <td>View the moderation log</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → show_ip_modlog</th>
+            <td>
+                <select name="mod/show_ip_modlog">
+                    <option value="10">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30" selected="">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>ADMIN</code></small></td>
+            <td class="minimal">integer</td>
+            <td>View IP addresses of other mods in ?/log</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → modlog_ip</th>
+            <td>
+                <select name="mod/modlog_ip">
+                    <option value="10">Janitor</option>
+                    <option value="20" selected="">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>MOD</code></small></td>
+            <td class="minimal">integer</td>
+            <td>View relevant moderation log entries on IP address pages (ie. ban history, etc.) Warning: Can be pretty resource intensive if your mod logs are huge.</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → create_pm</th>
+            <td>
+                <select name="mod/create_pm">
+                    <option value="10" selected="">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>JANITOR</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Create a PM (viewing mod usernames)</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → master_pm</th>
+            <td>
+                <select name="mod/master_pm">
+                    <option value="10">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30" selected="">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>ADMIN</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Read any PM, sent to or from anybody</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → rebuild</th>
+            <td>
+                <select name="mod/rebuild">
+                    <option value="10">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30" selected="">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>ADMIN</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Rebuild everything</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → search</th>
+            <td>
+                <select name="mod/search">
+                    <option value="10" selected="">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>JANITOR</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Search through posts, IP address notes and bans</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → search_posts</th>
+            <td>
+                <select name="mod/search_posts">
+                    <option value="10" selected="">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>JANITOR</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Allow searching posts (can be used with board configuration file to disallow searching through a certain board)</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → noticeboard</th>
+            <td>
+                <select name="mod/noticeboard">
+                    <option value="10" selected="">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>JANITOR</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Read the moderator noticeboard</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → noticeboard_post</th>
+            <td>
+                <select name="mod/noticeboard_post">
+                    <option value="10">Janitor</option>
+                    <option value="20" selected="">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>MOD</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Post to the moderator noticeboard</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → noticeboard_delete</th>
+            <td>
+                <select name="mod/noticeboard_delete">
+                    <option value="10">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30" selected="">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>ADMIN</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Delete entries from the noticeboard</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → public_ban</th>
+            <td>
+                <select name="mod/public_ban">
+                    <option value="10">Janitor</option>
+                    <option value="20" selected="">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>MOD</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Public ban messages; attached to posts</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → themes</th>
+            <td>
+                <select name="mod/themes">
+                    <option value="10">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30" selected="">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>ADMIN</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Manage and install themes for homepage</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → news</th>
+            <td>
+                <select name="mod/news">
+                    <option value="10">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30" selected="">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>ADMIN</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Post news entries</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → news_custom</th>
+            <td>
+                <select name="mod/news_custom">
+                    <option value="10">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30" selected="">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>ADMIN</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Custom name when posting news</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → news_delete</th>
+            <td>
+                <select name="mod/news_delete">
+                    <option value="10">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30" selected="">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>ADMIN</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Delete news entries</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → debug_sql</th>
+            <td>
+                <select name="mod/debug_sql">
+                    <option value="10">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99" selected="">Disabled</option>
+                </select> <small>Default: <code>DISABLED</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Execute un-filtered SQL queries on the database (?/debug/sql)</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → debug_apc</th>
+            <td>
+                <select name="mod/debug_apc">
+                    <option value="10">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30" selected="">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>ADMIN</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Look through all cache values for debugging when APC is enabled (?/debug/apc)</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → edit_config</th>
+            <td>
+                <select name="mod/edit_config">
+                    <option value="10">Janitor</option>
+                    <option value="20">Mod</option>
+                    <option value="30" selected="">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>ADMIN</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Edit the current configuration (via web interface)</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → view_ban_appeals</th>
+            <td>
+                <select name="mod/view_ban_appeals">
+                    <option value="10">Janitor</option>
+                    <option value="20" selected="">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>MOD</code></small></td>
+            <td class="minimal">integer</td>
+            <td>View ban appeals</td>
+        </tr>
+        <tr>
+            <th class="minimal">mod → ban_appeals</th>
+            <td>
+                <select name="mod/ban_appeals">
+                    <option value="10">Janitor</option>
+                    <option value="20" selected="">Mod</option>
+                    <option value="30">Admin</option>
+                    <option value="99">Disabled</option>
+                </select> <small>Default: <code>MOD</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Accept and deny ban appeals</td>
+        </tr>
+        <tr>
+            <th class="minimal">user_moderation</th>
+            <td>
+                <input name="user_moderation" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Allow OP to remove arbitrary posts in his thread</td>
+        </tr>
+        <tr>
+            <th class="minimal">search → enable</th>
+            <td>
+                <input name="search/enable" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Enable the search form</td>
+        </tr>
+        <tr>
+            <th class="minimal">search → search_limit</th>
+            <td>
+                <input name="search/search_limit" value="100" type="number"> <small>Default: <code>100</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Limit of search results</td>
+        </tr>
+        <tr>
+            <th class="minimal">api → enabled</th>
+            <td>
+                <input name="api/enabled" type="checkbox"> <small>Default: <code>false</code></small></td>
+            <td class="minimal">boolean</td>
+            <td>Whether or not to enable the 4chan-compatible API, disabled by default. See <a href="https://github.com/4chan/4chan-API" rel="nofollow" target="_blank">https://github.com/4chan/4chan-API</a> for API specification.</td>
+        </tr>
+        <tr>
+            <th class="minimal">meta_keywords</th>
+            <td>
+                <input name="meta_keywords" value="" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Meta keywords. It's probably best to include these in per-board configurations.</td>
+        </tr>
+        <tr>
+            <th class="minimal">google_analytics</th>
+            <td>
+                <input name="google_analytics" value="" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Link imageboard to your Google Analytics account to track users and provide traffic insights.</td>
+        </tr>
+        <tr>
+            <th class="minimal">google_analytics_domain</th>
+            <td>
+                <input name="google_analytics_domain" value="" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Keep the Google Analytics cookies to one domain -- ga._setDomainName()</td>
+        </tr>
+        <tr>
+            <th class="minimal">purge_timeout</th>
+            <td>
+                <input name="purge_timeout" value="3" type="number"> <small>Default: <code>3</code></small></td>
+            <td class="minimal">integer</td>
+            <td>Connection timeout for $config['purge'], in seconds.</td>
+        </tr>
+        <tr>
+            <th class="minimal">board_regex</th>
+            <td>
+                <input name="board_regex" value="[0-9a-zA-Z$_\x{0080}-\x{FFFF}]{1,58}" type="text">
+            </td>
+            <td class="minimal">string</td>
+            <td>Regex for board URIs. Don't add "`" character or any Unicode that MySQL can't handle. 58 characters is the absolute maximum, because MySQL cannot handle table names greater than 64 characters.</td>
+        </tr>
+    </tbody>
+</table>

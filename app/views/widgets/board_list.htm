@@ -1,12 +1,37 @@
-[
-<repeat group="{{@board_list}}" value="{{@boards}}" counter="{{@counter}}">
-<check if="{{ @counter === @total_boards }}">
-<true>
-<a href="{{@home_url}}/{{@boards.slug}}" title="{{@boards.name}}">{{@boards.slug}}</a>
-</true>
-<false>
-<a href="{{@home_url}}/{{@boards.slug}}" title="{{@boards.name}}">{{@boards.slug}}</a> /
-</false>
-</check>
-</repeat>
-]
+<div id="top-menu">
+    <div class="board-list">
+        [
+        <repeat group="{{@board_list}}" value="{{@boards}}" counter="{{@counter}}">
+            <a href="{{@home_url}}/{{@boards.slug}}" title="{{@boards.name}}">{{@boards.slug}}</a>
+        </repeat>
+        ]
+    </div>
+    <div class="settings">
+        <a href="{{ $home_url }}/admincp">AdminCP</a>
+        Style:
+
+        {{
+        @form->select('style', [
+        "style" => "Default",
+        "Yotsuba" => "Yotsuba",
+        "YotsubaBlue" => "Yotsuba Blue",
+        "Futaba" => "Futaba",
+        "Burichan" => "Burichan",
+        "Tomorrow" => "Tomorrow",
+        "Photon" => "Photon"
+        ],@current_style,["id" => "style"]
+        )
+
+        }}
+        <a href="javascript:settings('show')"><i class="icon-cog"></i></a>
+    </div>
+</div>
+<div class="clear"></div>
+
+<div class="site-info">
+    <h1 class="board_name"><a href="{{ @home_url }}"><img src="{{ @home_url }}/img/logo.png" ></a></h1>
+    <check if="{{ @page.board_slug }}">
+        <h1 class="board_name"><a href="{{ @home_url }}/{{ @page.board_slug }}">{{ @page.board_title }}</a></h1>
+    </check>
+</div>
+<hr>

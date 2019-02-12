@@ -1,0 +1,41 @@
+<div class="box">
+    <h3 class="box-title">Recent Posts</h3>
+    <!-- /.box-header -->
+    <div class="box-content">
+        <check if="{{ @page.posts_list }}">
+            <table class="table table-striped tablesorter" id="boards_list">
+                <thead>
+                <tr>
+                    <th>Post</th>
+                    <th>Name</th>
+                    <th>E-mail</th>
+                    <th>Date</th>
+                    <th>Comment</th>
+                    <th>Subject</th>
+                    <th>Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <repeat group="{{ @page.posts_list }}" value="{{ @post }}" counter="{{ @counter }}">
+                    <tr class="{{ (@counter%2) ? 'even' : 'odd'}}">
+                        <td><a href="{{ @home_url }}/admincp/posts/{{ @post.id }}/edit">#{{ @post.id }}</a></td>
+                        <td>{{ @post.user_name }}</td>
+                        <td>{{ @post.email }}</td>
+                        <td>{{ @post->created_at->format('m/d/y (D) H:i:s') }}</td>
+                        <td>{{ @post.content | remove_execute_code,remove_spaces }}</td>
+                        <td>{{ @post.subject }}</td>
+                        <td>[D] [F] [B]</td>
+                    </tr>
+                </repeat>
+                </tbody>
+            </table>
+            <false>
+                <div id="error-msg">
+                    <i class="icon-cross"></i> No Results!
+                </div>
+            </false>
+        </check>
+    </div>
+    <!-- /.box-content -->
+</div>
+<!-- /.box -->

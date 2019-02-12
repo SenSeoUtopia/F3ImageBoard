@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>{{ @page.title | raw,remove_title_html_tags }} - {{ @site_title}}</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Core CSS -->
+  <link href="{{ @home_url }}/css/style.css" rel="stylesheet">
+  <link href="{{ @home_url }}/css/admin.css" rel="stylesheet">
+  <link href="{{ @home_url }}/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body class="admincp">
+<header>
+    <h1 class="title">{{ @page.title | raw,remove_spaces }}
+    </h1>
+    <div class="subtitle">
+        <check if="{{ @active_menu !== '/admincp'}}">
+        <a href="{{ @home_url }}/admincp">return to Dashboard</a>
+        </check>
+    </div>
+</header>
+
+<include if="{{ !empty(@page.content) }}" href="{{ @page.content }}" />
+
+<div class="clear"></div>
+<footer class="footer" id="bottom">
+    <p class="text-center">All trademarks, copyrights, comments, and images on this page are owned by and are the responsibility of their respective parties.</p>
+</footer>
+<!-- JS -->
+<script type="text/javascript" src="{{ @home_url }}/js/jquery.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<div id="quick-reply" class="reply">
+    <div class="title">
+        Reply to Thread No. #{{ @page.thread_id }}
+        <a href="javascript:qr('hide');" title="Close" class="close-btn pull-right"><i class="icon-cross"></i></a>
+    </div>
+    <div class="body">
+
+        <form role="form" method="post" enctype="multipart/form-data" id="post-create" action="{{@home_url}}/ajax/{{ @page.board_slug }}/thread/{{ @page.thread_id }}/reply">
+            <div id="msg"></div>
+            <table class="postForm">
+                <tr>
+                    <td>
+                        <input name="user_name" size="25" maxlength="35" autocomplete="off" type="text" placeholder="Anonymous">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <include href="widgets/bbcode.htm">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <textarea name="message" id="post-msg" rows="4" cols="35" placeholder="Comment"></textarea>
+                    </td>
+                </tr>
+                <check if="{{ @settings.enable_recaptcha }}">
+                    <tr>
+                        <td>
+                            <a href="javascript:void(0)" onclick="grecaptcha.reset();">Reload Captcha</a>
+                            <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+                            <div class="g-recaptcha" data-sitekey="{{ @settings.recaptcha_key }}"></div>
+                        </td>
+                    </tr>
+                </check>
+                <tr>
+                    <td>
+                        <input title="Shift + Click to remove the file" class="qrFile" name="upload_file" tabindex="0" type="file" id="file-select">
+                        <span class="qrSpoiler pull-right"><label>[<input value="on" name="spoiler" type="checkbox">Spoiler?]</label>
+                        <input value="Post" tabindex="0" type="submit">
+                        </span>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>

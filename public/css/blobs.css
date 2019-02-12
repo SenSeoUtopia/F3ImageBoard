@@ -1,0 +1,721 @@
+/*
+Google Blob Emoji
+ */
+.blob {
+    display: inline-block;
+    height: 2rem;
+    width: 2rem;
+    margin: 0 .05em 0 .1em;
+    vertical-align: -0.1em;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 2rem 2rem; }
+
+.FeelsBlobMan{
+    background-image: url("../img/blobs/FeelsBlobMan.png");
+}
+.b1nzyblob{
+    background-image: url("../img/blobs/b1nzyblob.png");
+}
+.b4nzyblob{
+    background-image: url("../img/blobs/b4nzyblob.png");
+}
+.blob0w0{
+    background-image: url("../img/blobs/blob0w0.png");
+}
+.blobamused{
+    background-image: url("../img/blobs/blobamused.png");
+}
+.blobangel{
+    background-image: url("../img/blobs/blobangel.png");
+}
+.blobangery{
+    background-image: url("../img/blobs/blobangery.png");
+}
+.blobangry{
+    background-image: url("../img/blobs/blobangry.png");
+}
+.blobastonished{
+    background-image: url("../img/blobs/blobastonished.png");
+}
+.blobawkward{
+    background-image: url("../img/blobs/blobawkward.png");
+}
+.blobaww{
+    background-image: url("../img/blobs/blobaww.png");
+}
+.blobbandage{
+    background-image: url("../img/blobs/blobbandage.png");
+}
+.blobblush{
+    background-image: url("../img/blobs/blobblush.png");
+}
+.blobbowing{
+    background-image: url("../img/blobs/blobbowing.png");
+}
+.blobcheeky{
+    background-image: url("../img/blobs/blobcheeky.png");
+}
+.blobcheer{
+    background-image: url("../img/blobs/blobcheer.png");
+}
+.blobconfounded{
+    background-image: url("../img/blobs/blobconfounded.png");
+}
+.blobconfused{
+    background-image: url("../img/blobs/blobconfused.png");
+}
+.blobcool{
+    background-image: url("../img/blobs/blobcool.png");
+}
+.blobcouncil{
+    background-image: url("../img/blobs/blobcouncil.png");
+}
+.blobcouple{
+    background-image: url("../img/blobs/blobcouple.png");
+}
+.blobcowboy{
+    background-image: url("../img/blobs/blobcowboy.png");
+}
+.blobcry{
+    background-image: url("../img/blobs/blobcry.png");
+}
+.blobdancer{
+    background-image: url("../img/blobs/blobdancer.png");
+}
+.blobdead{
+    background-image: url("../img/blobs/blobdead.png");
+}
+.blobderpy{
+    background-image: url("../img/blobs/blobderpy.png");
+}
+.blobdetective{
+    background-image: url("../img/blobs/blobdetective.png");
+}
+.blobdevil{
+    background-image: url("../img/blobs/blobdevil.png");
+}
+.blobdizzy{
+    background-image: url("../img/blobs/blobdizzy.png");
+}
+.blobdrool{
+    background-image: url("../img/blobs/blobdrool.png");
+}
+.blobexpressionless{
+    background-image: url("../img/blobs/blobexpressionless.png");
+}
+.blobeyes{
+    background-image: url("../img/blobs/blobeyes.png");
+}
+.blobfacepalm{
+    background-image: url("../img/blobs/blobfacepalm.png");
+}
+.blobfearful{
+    background-image: url("../img/blobs/blobfearful.png");
+}
+.blobfistbumpL{
+    background-image: url("../img/blobs/blobfistbumpL.png");
+}
+.blobfistbumpR{
+    background-image: url("../img/blobs/blobfistbumpR.png");
+}
+.blobflushed{
+    background-image: url("../img/blobs/blobflushed.png");
+}
+.blobfrown{
+    background-image: url("../img/blobs/blobfrown.png");
+}
+.blobfrowning{
+    background-image: url("../img/blobs/blobfrowning.png");
+}
+.blobfrowningbig{
+    background-image: url("../img/blobs/blobfrowningbig.png");
+}
+.blobglare{
+    background-image: url("../img/blobs/blobglare.png");
+}
+.blobgo{
+    background-image: url("../img/blobs/blobgo.png");
+}
+.blobgrin{
+    background-image: url("../img/blobs/blobgrin.png");
+}
+.blobhammer{
+    background-image: url("../img/blobs/blobhammer.png");
+}
+.blobhearteyes{
+    background-image: url("../img/blobs/blobhearteyes.png");
+}
+.blobhero{
+    background-image: url("../img/blobs/blobhero.png");
+}
+.blobhighfive{
+    background-image: url("../img/blobs/blobhighfive.png");
+}
+.blobhug{
+    background-image: url("../img/blobs/blobhug.png");
+}
+.blobhyperthink{
+    background-image: url("../img/blobs/blobhyperthink.png");
+}
+.blobhyperthinkfast{
+    background-image: url("../img/blobs/blobhyperthinkfast.png");
+}
+.blobhypesquad{
+    background-image: url("../img/blobs/blobhypesquad.png");
+}
+.blobidea{
+    background-image: url("../img/blobs/blobidea.png");
+}
+.blobjoy{
+    background-image: url("../img/blobs/blobjoy.png");
+}
+.blobkiss{
+    background-image: url("../img/blobs/blobkiss.png");
+}
+.blobkissblush{
+    background-image: url("../img/blobs/blobkissblush.png");
+}
+.blobkissheart{
+    background-image: url("../img/blobs/blobkissheart.png");
+}
+.bloblul{
+    background-image: url("../img/blobs/bloblul.png");
+}
+.blobmelt{
+    background-image: url("../img/blobs/blobmelt.png");
+}
+.blobmoustache{
+    background-image: url("../img/blobs/blobmoustache.png");
+}
+.blobnauseated{
+    background-image: url("../img/blobs/blobnauseated.png");
+}
+.blobnervous{
+    background-image: url("../img/blobs/blobnervous.png");
+}
+.blobneutral{
+    background-image: url("../img/blobs/blobneutral.png");
+}
+.blobninja{
+    background-image: url("../img/blobs/blobninja.png");
+}
+.blobnogood{
+    background-image: url("../img/blobs/blobnogood.png");
+}
+.blobnom{
+    background-image: url("../img/blobs/blobnom.png");
+}
+.blobnomcookie{
+    background-image: url("../img/blobs/blobnomcookie.png");
+}
+.blobnomouth{
+    background-image: url("../img/blobs/blobnomouth.png");
+}
+.blobok{
+    background-image: url("../img/blobs/blobok.png");
+}
+.blobokhand{
+    background-image: url("../img/blobs/blobokhand.png");
+}
+.blobonfire{
+    background-image: url("../img/blobs/blobonfire.png");
+}
+.blobopenmouth{
+    background-image: url("../img/blobs/blobopenmouth.png");
+}
+.bloboro{
+    background-image: url("../img/blobs/bloboro.png");
+}
+.bloboutage{
+    background-image: url("../img/blobs/bloboutage.png");
+}
+.blobowo{
+    background-image: url("../img/blobs/blobowo.png");
+}
+.blobowoevil{
+    background-image: url("../img/blobs/blobowoevil.png");
+}
+.blobparty{
+    background-image: url("../img/blobs/blobparty.png");
+}
+.blobpatrol{
+    background-image: url("../img/blobs/blobpatrol.png");
+}
+.blobpats{
+    background-image: url("../img/blobs/blobpats.png");
+}
+.blobpeek{
+    background-image: url("../img/blobs/blobpeek.png");
+}
+.blobpensive{
+    background-image: url("../img/blobs/blobpensive.png");
+}
+.blobpin{
+    background-image: url("../img/blobs/blobpin.png");
+}
+.blobpolice{
+    background-image: url("../img/blobs/blobpolice.png");
+}
+.blobpoliceangry{
+    background-image: url("../img/blobs/blobpoliceangry.png");
+}
+.blobpray{
+    background-image: url("../img/blobs/blobpray.png");
+}
+.blobrofl{
+    background-image: url("../img/blobs/blobrofl.png");
+}
+.blobrollingeyes{
+    background-image: url("../img/blobs/blobrollingeyes.png");
+}
+.blobross{
+    background-image: url("../img/blobs/blobross.png");
+}
+.blobsad{
+    background-image: url("../img/blobs/blobsad.png");
+}
+.blobsalute{
+    background-image: url("../img/blobs/blobsalute.png");
+}
+.blobscream{
+    background-image: url("../img/blobs/blobscream.png");
+}
+.blobshrug{
+    background-image: url("../img/blobs/blobshrug.png");
+}
+.blobsleeping{
+    background-image: url("../img/blobs/blobsleeping.png");
+}
+.blobsleepless{
+    background-image: url("../img/blobs/blobsleepless.png");
+}
+.blobsmile{
+    background-image: url("../img/blobs/blobsmile.png");
+}
+.blobsmilehappy{
+    background-image: url("../img/blobs/blobsmilehappy.png");
+}
+.blobsmilehappyeyes{
+    background-image: url("../img/blobs/blobsmilehappyeyes.png");
+}
+.blobsmileopenmouth{
+    background-image: url("../img/blobs/blobsmileopenmouth.png");
+}
+.blobsmileopenmouth2{
+    background-image: url("../img/blobs/blobsmileopenmouth2.png");
+}
+.blobsmilesweat{
+    background-image: url("../img/blobs/blobsmilesweat.png");
+}
+.blobsmilesweat2{
+    background-image: url("../img/blobs/blobsmilesweat2.png");
+}
+.blobsmiley{
+    background-image: url("../img/blobs/blobsmiley.png");
+}
+.blobsmirk{
+    background-image: url("../img/blobs/blobsmirk.png");
+}
+.blobsneezing{
+    background-image: url("../img/blobs/blobsneezing.png");
+}
+.blobsnuggle{
+    background-image: url("../img/blobs/blobsnuggle.png");
+}
+.blobsob{
+    background-image: url("../img/blobs/blobsob.png");
+}
+.blobsplosion{
+    background-image: url("../img/blobs/blobsplosion.png");
+}
+.blobspy{
+    background-image: url("../img/blobs/blobspy.png");
+}
+.blobstop{
+    background-image: url("../img/blobs/blobstop.png");
+}
+.blobsunglasses{
+    background-image: url("../img/blobs/blobsunglasses.png");
+}
+.blobsurprised{
+    background-image: url("../img/blobs/blobsurprised.png");
+}
+.blobsweats{
+    background-image: url("../img/blobs/blobsweats.png");
+}
+.blobteefs{
+    background-image: url("../img/blobs/blobteefs.png");
+}
+.blobthinking{
+    background-image: url("../img/blobs/blobthinking.png");
+}
+.blobthinkingcool{
+    background-image: url("../img/blobs/blobthinkingcool.png");
+}
+.blobthinkingdown{
+    background-image: url("../img/blobs/blobthinkingdown.png");
+}
+.blobthinkingeyes{
+    background-image: url("../img/blobs/blobthinkingeyes.png");
+}
+.blobthinkingfast{
+    background-image: url("../img/blobs/blobthinkingfast.png");
+}
+.blobthinkingglare{
+    background-image: url("../img/blobs/blobthinkingglare.png");
+}
+.blobthinkingsmirk{
+    background-image: url("../img/blobs/blobthinkingsmirk.png");
+}
+.blobthonkang{
+    background-image: url("../img/blobs/blobthonkang.png");
+}
+.blobthumbsdown{
+    background-image: url("../img/blobs/blobthumbsdown.png");
+}
+.blobthumbsup{
+    background-image: url("../img/blobs/blobthumbsup.png");
+}
+.blobtilt{
+    background-image: url("../img/blobs/blobtilt.png");
+}
+.blobtired{
+    background-image: url("../img/blobs/blobtired.png");
+}
+.blobtongue{
+    background-image: url("../img/blobs/blobtongue.png");
+}
+.blobtonguewink{
+    background-image: url("../img/blobs/blobtonguewink.png");
+}
+.blobtriumph{
+    background-image: url("../img/blobs/blobtriumph.png");
+}
+.blobugh{
+    background-image: url("../img/blobs/blobugh.png");
+}
+.blobunamused{
+    background-image: url("../img/blobs/blobunamused.png");
+}
+.blobunsure{
+    background-image: url("../img/blobs/blobunsure.png");
+}
+.blobupset{
+    background-image: url("../img/blobs/blobupset.png");
+}
+.blobupsidedown{
+    background-image: url("../img/blobs/blobupsidedown.png");
+}
+.blobuwu{
+    background-image: url("../img/blobs/blobuwu.png");
+}
+.blobwaitwhat{
+    background-image: url("../img/blobs/blobwaitwhat.png");
+}
+.blobwave{
+    background-image: url("../img/blobs/blobwave.png");
+}
+.blobwavereverse{
+    background-image: url("../img/blobs/blobwavereverse.png");
+}
+.blobweary{
+    background-image: url("../img/blobs/blobweary.png");
+}
+.blobwhistle{
+    background-image: url("../img/blobs/blobwhistle.png");
+}
+.blobwink{
+    background-image: url("../img/blobs/blobwink.png");
+}
+.blobwoah{
+    background-image: url("../img/blobs/blobwoah.png");
+}
+.blobxd{
+    background-image: url("../img/blobs/blobxd.png");
+}
+.blobyum{
+    background-image: url("../img/blobs/blobyum.png");
+}
+.blobzippermouth{
+    background-image: url("../img/blobs/blobzippermouth.png");
+}
+.bolb{
+    background-image: url("../img/blobs/bolb.png");
+}
+.doggoblob{
+    background-image: url("../img/blobs/doggoblob.png");
+}
+.gentleblob{
+    background-image: url("../img/blobs/gentleblob.png");
+}
+.googlebee{
+    background-image: url("../img/blobs/googlebee.png");
+}
+.googleblueheart{
+    background-image: url("../img/blobs/googleblueheart.png");
+}
+.googlecake{
+    background-image: url("../img/blobs/googlecake.png");
+}
+.googlecat{
+    background-image: url("../img/blobs/googlecat.png");
+}
+.googlecatface{
+    background-image: url("../img/blobs/googlecatface.png");
+}
+.googlecatheart{
+    background-image: url("../img/blobs/googlecatheart.png");
+}
+.googledog{
+    background-image: url("../img/blobs/googledog.png");
+}
+.googlefire{
+    background-image: url("../img/blobs/googlefire.png");
+}
+.googleghost{
+    background-image: url("../img/blobs/googleghost.png");
+}
+.googlegun{
+    background-image: url("../img/blobs/googlegun.png");
+}
+.googlemuscleL{
+    background-image: url("../img/blobs/googlemuscleL.png");
+}
+.googlemuscleR{
+    background-image: url("../img/blobs/googlemuscleR.png");
+}
+.googlepenguin{
+    background-image: url("../img/blobs/googlepenguin.png");
+}
+.googlerabbit{
+    background-image: url("../img/blobs/googlerabbit.png");
+}
+.googleredheart{
+    background-image: url("../img/blobs/googleredheart.png");
+}
+.googlesheep{
+    background-image: url("../img/blobs/googlesheep.png");
+}
+.googlesnake{
+    background-image: url("../img/blobs/googlesnake.png");
+}
+.googleturtle{
+    background-image: url("../img/blobs/googleturtle.png");
+}
+.googlewhale{
+    background-image: url("../img/blobs/googlewhale.png");
+}
+.jakeblob{
+    background-image: url("../img/blobs/jakeblob.png");
+}
+.kirblob{
+    background-image: url("../img/blobs/kirblob.png");
+}
+.nellyblob{
+    background-image: url("../img/blobs/nellyblob.png");
+}
+.nikoblob{
+    background-image: url("../img/blobs/nikoblob.png");
+}
+.photoblob{
+    background-image: url("../img/blobs/photoblob.png");
+}
+.pikablob{
+    background-image: url("../img/blobs/pikablob.png");
+}
+.pusheenblob{
+    background-image: url("../img/blobs/pusheenblob.png");
+}
+.rainblob{
+    background-image: url("../img/blobs/rainblob.png");
+}
+.rickblob{
+    background-image: url("../img/blobs/rickblob.png");
+}
+.thinkingwithblobs{
+    background-image: url("../img/blobs/thinkingwithblobs.png");
+}
+.wolfiriblob{
+    background-image: url("../img/blobs/wolfiriblob.png");
+}
+.wumpusblob{
+    background-image: url("../img/blobs/wumpusblob.png");
+}
+
+/*
+Twemoji Awesome
+ */
+.smile {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f604.svg"); }
+
+.laughing {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f606.svg"); }
+
+.blush {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f60a.svg"); }
+
+.smiley {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f603.svg"); }
+
+.relaxed {
+    background-image: url("https://twemoji.maxcdn.com/svg/263a.svg"); }
+
+.smirk {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f60f.svg"); }
+
+.heart_eyes {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f60d.svg"); }
+
+.kissing_heart {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f618.svg"); }
+
+.kissing_closed_eyes {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f61a.svg"); }
+
+.flushed {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f633.svg"); }
+
+.relieved {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f625.svg"); }
+
+.satisfied {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f60c.svg"); }
+
+.grin {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f601.svg"); }
+
+.wink {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f609.svg"); }
+
+.stuck_out_tongue_winking_eye {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f61c.svg"); }
+
+.stuck_out_tongue_closed_eyes {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f61d.svg"); }
+
+.grinning {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f600.svg"); }
+
+.kissing {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f617.svg"); }
+
+.kissing_smiling_eyes {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f619.svg"); }
+
+.stuck_out_tongue {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f61b.svg"); }
+
+.sleeping {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f634.svg"); }
+
+.worried {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f61f.svg"); }
+
+.frowning {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f626.svg"); }
+
+.anguished {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f627.svg"); }
+
+.open_mouth {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f62e.svg"); }
+
+.grimacing {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f62c.svg"); }
+
+.confused {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f615.svg"); }
+
+.hushed {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f62f.svg"); }
+
+.expressionless {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f611.svg"); }
+
+.unamused {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f612.svg"); }
+
+.sweat_smile {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f605.svg"); }
+
+.sweat {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f613.svg"); }
+
+.weary {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f629.svg"); }
+
+.pensive {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f614.svg"); }
+
+.disappointed {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f61e.svg"); }
+
+.confounded {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f616.svg"); }
+
+.fearful {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f628.svg"); }
+
+.cold_sweat {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f630.svg"); }
+
+.persevere {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f623.svg"); }
+
+.cry {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f622.svg"); }
+
+.sob {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f62d.svg"); }
+
+.joy {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f602.svg"); }
+
+.astonished {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f632.svg"); }
+
+.scream {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f631.svg"); }
+
+.tired_face {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f62b.svg"); }
+
+.angry {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f620.svg"); }
+
+.rage {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f621.svg"); }
+
+.triumph {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f624.svg"); }
+
+.sleepy {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f62a.svg"); }
+
+.yum {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f60b.svg"); }
+
+.mask {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f637.svg"); }
+
+.sunglasses {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f60e.svg"); }
+
+.dizzy_face {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f635.svg"); }
+
+.imp {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f47f.svg"); }
+
+.smiling_imp {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f608.svg"); }
+
+.neutral_face {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f610.svg"); }
+
+.no_mouth {
+    background-image: url("https://twemoji.maxcdn.com/svg/1f636.svg"); }
+
+.heart {
+    background-image: url("https://twemoji.maxcdn.com/svg/2764.svg"); }

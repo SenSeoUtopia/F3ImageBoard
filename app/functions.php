@@ -1,105 +1,172 @@
 <?php
+
+function set_active($current_menu,$class = "active"){
+    $current_menu = str_replace("/","\/",$current_menu);
+    $active_menu = Base::instance()->get("PATH");
+    $kek = preg_match("/$current_menu/is",$active_menu) ? $class : '';
+    return $kek;
+}
+
 // Parse BBCodes
-function convert_bb_to_html($text) {
+function convert_bb_to_html($text)
+{
 
 // BBcode array
-$find = array(
-'~\[b\](.*?)\[/b\]~s',
-'~\[i\](.*?)\[/i\]~s',
-'~\[u\](.*?)\[/u\]~s',
-'~\[code\](.*?)\[/code\]~s',
-'~\[size=(.*?)\](.*?)\[/size\]~s',
-'~\[color=(.*?)\](.*?)\[/color\]~s',
-'~\[url\]((?:ftp|https?)://.*?)\[/url\]~s',
-'~\[img\](https?://.*?\.(?:jpg|jpeg|gif|png|bmp))\[/img\]~s'
-);
+    $find = array(
+        '~\[b\](.*?)\[\/b\]~s', // Bold
+        '~\[i\](.*?)\[\/i\]~s', // Italic
+        '~\[u\](.*?)\[\/u\]~s', // Underline
+        '~\[code\](.*?)\[\/code\]~s', // Code
+        '~\[size=(.*?)\](.*?)\[\/size\]~s', // Size
+        '~\[color=(.*?)\](.*?)\[\/color\]~s', // Colour
+        '~\[url\]((?:ftp|https?)://.*?)\[\/url\]~s', // Url
+        '~\[img\](https?://.*?\.(?:jpg|jpeg|gif|png|bmp))\[\/img\]~s' // Image
+    );
 
 // HTML tags to replace BBcode
-$replace = array(
-'<b>$1</b>',
-'<i>$1</i>',
-'<u>$1</u>',
-'<pre><code>$1</code></pre>',
-'<font size="$1">$2</font>',
-'<span style="color:$1;">$2</span>',
-'<a href="$1">$1</a>',
-'<img src="$1" alt="" />'
-);
+    $replace = array(
+        '<b>$1</b>', // Bold
+        '<i>$1</i>', // Italic
+        '<u>$1</u>', // Underline
+        '<pre><code>$1</code></pre>', // Code
+        '<font size="$1">$2</font>', // Size
+        '<span style="color:$1;">$2</span>', // Colour
+        '<a href="$1">$1</a>', // Url
+        '<img src="$1" alt="" />' // Image
+    );
 
 // Replacing the BBcodes with corresponding HTML tags
-return preg_replace($find,$replace,$text);
+    return preg_replace($find, $replace, $text);
 }
 
 
 // Bytes to Size in KB, MB, GB , TB, PB
-function formatSizeUnits($bytes){
-if ($bytes >= 1073741824){
-$bytes = number_format($bytes / 1073741824, 2) . ' GB';
-} elseif ($bytes >= 1048576)
+function formatSizeUnits($bytes)
 {
-$bytes = number_format($bytes / 1048576, 2) . ' MB';
-} elseif ($bytes >= 1024) {
-$bytes = number_format($bytes / 1024, 2) . ' KB';
-} elseif ($bytes > 1)
-{
-$bytes = $bytes . ' bytes';
-} elseif ($bytes == 1) {
-$bytes = $bytes . ' byte';
-} else {
-$bytes = '0 bytes';
-}
-return $bytes;
+    if ($bytes >= 1073741824) {
+        $bytes = number_format($bytes / 1073741824, 2) . ' GB';
+    } elseif ($bytes >= 1048576) {
+        $bytes = number_format($bytes / 1048576, 2) . ' MB';
+    } elseif ($bytes >= 1024) {
+        $bytes = number_format($bytes / 1024, 2) . ' KB';
+    } elseif ($bytes > 1) {
+        $bytes = $bytes . ' bytes';
+    } elseif ($bytes == 1) {
+        $bytes = $bytes . ' byte';
+    } else {
+        $bytes = '0 bytes';
+    }
+    return $bytes;
 }
 
 // Get Directory Size
-function dirSize($directory) {
-$size = 0;
-foreach(new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory)) as $file){
-$size+=$file->getSize();
+function dirSize($directory)
+{
+    $size = 0;
+    foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory)) as $file) {
+        $size += $file->getSize();
+    }
+    return $size;
 }
-return $size;
-} 
 
-function explodeX($delimiters,$string) {
-return explode(chr(1),str_replace($delimiters,chr(1),$string));
+function explodeX($delimiters, $string)
+{
+    return explode(chr(1), str_replace($delimiters, chr(1), $string));
 }
 
 // Nice Time System
-function nicetime($date){
-if(empty($date)) {
-return "No date provided";
-}
-$periods         = array("second", "minute", "hour", "day", "week", "month", "year", "decade");
-$lengths         = array("60","60","24","7","4.35","12","10");
-$now             = time();
-$unix_date         = strtotime($date);
-   
+function nicetime($date)
+{
+    if (empty($date)) {
+        return "No date provided";
+    }
+    $periods = array("second", "minute", "hour", "day", "week", "month", "year", "decade");
+    $lengths = array("60", "60", "24", "7", "4.35", "12", "10");
+    $now = time();
+    $unix_date = strtotime($date);
+
 // check validity of date
-if(empty($unix_date)) { return "Bad date"; }
+    if (empty($unix_date)) {
+        return "Bad date";
+    }
 
 // is it future date or past date
-if($now > $unix_date) { $difference     = $now - $unix_date; $tense = "ago";      
-} else { $difference = $unix_date - $now; $tense = "from now"; }
-   
-for($j = 0; $difference >= $lengths[$j] && $j < count($lengths)-1; $j++) { $difference /= $lengths[$j]; }
-   
-$difference = round($difference);
-   
-if($difference != 1) { $periods[$j].= "s"; }
-  
-return "$difference $periods[$j] {$tense}";
+    if ($now > $unix_date) {
+        $difference = $now - $unix_date;
+        $tense = "ago";
+    } else {
+        $difference = $unix_date - $now;
+        $tense = "from now";
+    }
+
+    for ($j = 0; $difference >= $lengths[$j] && $j < count($lengths) - 1; $j++) {
+        $difference /= $lengths[$j];
+    }
+
+    $difference = round($difference);
+
+    if ($difference != 1) {
+        $periods[$j] .= "s";
+    }
+
+    return "$difference $periods[$j] {$tense}";
 }
 
 // Trip Code
 
-function tripcode($name){
-if(preg_match("/(#|!)(.*)/", $name, $matches)){
-$cap  = $matches[2];
-$cap  = strtr($cap,"&amp;", "&");
-$cap  = strtr($cap,",", ",");
-$salt = substr($cap."H.",1,2);
-$salt = preg_replace("/[^\.-z]/",".",$salt);
-$salt = strtr($salt,":;<=>?@[\\]^_`","ABCDEFGabcdef"); 
-return substr(crypt($cap,$salt),-10)."";
+function tripcode($name)
+{
+    if (preg_match("/(#|!)(.*)/", $name, $matches)) {
+        $cap = $matches[2];
+        $cap = strtr($cap, "&amp;", "&");
+        $cap = strtr($cap, ",", ",");
+        $salt = substr($cap . "H.", 1, 2);
+        $salt = preg_replace("/[^\.-z]/", ".", $salt);
+        $salt = strtr($salt, ":;<=>?@[\\]^_`", "baka/*\90hahakeklol");
+        return substr(crypt($cap, $salt), -10) . "";
+    }
 }
+
+function preg_sql_like($input, $pattern, $escape = '\\')
+{
+
+    // Split the pattern into special sequences and the rest
+    $expr = '/((?:' . preg_quote($escape, '/') . ')?(?:' . preg_quote($escape, '/') . '|%|_))/';
+    $parts = preg_split($expr, $pattern, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
+
+    // Loop the split parts and convert/escape as necessary to build regex
+    $expr = '/^';
+    $lastWasPercent = FALSE;
+    foreach ($parts as $part) {
+        switch ($part) {
+            case $escape . $escape:
+                $expr .= preg_quote($escape, '/');
+                break;
+            case $escape . '%':
+                $expr .= '%';
+                break;
+            case $escape . '_':
+                $expr .= '_';
+                break;
+            case '%':
+                if (!$lastWasPercent) {
+                    $expr .= '.*?';
+                }
+                break;
+            case '_':
+                $expr .= '.';
+                break;
+            default:
+                $expr .= preg_quote($part, '/');
+                break;
+        }
+        $lastWasPercent = $part == '%';
+    }
+    $expr .= '$/i';
+
+    // Look for a match and return bool
+    preg_match($expr, $input, $matchs);
+
+    return $matchs;
+
 }

@@ -5,16 +5,19 @@
 </div>
 <div class="boards clearfix clear">
 <h1>Boards</h1>
-<repeat group="{{ @category_list }}" value="{{@board_list}}">
-<div class="column">
-<h1>{{ @board_list.name}}</h1>
-<ul>
-<li>
-<a href="{{ @home_url }}/{{ @board_list.boards.slug }}">{{ @board_list.boards.name }}</a>
-</li>
-</ul>
-</div>
-</repeat>
+    <repeat group="{{ @category_list }}" value="{{@board_list}}">
+
+        <div class="column">
+            <h1>{{ @board_list.name}}</h1>
+
+            <ul>
+                <li>
+                    <a href="{{ @home_url }}/{{ @board_list.boards.slug }}">{{ @board_list.boards.name }}</a>
+                </li>
+            </ul>
+        </div>
+
+    </repeat>
 </div>
 <div class="left-column">
 <include href="widgets/recent_photos.htm" with="photo_list = {{ @photo_list }}" />

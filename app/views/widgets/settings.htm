@@ -1,0 +1,18 @@
+<div id="settings">
+    <div class="header">
+        Settings <a href="javascript:settings('hide')" class="close pull-right"><i class="icon-cross"></i></a>
+    </div>
+    <form action="{{ @home_url }}/ajax/save_settings" method="post" enctype="multipart/form-data">
+    <div class="body">
+        <input type="checkbox" name="o_preview" id="opt_1" checked="checked"/><label for="opt_1">Enable post preview</label>
+        <input type="checkbox" name="o_loader" id="opt_2"/><label for="opt_2">Enable infinite scrolling</label>
+        <input type="checkbox" name="o_watched" id="opt_3"/><label for="opt_3">Enable watched threads</label>
+        <input type="checkbox" name="o_updater" id="opt_4" checked="checked"/><label for="opt_4">Enable updater</label>
+        <input type="checkbox" name="o_quick_reply" id="opt_6" checked="checked"/><label for="opt_6">Enable Quick reply</label>
+    </div>
+    <div class="footer">
+        <button type="submit" class="btn btn-success">Save Settings</button>
+        <button type="reset" class="btn btn-danger">Reset</button>
+    </div>
+    </form>
+</div>
