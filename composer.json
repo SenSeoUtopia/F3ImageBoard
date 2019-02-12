@@ -1,29 +1,22 @@
 {
-	"name": "bcosca/fatfree",
-	"description": "A powerful yet easy-to-use PHP micro-framework designed to help you build dynamic and robust Web applications - fast!",
-	"homepage": "http://fatfreeframework.com/",
-	"license": "GPL-3.0",
+	"name": "SenSeo Image Board",
+	"description": "An Anonymous Image Board built with Fat-Free Framework",
+	"minimum-stability": "stable",	
 	"require": {
-		"php": ">=5.3.6",
+		"bcosca/fatfree": "^3.6.4",		
 		"google/recaptcha": "^1.1",
-		"intervention/image": "^2.3",
-		"illuminate/database": "^5.2",
-		"facebook/php-sdk-v4": "^5.2"
+		"intervention/imagecache": "^2.3",
+		"illuminate/database": "^5.5",
+		"illuminate/pagination": "^5.5",
+		"php-ffmpeg/php-ffmpeg": "^0.11.1"
 	},
-	"repositories": [
-		{
-			"type": "vcs",
-			"url": "https://github.com/bcosca/fatfree"
-		}
-	],
 	"autoload": {
 		"classmap" :[
 		"app/classes/",
 		"app/models/",
-		"app/controller/"
+		"app/controllers/"
 		],
 		"files": [
-		"lib/base.php",
 		"app/functions.php"
 		]
 	}
