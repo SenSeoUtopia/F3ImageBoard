@@ -8,7 +8,7 @@ It is a Imageboard Script which is devloped in Fat-Free Framework.
 * [x] Add Views
 * [x] Add Controller
 * [x] Add Models
-* [ ] Integrate No Recaptcha
+* [x] Integrate No Recaptcha
 
 # Adding Feature
 
@@ -16,5 +16,6 @@ It is a Imageboard Script which is devloped in Fat-Free Framework.
 * [x] Quick Reply
 * [ ] Hide Post
 * [ ] oEmbed
-* [x] Emoji
-* [x] Multiple File Upload
+* [x] Emoji & Google Blobs
+* [ ] Multiple File Upload
+* [x] BBCodes
